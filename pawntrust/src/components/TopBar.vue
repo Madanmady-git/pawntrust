@@ -41,33 +41,8 @@
                             <span>(888)-243-2680</span>
                         </div>
                     </div>
-                    <v-divider vertical style="margin:0% 2%"></v-divider>
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
-                        <v-avatar
-                        color="#F19B14"
-                        size="36"
-                        >
-                            <v-icon
-                                small
-                                color="#FFFFFF"
-                                >
-                                mdi-magnify
-                            </v-icon>
-                        </v-avatar>
-                        <div style="margin-left:10%">
-                            <v-text-field
-                                label="Search"
-                                v-model="search"
-                                solo
-                                flat
-                                style="border : 1.5px solid orange"
-                                hide-details
-                                dense
-                                @keyup.enter="searchMethod(search)"
-                            ></v-text-field>
-                        </div>
-                    </div>
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%; margin-left:16%;">
+                    
+                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%; margin-left: 24%;">
                         <v-btn
                         style="text-transform:capitalize; background-color:#F19B14;color:#FFFFFF;"
                         @click="searchMethod"
@@ -85,13 +60,11 @@
                 <v-divider></v-divider>
                 <div class="commonHeaderClass">
                         <Heading :heading-name="'Home'"/>
-                        <Heading :heading-name="'About us'"/>
-                        <Heading :heading-name="'Features'"/>
+                        <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Search'"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
-                        <Heading :heading-name="'Investor Relations'"/>
-                        <Heading :heading-name="'Contact us'"/>
+                        <Heading :heading-name="'Contact Us'" :items="contactUsItems"/>
                 </div>
             </div>
         </div>
@@ -104,7 +77,16 @@ export default {
         components: { Heading },
         data(){
             return{
-                search : ''
+                search : '',
+                featureItems : [
+                    { title: 'Pawn Shops' },
+                    { title: 'Microlending' },
+                    { title: 'Non-Fungible Tokens' },
+                ],
+                contactUsItems : [
+                    { title: 'About Us' },
+                    { title: 'Investor Relations' },
+                ]
             }
         },
         methods: {

@@ -11,9 +11,37 @@ const routes = [
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Home.vue'),
 	},
 	{
-		path: '/search',
+		path: '/searchdetails',
 		name: 'Search',
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SearchDetails.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/aboutus',
+		name: 'AboutUs',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/AboutUs.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/investorrelations',
+		name: 'InvestorRelations',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/InvestorRelations.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/contactus',
+		name: 'ContactUs',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/ContactUs.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/search',
+		name: 'SearchDetails',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Search.vue'),
 		params : true,
 		props : true
 	},

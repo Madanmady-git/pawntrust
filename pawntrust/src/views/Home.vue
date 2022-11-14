@@ -7,7 +7,7 @@
             :show-arrows="false"
             cycle
             height="100vh"
-            interval="3000"
+            interval="6000"
             >
                 <v-carousel-item
                 v-for="(slide, i) in slides"
@@ -38,7 +38,6 @@
             </v-carousel>
         </div>
         <div>
-            <span style="font-size:2rem;font-weight:600; color:#000000">Industry</span>
             <span style="font-size:2rem;font-weight:500; color:#F19B14">&nbsp; Services</span>
             <v-divider style="border-top:3.5px solid orange; width:4%; margin:auto; margin-top:10px;"></v-divider>
         </div>
@@ -90,155 +89,6 @@
                 </v-col>
             </v-row>
         </div>
-        <div style="display:flex; flex-direction:row;">
-            <img src ="https://pawntrust.com/wp-content/uploads/2022/10/about-1-img.png"/>
-            <div style="background-color: #F19B14;width:100%;display: flex;justify-content: center;flex-direction: column;">
-                <span style="font-size:2rem; font-weight:600;color:#FFFFFF;display: flex; justify-content: flex-start;padding: 0px 4%;">About Us</span>
-                <v-divider style="border-top:3.5px solid #FFFFFF; width:8%;margin-top:1%;display: flex; justify-content: flex-start;margin: 0px 4%;"></v-divider>
-                <p style="color:#FFFFFF; text-align:left;padding: 2% 4%;">
-                    {{aboutusparagraph}}
-                </p>
-                <v-btn 
-                style="margin: 0px 4%;"
-                    rounded
-                    color="#0E2334;"
-                    dark
-                    width="20%"
-                    height="8%"
-                    left
-                >
-                LEARN MORE
-                <v-icon
-                    right
-                    dark
-                >
-                mdi-chevron-right-circle
-                </v-icon>
-                </v-btn>
-            </div>
-        </div>
-        <div>
-            <div style="display:flex;flex-direction: row; justify-content:center;align-items:center;">
-                <div style="width:50%;">
-                    <span style="font-size:2rem;font-weight:600; color:#000000">Investor</span>
-                    <span style="font-size:2rem;font-weight:500; color:#F19B14">&nbsp; Relations</span>
-                    <v-divider style="border-top:3.5px solid orange; width:10%;margin:auto; 0px 4%; margin-top:10px; margin-bottom:10px;"></v-divider>
-                    <v-btn
-                        style="margin: 0px 4%;"
-                            rounded
-                            color="#0E2334;"
-                            dark
-                            left
-                        >
-                        LEARN MORE
-                        <v-icon
-                            right
-                            dark
-                        >
-                        mdi-chevron-right-circle
-                        </v-icon>
-                    </v-btn>
-                </div>
-            
-                <div style="width:50%; height:100%;padding:8% 0%">
-                    <v-avatar
-                    size="80%"
-                    >
-                        <img src="https://pawntrust.com/wp-content/uploads/2022/10/investor-img.png"
-                    />
-                    </v-avatar>
-                </div>
-            </div>
-        </div>
-        <div style="background-color:#F19B14; margin-top:4%;">
-            <span style="font-size:2rem;font-weight:600; color:#FFFFFF;">Contact Us</span>
-            <v-divider style="border-top:3.5px solid #FFFFFF; width:8%;margin-top:1%;margin:auto;margin-bottom: 2%;"></v-divider>
-            <div style="display:flex; flex-direction:column;align-items: center;">
-                <div style="display:flex; flex-direction:row;justify-content: space-around;width:80%">
-                    <div style="width:45%">
-                        <v-text-field
-                        label="First Name"
-                        solo 
-                        flat
-                        append-icon="mdi-account"
-                        >
-                        </v-text-field>
-                    </div>
-                    <div style="width:45%">
-                        <v-text-field
-                        label="Last Name"
-                        solo 
-                        flat
-                        append-icon="mdi-account"
-                        >
-                        </v-text-field>
-                    </div>
-                </div>
-                <div style="display:flex; flex-direction:row;justify-content: space-around;width:80%">
-                    <div style="width:45%">
-                        <v-text-field
-                        label="Email Address"
-                        solo 
-                        flat
-                        append-icon="mdi-email"
-                        >
-                        </v-text-field>
-                    </div>
-                    <div style="width:45%">
-                        <v-text-field
-                        label="Phone Number"
-                        solo 
-                        flat
-                        append-icon="mdi-phone"
-                        >
-                        </v-text-field>
-                    </div>
-                </div>
-                <div style="width:76%">
-                    <v-textarea
-                    solo
-                    label="Message"
-                    flat
-                    >
-                    </v-textarea>
-                </div>
-                <div style="display:flex;flex-direction:column; align-items:flex-start;width:76%">
-                    <div>
-                        <span style="font-weight:600;font-size: 1.2rem;color: #000000;">Captcha</span>
-                        <span style="color:red;font-weight:600;font-size: 1.2rem;">*</span>
-                    </div>
-                    <div style="display:flex; flex-direction:row;">
-                        <div style="display:flex;justify-content:center;align-items:center; ">
-                            <span > 3 + 4 = </span>
-                        </div>
-                        <v-text-field
-                        solo
-                        flat
-                        hide-details
-                        size="1%"
-                        >
-                        </v-text-field>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <v-btn 
-                style="margin: 0px 4%;"
-                    rounded
-                    color="#0E2334;"
-                    dark
-                    left
-                >
-                Submit Now
-                <v-icon
-                    right
-                    dark
-                >
-                mdi-chevron-right-circle
-                </v-icon>
-                </v-btn>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -252,7 +102,7 @@ import TopBar from '../components/TopBar.vue';
             pawncompaniesparagraph : "Our app “TitlePawn” allows anyone with a free, clear auto title the ability to get cash in minutes. Once an application is received, the applicant is verified through the app. These algorithms range from customer verification, and the ability to pay as well as vehicle inspection. After verifying this information and upon approval, money is immediately deposited via the blockchain (cryptocurrency), Paypal, debit card, or ACH.",
             microlendingparagraph : "PawnTrust will lend capital to small businesses. These loans will be based on the consumer’s monthly revenues. PawnTrust will purchase revenue streams at a discounted rate that allows its consumers immediate capital to grow their business. Our virtual underwriting method can approve our clients and fund the same day.",
             nonfungibleparagraph : "With the NFT on the blockchain, we can put any product from any pawn shop nationwide as a Non-fungible token. This way you get millions of views to buy immediately through crypto. This will turn PawnTrust into a pawn shop market place for people to buy and sell…world wide.",
-            aboutusparagraph: "PawnTrust is a data intelligence platform in the pawn and microlending vertical.  Our mission is to provide a trusted platform in the business of lending monies to the masses using a list of verified pawn brokers and lenders across the United States, providing capital to individuals to help meet short-term financial needs while combining technology and data to transform the industry. PawnTrust, through its verified pawn brokers, will create a worldwide marketplace for all pawn inventory that can be bought and sold through an app accessible across the country."
+            
         }),
         methods : {
             temporaryMethod(){
