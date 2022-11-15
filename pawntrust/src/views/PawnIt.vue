@@ -32,25 +32,19 @@
                             mdi-chevron-right-circle
                             </v-icon>
                         </v-btn> -->
-                        <div style="width:80%;margin-left: 10%;display: flex;flex-direction: row;">
-                            <v-text-field
-                            solo
-                            flat
-                            placeholder="Search among millions of pawn shops across the world"
-                            style="background-color:#FFFFFF; color:#000000 ; height: 6%; width:40%;"
-                            prepend-inner-icon="mdi-magnify"
-                            >
-                            </v-text-field>
-                            <div style="width:50%;margin-left: 4%;">
-                                <v-text-field
-                                solo
-                                flat
-                                placeholder="Enter Zipcode"
-                                style="background-color:#FFFFFF; color:#000000 ; height: 6%; width:30%;"
-                                prepend-inner-icon="mdi-map-marker"
-                                >
-                                </v-text-field>
-                            </div>
+                        <div style="width:40%;margin-left: 10%;display: flex;flex-direction: row;">
+                            <template>
+                                <v-file-input
+                                    placeholder="Select file to pawn it"
+                                    outlined
+                                    dense
+                                    prepend-inner-icon="mdi-upload"
+                                    prepend-icon=""
+                                    color="#F19B14"
+                                    background-color="#FFFFFF"
+                                    height="20"
+                                ></v-file-input>
+                            </template>
                         </div>
                     </div>
                 </v-carousel-item>

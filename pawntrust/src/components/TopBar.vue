@@ -64,7 +64,7 @@
                         <Heading :heading-name="'Search'"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
-                        <Heading :heading-name="'Contact Us'" :items="contactUsItems"/>
+                        <Heading :heading-name="'More'" :items="moreItems"/>
                 </div>
             </div>
         </div>
@@ -83,7 +83,8 @@ export default {
                     { title: 'Microlending' },
                     { title: 'Non-Fungible Tokens' },
                 ],
-                contactUsItems : [
+                moreItems : [
+                    {title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
                 ]

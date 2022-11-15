@@ -45,6 +45,20 @@ const routes = [
 		params : true,
 		props : true
 	},
+	{
+		path: '/pawnit',
+		name: 'PawnIt',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/PawnIt.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/sellit',
+		name: 'SellIt',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SellIt.vue'),
+		params : true,
+		props : true
+	},
 ];
 
 const router = new VueRouter({

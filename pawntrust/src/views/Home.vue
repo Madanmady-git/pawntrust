@@ -1,7 +1,7 @@
 <template>
     <div>
         <TopBar></TopBar>
-        <div style="margin-bottom: 5%;">
+        <div style="margin-bottom: 5%;position: relative;">
             <v-carousel
             hide-delimiters
             :show-arrows="false"
@@ -36,6 +36,11 @@
                     </div>
                 </v-carousel-item>
             </v-carousel>
+        </div>
+        <div style="position:absolute;margin-top: -18%;width: 100%;">
+            <img
+            style=" width:100%;"
+            src="https://pawntrust.com/wp-content/uploads/2022/10/banner-shape.png"/>
         </div>
         <div>
             <span style="font-size:2rem;font-weight:500; color:#F19B14">&nbsp; Services</span>
@@ -140,6 +145,7 @@ import TopBar from '../components/TopBar.vue';
     height:100vh;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position:center center;
 }
 
 .avatarClass {

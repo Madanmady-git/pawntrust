@@ -94,12 +94,12 @@ export default {
             }
             else if (route=="Pawn It") {
                 this.$router.push({
-                    name: 'Search'
+                    name: 'PawnIt'
                 })
             }
             else if (route=="Sell It") {
                 this.$router.push({
-                    name: 'Search'
+                    name: 'SellIt'
                 })
             }
             else {
