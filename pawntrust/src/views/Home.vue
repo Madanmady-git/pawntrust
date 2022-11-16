@@ -94,13 +94,15 @@
                 </v-col>
             </v-row>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
 import TopBar from '../components/TopBar.vue';
+import Footer from '../components/Footer.vue';
     export default {
-        components : { TopBar },
+        components : { TopBar, Footer},
         data: () => ({
             slides : 3,
             pawnshopsparagraph : "We will bring the pawn shop online, providing worldwide access through our app. This gives the customer the ability to do business online, rather than the traditional method of walking into a brick-and-mortar shop, where there is substandard service and embarrassment from face-to-face contact. The app will further collaborate worldwide inventory giving the individual Pawn Shop exponential exposure.Moreover, this app allows a consumer to take a picture of their item and get a quote instantaneously. They will have the option to choose whether to “sell” or “pawn” the item. Once that choice is made, a shipping label will be generated for the item to arrive in our distribution center in Atlanta, Georgia. Once the product is received, it is checked and verified for authenticity. Once verified it is sent to audit where “Pawn” or Buy” contracts are initiated and the consumer e-sign the appropriate document directly on the app. Payment will then be issued immediately through the blockchain (cryptocurrency), Paypal, debit card, or ACH.With respect to PawnTrust’s Global Inventory, we will utilize the latest software that automatically prices items being sold through artificial intelligence.",
