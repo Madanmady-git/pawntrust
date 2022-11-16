@@ -32,13 +32,15 @@
                 </v-avatar>
             </div>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
 import TopBar from '../components/TopBar.vue';
-export default {
-        components : { TopBar },
+import Footer from '../components/Footer.vue';
+    export default {
+        components : { TopBar, Footer },
         data: () => ({
 
         })

@@ -1,7 +1,7 @@
 <template>
-    <div style="background-color:#0E2334"  class="flexCenter">
+    <div style="background-color:#0E2334; padding: 3%;"  class="flexCenter">
         <div class="flexCenter" style="width:80%; flex-direction: column;">
-            <div class="flexrow" style="width:100%; justify-content: space-evenly;">
+            <!-- <div class="flexrow" style="width:100%; justify-content: space-evenly;">
                 <span class="footerName">HOME</span>
                 <span class="footerName">ABOUT US</span>
                 <span class="footerName">FEATURES</span>
@@ -14,38 +14,51 @@
             </div>
             <div>
                 <v-divider class="dividerClass"></v-divider>
-            </div>
-            <div style="width:100%;" class="flexrow">
-                <div style="width:25%" class="flexStart">
-                    <div>
+            </div> -->
+            <div style="width:100%;justify-content: space-between;" class="flexrow" >
+                <div style="width:20%;" class="flexStart">
+                    <div >
                         <img src="https://pawntrust.com/wp-content/uploads/2022/10/footer-logo.png" />
                     </div>
                     <div>
-                        <span>© 2022 Pawn Trust. All Rights Reserved</span>
+                        <span class="footerName1">© 2022 Pawn Trust. All Rights Reserved</span>
                     </div>
                 </div>
-                <div style="width:25%" class="flexStart">
-                    <div>
-                        <v-icon>mdi-map-marker</v-icon>
+                <div style="width:20% ;display: flex;flex-direction: column;">
+                    <div >
+                        <span class="footerName" style="display:flex; justify-content:flex-start;">OFFICE LOCATION</span>
                     </div>
-                    <div>
-                        <span class="footerName">OFFICE LOCATION</span>
-                    </div>
-                    <div>
-                        <span>© 2022 Pawn Trust. All Rights Reserved</span>
+                    <div style="display: flex;flex-direction: row;">
+                        <v-icon color="#F19B14">mdi-map-marker</v-icon>
+                        <span class="flexStart footerName1">PawnTrust, Inc 730 Peachtree Street NE Suite 570 Atlanta, Georgia 30308</span>
                     </div>
                 </div>
-                <div style="width:25%" class="flexStart">
+                <div style="width:20%; display:flex;flex-direction:column; align-items: flex-start;">
                     <div>
-                        <span>© 2022 Pawn Trust. All Rights Reserved</span>
+                        <span class="footerName">CONTACT US</span>
+                    </div>
+                    <div class="footerName">
+                        <v-icon color="#F19B14">mdi-phone</v-icon>
+                        <span class="footerName">(888)-243-2680</span>
+                    </div>
+                    <div class="footerName">
+                        <v-icon color="#F19B14">mdi-email</v-icon>
+                        <span class="footerName">info@pawntrust.com</span>
+                    </div>
+                    <div>
+
                     </div>
                 </div>
-                <div style="width:25%" class="flexStart">
-                    <div>
-                        <img src="https://pawntrust.com/wp-content/uploads/2022/10/footer-logo.png" />
-                    </div>
-                    <div>
-                        <span>© 2022 Pawn Trust. All Rights Reserved</span>
+                <div style="width:14%; display: flex;flex-direction: column;justify-content:space-around;">
+                    <div style="width:50%; display:flex;flex-direction:column; justify-content:space-around;">
+                        <div style="display: flex;flex-direction: row;justify-content:space-between;">
+                            <v-icon class="socialMedia">mdi-facebook</v-icon>
+                            <v-icon class="socialMedia">mdi-google</v-icon>
+                        </div>
+                        <div style="display: flex;flex-direction: row;justify-content:space-between;">
+                            <v-icon class="socialMedia">mdi-twitter</v-icon>
+                            <v-icon class="socialMedia">mdi-youtube</v-icon>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,12 +78,13 @@
 .flexCenter{
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
 }
 .footerName{
     color: #FFFFFF;
     font-size:1rem;
     font-weight: 600;
+    padding: 1% 0%;
 }
 .dividerClass{
     color:#FFFFFF;
@@ -80,6 +94,17 @@
 .flexStart{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-start !important;
+}
+.footerName1{
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.socialMedia{
+    border: 2px solid #FFFFFF;
+    border-radius: 8px;
+    padding: 8%;
+    color:#FFFFFF;
 }
 </style>

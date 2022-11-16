@@ -50,13 +50,15 @@
                 </v-carousel-item>
             </v-carousel>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
 import TopBar from '../components/TopBar.vue';
+import Footer from '../components/Footer.vue';
     export default {
-        components : { TopBar },
+        components : { TopBar, Footer },
         data(){
             return{
                 slides : 3,
