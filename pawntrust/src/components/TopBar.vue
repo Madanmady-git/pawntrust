@@ -44,16 +44,16 @@
                     
                     <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%; margin-left: 24%;">
                         <v-btn
-                        style="text-transform:capitalize; background-color:#F19B14;color:#FFFFFF;"
+                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
                         @click="searchMethod"
                         >
-                            Sign In
+                            <span style="font-weight:600">Sign In</span>
                         </v-btn>
                         <v-btn
-                        style="text-transform:capitalize; background-color:#F19B14;color:#FFFFFF;"
+                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
                         @click="searchMethod"
                         >
-                            Sign Up
+                        <span style="font-weight:600">Sign Up</span>
                         </v-btn>
                     </div>
                 </div>

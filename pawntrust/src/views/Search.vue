@@ -1,7 +1,7 @@
 <template>
     <div>
         <TopBar></TopBar>
-        <div style="margin-bottom: 5%;">
+        <div>
             <v-carousel
             hide-delimiters
             :show-arrows="false"
@@ -55,6 +55,20 @@
                     </div>
                 </v-carousel-item>
             </v-carousel>
+            <div style="padding:0% 7%;">
+                <div style="text-align:left;">
+                    <span><span style="font-size:2.3rem;font-weight:600;">Search</span></span>
+                    <br>
+                    <span style="font-size:1rem;color:#000000">You can access the almost 10,000 pawn shops across the United States, without leaving your home! Start here to bring every pawn shop to your doorstep, 24 hours a day.</span>
+                    <br>
+                    <br>
+                </div>
+                <div >
+                <div class="flexCenter">
+                    <img style="width: 25%;margin:auto;" src="https://pawntrust.com/wp-content/uploads/2022/11/man-with-his-mobile-phone-working-network-connection-768x512.jpg"/>
+                </div>
+            </div>
+            </div>
         </div>
         <Footer></Footer>
     </div>

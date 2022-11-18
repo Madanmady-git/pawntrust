@@ -17,7 +17,10 @@
                 style="text-transform: capitalize;font-size: 17px;font-weight: 600;letter-spacing: 0rem;"
                 :style="{ 'background-color': hover ? '#F19B14' : '#FFFFFF'}"
                 >
-                {{headingName}}
+                <div v-if="headingName == 'More'">
+                    <v-app-bar-nav-icon color="#000000"></v-app-bar-nav-icon>
+                </div>
+                <span v-else>{{headingName}}</span>
                 </v-btn>
             </v-hover>
         </template>
