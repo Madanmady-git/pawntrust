@@ -60,8 +60,8 @@
                 <v-divider></v-divider>
                 <div class="commonHeaderClass">
                         <Heading :heading-name="'Home'"/>
-                        <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Search'"/>
+                        <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
                         <Heading :heading-name="'More'" :items="moreItems"/>
