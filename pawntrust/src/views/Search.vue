@@ -2,40 +2,41 @@
     <div>
         <TopBar></TopBar>
         <div>
-            <div >
-                <div class="flexCenter">
-                    <img style="width: 25%;margin:auto;margin: 2%;" src="https://pawntrust.com/wp-content/uploads/2022/11/man-with-his-mobile-phone-working-network-connection-768x512.jpg"/>
+            <div style="height:60vh;background-color:#F19B14;display: flex;margin:auto">
+                <div style="width:70%;margin:auto;display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+                    <v-text-field
+                    v-model="searchField"
+                    clearable
+                    solo
+                    flat
+                    rounded
+                    color="#FFFFFF"
+                    placeholder="Search among millions of pawn shops across the world"
+                    style="background-color:#F19B14; height: 6%; width:30%;border-color:#F19B14;border:1px solid #F19B14"
+                    hide-details
+                    prepend-inner-icon="mdi-magnify"
+                    >
+                    </v-text-field>
+                    <v-text-field
+                    v-model="zipcodeField"
+                    clearable
+                    solo
+                    flat
+                    rounded
+                    color="#FFFFFF"
+                    placeholder="Enter Zipcode"
+                    style="background-color:#F19B14; height: 6%; width:30%;border-color:#F19B14;border:1px solid #F19B14"
+                    prepend-inner-icon="mdi-map-marker"
+                    hide-details
+                    >
+                    </v-text-field>
+                    <v-btn
+                    style="text-transform: capitalize;margin-left:1%; box-shadow: none;"
+                    @click="searchbyStores(searchField, zipcodeField)"
+                    >
+                        Search
+                    </v-btn>
                 </div>
-            </div>
-            <div style="width:70%;margin:auto;display: flex;flex-direction: row;justify-content: space-between;">
-                <v-text-field
-                v-model="searchField"
-                clearable
-                solo
-                flat
-                rounded
-                color="#FFFFFF"
-                placeholder="Search among millions of pawn shops across the world"
-                style="background-color:#F19B14; height: 6%; width:30%;border-color:#F19B14;border:1px solid #F19B14"
-                hide-details
-                @keyup.enter="searchbyStores(searchField)"
-                prepend-inner-icon="mdi-magnify"
-                >
-                </v-text-field>
-                <v-text-field
-                v-model="zipcodeField"
-                clearable
-                solo
-                flat
-                rounded
-                color="#FFFFFF"
-                placeholder="Enter Zipcode"
-                style="background-color:#F19B14; height: 6%; width:30%;border-color:#F19B14;border:1px solid #F19B14"
-                @keyup.enter="searchbyStores(zipcodeField)"
-                prepend-inner-icon="mdi-map-marker"
-                hide-details
-                >
-                </v-text-field>
             </div>
             <div style="padding:0% 7%;">
                 <div style="text-align:left;">

@@ -7,7 +7,7 @@
                 />
             </div>
             <div style="width: 70%;">
-                <div style="display:flex; flex-direction : row;justify-content:center;padding:14px">
+                <div style="display:flex; flex-direction : row;justify-content:space-around;padding:14px">
                     <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
                         <v-avatar
                         color="#F19B14"
@@ -21,7 +21,7 @@
                         </v-icon>
                         </v-avatar>
                         <div class="emailandPhone">
-                            <span>info@pawntrust.com</span>
+                            &nbsp;<span> info@pawntrust.com</span>
                         </div>
                     </div>
                     <v-divider vertical style="margin:0% 2%"></v-divider>
@@ -41,8 +41,13 @@
                             <span>(888)-243-2680</span>
                         </div>
                     </div>
+                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
+                        <v-icon color="#F19B14" size="40">mdi-facebook</v-icon>
+                        <v-icon color="#F19B14" size="40">mdi-twitter</v-icon>
+                        <v-icon color="#F19B14" size="40">mdi-reddit</v-icon>
+                    </div>
                     
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%; margin-left: 24%;">
+                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%;">
                         <v-btn
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
                         @click="searchMethod"
@@ -122,7 +127,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 500;
+    font-weight: 800;
 }
 
 .avatarClass {
