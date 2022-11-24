@@ -1,5 +1,19 @@
 <template>
     <div class="footerMain">
+        <!-- <div v-if="$mq == 'desktop'" class="flexrow" style="width:100%; justify-content: space-evenly;">
+            <span class="footerName">HOME</span>
+            <span class="footerName">ABOUT US</span>
+            <span class="footerName">FEATURES</span>
+            <span class="footerName">SEARCH</span>
+            <span class="footerName">PAWN IT</span>
+            <span class="footerName">SELL IT</span>
+            <span class="footerName">BLOG</span>
+            <span class="footerName">INVESTOR RELATIONS</span>
+            <span class="footerName">CONTACT US</span>
+        </div>
+        <div v-if="$mq == 'desktop'">
+            <v-divider class="dividerClass"></v-divider>
+        </div> -->
         <div class="footerSubMain">
             <div class="flexStart footerDivision">
                 <div >
