@@ -69,7 +69,10 @@
                         <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
-                        <Heading :heading-name="'More'" :items="moreItems"/>
+                        <Heading :heading-name="'Contact Us'"/>
+                        <Heading :heading-name="'About Us'"/>
+                        <Heading :heading-name="'Investor Relations'"/>
+                        <!-- <Heading :heading-name="'More'" :items="moreItems"/> -->
                 </div>
                 <div v-else>
                     <Heading :heading-name="'More'" :items="allItems"/>
