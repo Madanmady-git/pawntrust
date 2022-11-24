@@ -1,14 +1,14 @@
 <template>
     <div>
-        <div style="display:flex; flex-direction : row;justify-content:center; width: 100%;padding: 8px;">
-            <div style="width: 30%;display: flex;justify-content: center;align-items:center;">
-                <img 
+        <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mainMobileClass' : 'mainDesktopClass'">
+            <div :class="($mq =='mobile' || $mq == 'tablet')  ? 'mobileLogo' : 'DesktopLogo'">
+                <img :class="($mq =='mobile') ? 'logoImageMobile' :  ''"
                     src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
                 />
             </div>
-            <div style="width: 70%;">
-                <div style="display:flex; flex-direction : row;justify-content:space-around;padding:14px">
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
+            <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileTopBarContent' : 'DesktopTopBarContent'">
+                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'topBarMobile' : 'topBarDesktop'">
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-avatar
                         color="#F19B14"
                         size="36"
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <v-divider vertical style="margin:0% 2%"></v-divider>
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
+                    <div :class="($mq =='mobile' || $mq == 'tablet')? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-avatar
                         color="#F19B14"
                         size="36"
@@ -41,13 +41,13 @@
                             <span>(888)-243-2680</span>
                         </div>
                     </div>
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%">
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-icon color="#F19B14" size="40">mdi-facebook</v-icon>
                         <v-icon color="#F19B14" size="40">mdi-twitter</v-icon>
                         <v-icon color="#F19B14" size="40">mdi-reddit</v-icon>
                     </div>
                     
-                    <div style="display:flex; flex-direction : row;justify-content:space-around;width:20%;">
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-btn
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
                         @click="searchMethod"
@@ -63,13 +63,16 @@
                     </div>
                 </div>
                 <v-divider></v-divider>
-                <div class="commonHeaderClass">
+                <div v-if="$mq == 'desktop'" class="commonHeaderClass">
                         <Heading :heading-name="'Home'"/>
                         <Heading :heading-name="'Search'"/>
                         <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
                         <Heading :heading-name="'More'" :items="moreItems"/>
+                </div>
+                <div v-else>
+                    <Heading :heading-name="'More'" :items="allItems"/>
                 </div>
             </div>
         </div>
@@ -92,6 +95,18 @@ export default {
                     {title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
+                ],
+                allItems :[
+                    { title: 'Pawn Shops' },
+                    { title: 'Microlending' },
+                    { title: 'Non-Fungible Tokens' },
+                    {title: 'Contact Us'},
+                    { title: 'About Us' },
+                    { title: 'Investor Relations' },
+                    {title: 'Home'},
+                    { title: 'Search' },
+                    { title: 'Pawn It' },
+                    { title: 'Sell It' },
                 ]
             }
         },
@@ -110,6 +125,45 @@ export default {
 </script>
 
 <style scoped>
+.mainMobileClass {
+    display:flex; flex-direction : row;justify-content:flex-end; width: 100%;padding: 8px;
+}
+.mainDesktopClass {
+    display:flex; flex-direction : row;justify-content:center; width: 100%;padding: 8px;
+}
+
+.topBarMobile{
+    display:flex; flex-direction : column;justify-content:space-around;padding:14px
+}
+
+.topBarDesktop{
+    display:flex; flex-direction : row;justify-content:space-around;padding:14px
+}
+
+.headerAlignMobile{
+    display:flex; flex-direction : row;justify-content:flex-end;padding: 3% 0%;
+}
+
+.headerAlignDesktop{
+    display:flex; flex-direction : row;justify-content:space-around;width:20%;
+}
+
+.mobileLogo{
+    width: 50%;display: flex;flex-direction: row; justify-content: center;align-items:center;
+}
+
+.DesktopLogo{
+    width: 30%;display: flex;flex-direction: row; justify-content: center;align-items:center;
+}
+.mobileTopBarContent{
+    width:50%;
+}
+.DesktopTopBarContent{
+    width:70%;
+}
+.logoImageMobile{
+    width:100%;
+}
 .headerClass {
     font-size: 16px;
     font-weight: 600;

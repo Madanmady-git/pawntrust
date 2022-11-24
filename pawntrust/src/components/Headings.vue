@@ -1,11 +1,12 @@
 <template>
-    <div class="text-center" style="padding: 12px 0% 0% 0%;">
+    <div class="text-center" style="padding: 12px 0% 0% 0%;" :class="$mq != 'desktop' ? 'mainClassMobile' : ''">
         <v-menu
         transition="scroll-y-transition"
         open-on-click
         bottom
         offset-y
         open-on-hover
+        :min-width="$mq != 'desktop' ? '100%' : ''"
         >
         <template v-slot:activator="{ on, attrs }">
             <v-hover v-slot="{ hover }" >
@@ -17,32 +18,34 @@
                 style="text-transform: capitalize;font-size: 17px;font-weight: 600;letter-spacing: 0rem;"
                 :style="{ 'background-color': hover ? '#F19B14' : '#FFFFFF'}"
                 >
-                <div v-if="headingName == 'More'">
+                <div v-if="headingName == 'More'" align-items = "right">
                     <v-app-bar-nav-icon color="#000000"></v-app-bar-nav-icon>
                 </div>
                 <span v-else>{{headingName}}</span>
                 </v-btn>
             </v-hover>
         </template>
-        <v-list v-if="items">
-            <v-list-item
-            v-for="(item, index) in items"
-            :key="index"
-            >
-            <v-hover v-slot="{ hover }" >
-            <v-list-item-title >
-                <v-btn
-                text
-                style="text-transform: capitalize;font-size: 17px;font-weight: 400;letter-spacing: 0rem;padding: 1% 0%;width:100%;box-shadow: unset;"
-                :style="{ 'background-color': hover ? '#F19B14' : '#FFFFFF' , }"
-                @click="routeToRightMethod(item.title)"
+        <v-card :class="$mq != 'desktop' ? 'menuClass' : ''">
+            <v-list v-if="items">
+                <v-list-item
+                v-for="(item, index) in items"
+                :key="index"
                 >
-                    {{ item.title }}
-                </v-btn>
+                <v-hover v-slot="{ hover }" >
+                <v-list-item-title >
+                    <v-btn
+                    text
+                    style="text-transform: capitalize;font-size: 17px;font-weight: 400;letter-spacing: 0rem;padding: 1% 0%;width:100%;box-shadow: unset;"
+                    :style="{ 'background-color': hover ? '#F19B14' : '#FFFFFF' , }"
+                    @click="routeToRightMethod(item.title)"
+                    >
+                        {{ item.title }}
+                    </v-btn>
                 </v-list-item-title>
-            </v-hover>
-            </v-list-item>
-        </v-list>
+                </v-hover>
+                </v-list-item>
+            </v-list>
+        </v-card>
         </v-menu>
     </div>
 </template>
@@ -113,5 +116,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.menuClass{
+    width:100%;
+}
+
+.mainClassMobile{
+    display: flex;
+    justify-content: flex-end;
+}
 </style>

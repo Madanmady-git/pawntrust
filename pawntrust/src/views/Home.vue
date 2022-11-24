@@ -47,52 +47,35 @@
             <v-divider style="border-top:3.5px solid orange; width:4%; margin:auto; margin-top:10px;"></v-divider>
         </div>
         <div >
-            <v-row cols="12" style="display:flex; flex-direction:row; justify-content:center;">
-                <v-col cols="3">
-                    <div style="display:flex; flex-direction:column;">
-                        <img
-                        @click="temporaryMethod"
-                        style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
-                        src = "../assets/pawnshops.png"/>
-                        <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Pawn Shops</span>
-                        <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
-                        <p style="text-align:left;">{{pawnshopsparagraph}}</p>
-                        </div>
-                </v-col>
-                <!-- <v-col cols="2">
-                    <div>
-                        <img
-                        @click="temporaryMethod"
-                        style="width:100%; height:auto;padding:10% 4%;"
-                        src = "../assets/Titlepawncompanies.png"/>
-                        <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Title Pawn Companies</span>
-                        <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
-                        <p style="text-align:left;">{{pawncompaniesparagraph}}</p>
-                    </div>
-                </v-col> -->
-                <v-col cols="3">
-                    <div>
-                        <img
-                        @click="temporaryMethod"
-                        style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
-                        src = "../assets/microlending.png"/>
-                        <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Microlending</span>
-                        <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
-                        <p style="text-align:left;">{{microlendingparagraph}}</p>
-                    </div>
-                </v-col>
-                <v-col cols="3">
-                    <div>
-                        <img 
-                        @click="temporaryMethod"
-                        style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
-                        src = "../assets/nonfungible.png"/>
-                        <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Non-Fungible Tokens</span>
-                        <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
-                        <p style="text-align:left;">{{nonfungibleparagraph}}</p>
-                    </div>
-                </v-col>
-            </v-row>
+            <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategories' : 'desktopCategories'">
+                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
+                    <img
+                    @click="temporaryMethod"
+                    style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
+                    src = "../assets/pawnshops.png"/>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Pawn Shops</span>
+                    <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
+                    <p style="text-align:left;">{{pawnshopsparagraph}}</p>
+                </div>
+                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
+                    <img
+                    @click="temporaryMethod"
+                    style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
+                    src = "../assets/microlending.png"/>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Microlending</span>
+                    <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
+                    <p style="text-align:left;">{{microlendingparagraph}}</p>
+                </div>
+                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
+                    <img 
+                    @click="temporaryMethod"
+                    style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
+                    src = "../assets/nonfungible.png"/>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Non-Fungible Tokens</span>
+                    <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
+                    <p style="text-align:left;">{{nonfungibleparagraph}}</p>
+                </div>
+            </div>
         </div>
         <Footer></Footer>
     </div>
@@ -122,6 +105,28 @@ import Footer from '../components/Footer.vue';
 </script>
 
 <style scoped>
+.mobileCategories{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:2%;
+}
+
+.desktopCategories{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+}
+
+.mobileCategory{
+    width:100%;
+}
+
+.desktopCategory{
+    width:25%;
+}
 .headerClass {
     font-size: 16px;
     font-weight: 600;
