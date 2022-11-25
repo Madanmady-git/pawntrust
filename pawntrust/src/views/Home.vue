@@ -61,6 +61,15 @@
                     <img
                     @click="temporaryMethod"
                     style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
+                    src = "../assets/Titlepawncompanies.png"/>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Title Pawn Companies</span>
+                    <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
+                    <p style="text-align:left;">{{microlendingparagraph}}</p>
+                </div>
+                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
+                    <img
+                    @click="temporaryMethod"
+                    style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
                     src = "../assets/microlending.png"/>
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Microlending</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
@@ -125,7 +134,8 @@ import Footer from '../components/Footer.vue';
 }
 
 .desktopCategory{
-    width:25%;
+    width:20%;
+    padding: 0% 2%;
 }
 .headerClass {
     font-size: 16px;

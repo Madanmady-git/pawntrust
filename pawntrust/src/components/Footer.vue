@@ -17,7 +17,7 @@
         <div class="footerSubMain">
             <div class="flexStart footerDivision">
                 <div >
-                    <img src="https://pawntrust.com/wp-content/uploads/2022/10/footer-logo.png" />
+                    <img style="width:100%;" src="https://pawntrust.com/wp-content/uploads/2022/10/footer-logo.png" />
                 </div>
                 <div>
                     <span class="footerName1">© 2022 Pawn Trust. All Rights Reserved</span>
@@ -48,16 +48,41 @@
 
                 </div>
             </div>
-            <div class="footerDivision">
-                <div style="width:50%; display:flex;flex-direction:column;align-items: center;">
-                    <div style="display: flex;flex-direction: row;justify-content:space-between;">
-                        <v-icon class="socialMedia">mdi-facebook</v-icon>
-                        <v-icon class="socialMedia">mdi-google</v-icon>
+            <div class="footerDivision" style="align-items: center;justify-content: center;">
+                <div style="width:100%;">
+                    <div style="display: flex;flex-direction: row;justify-content: space-evenly;">
+                        <div>
+                            <a
+                            style="cursor: pointer;color: #FFFFFF;text-decoration: none;" 
+                            href="https://www.facebook.com/pawntrust"
+                            target="_blank"
+                            >
+                            <v-icon class="socialMedia">mdi-facebook</v-icon>
+                            </a>
+                        </div>
+                        <div>
+                            <a
+                            style="cursor: pointer;color: #FFFFFF;text-decoration: none;" 
+                            href="https://twitter.com/dinewiseinc"
+                            target="_blank"
+                            >
+                                <v-icon class="socialMedia">mdi-twitter</v-icon>
+                            </a>
+                        </div>
+                        <div>
+                            <a
+                            style="cursor: pointer;color: #FFFFFF;text-decoration: none;" 
+                            href="https://www.reddit.com/user/pawntrust"
+                            target="_blank"
+                            >
+                                <v-icon class="socialMedia">mdi-reddit</v-icon>
+                            </a>
+                        </div>
                     </div>
-                    <div style="display: flex;flex-direction: row;justify-content:space-between;">
-                        <v-icon class="socialMedia">mdi-twitter</v-icon>
+                    <!-- <div style="display: flex;flex-direction: row;justify-content:space-evenly;">
+                        <v-icon class="socialMedia">mdi-reddit</v-icon>
                         <v-icon class="socialMedia">mdi-youtube</v-icon>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -69,7 +94,7 @@
 </script>
 
 <style scoped>
-@media screen and (max-width:500px) {
+@media screen and (max-width:950px) {
     .desktop{
         display: none;
     }
@@ -109,7 +134,7 @@
     }
 }
 
-@media screen and (min-width:501px) {
+@media screen and (min-width:951px) {
     .mobile{
         display: none;
     }
