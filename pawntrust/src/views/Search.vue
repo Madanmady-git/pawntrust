@@ -3,7 +3,7 @@
         <TopBar></TopBar>
         <div>
             <div style="height:60vh;background-color:#F19B14;display: flex;margin:auto">
-                <div style="width:70%;margin:auto;display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+                <div class="searchMain">
                     <v-text-field
                     v-model="searchField"
                     clearable
@@ -17,7 +17,7 @@
                     prepend-inner-icon="mdi-magnify"
                     >
                     </v-text-field>
-                    <v-text-field
+                    <!-- <v-text-field
                     v-model="zipcodeField"
                     clearable
                     solo
@@ -29,7 +29,7 @@
                     prepend-inner-icon="mdi-map-marker"
                     hide-details
                     >
-                    </v-text-field>
+                    </v-text-field> -->
                     <v-btn
                     style="text-transform: capitalize;margin-left:1%; box-shadow: none;"
                     @click="searchbyStores(searchField, zipcodeField)"
@@ -121,6 +121,28 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
 </script>
 
 <style scoped>
+
+@media screen and (max-width:950px){
+    .searchMain{
+        width:90%;
+        margin:auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width:951px){
+    .searchMain{
+        width:40%;
+        margin:auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
 .bannerBackground{
     background:url('../assets/bannerImage.jpeg');
     width:100%;

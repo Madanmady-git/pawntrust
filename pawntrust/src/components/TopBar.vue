@@ -54,13 +54,13 @@
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-btn
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
-                        @click="searchMethod"
+                        @click="SignIn()"
                         >
                             <span style="font-weight:600">Sign In</span>
                         </v-btn>
                         <v-btn
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
-                        @click="searchMethod"
+                        @click="SignUp()"
                         >
                         <span style="font-weight:600">Sign Up</span>
                         </v-btn>
@@ -125,6 +125,16 @@ export default {
                     params : {
                         searchword : word
                     }
+                })
+            },
+            SignIn(){
+                this.$router.push({
+                    name:'Login'
+                })
+            },
+            SignUp(){
+                this.$router.push({
+                    name:'SignUp'
                 })
             }
         }
