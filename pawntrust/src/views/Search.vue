@@ -32,7 +32,7 @@
                     </v-text-field> -->
                     <v-btn
                     style="text-transform: capitalize;margin-left:1%; box-shadow: none;"
-                    @click="searchbyStores(searchField, zipcodeField)"
+                    @click="searchbyStores(searchField)"
                     >
                         Search
                     </v-btn>
@@ -50,14 +50,14 @@
             </div>
             </div>
         </div>
-        <div v-if="zipcodeFieldFlag || searchFieldFlag" class="flexColumn" style="height:80vh; width:100%;" @click="openMap">
-            <div style="width:50%;padding:2%;  overflow-y: scroll;height: 80vh;">
+        <div v-if="zipcodeFieldFlag || searchFieldFlag" class="cardsContent" @click="openMap">
+            <div class="SearchResults">
                 <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
                     <pawnStoreCard :pawnstore="store"></pawnStoreCard>
                 </div>
             </div>
             <div v-if="openMapFlag" style="width:50%;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3040.573523002731!2d-97.98699930238476!3d29.57231232980548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865cb86a56b871f1%3A0x69d202f4c09a4f34!2s1000%20W%20Court%20St%2C%20Seguin%2C%20TX%2078155%2C%20USA!5e0!3m2!1sen!2sin!4v1668966529128!5m2!1sen!2sin" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <Map></Map>
             </div>
             <div v-else style="margin:auto">
                 <span>Select pawn store to get map details</span>
@@ -71,8 +71,10 @@
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
 import pawnStoreCard from '../components/pawnStoreCard.vue';
+import Map from '../components/Map.vue';
+import axios from 'axios'
     export default {
-        components : { TopBar, Footer, pawnStoreCard },
+        components : { TopBar, Footer, pawnStoreCard, Map },
         data(){
             return{
                 slides : 3,
@@ -84,36 +86,53 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
                 pawnstores : [{
                     'name' : 'Cash Converters 510 Kenhorst Plaza',
                     'address' : '510 Kenhorst Plaza Reading PA 19607',
-                    'mobileNumber' : '+1 610-796-2999'
+                    'mobileNumber' : '+1 610-796-2999',
+                    'rating':'4.0'
                 },
                 {
                     'name' : 'Cash Pawn 102 South Hasler Boulevard',
                     'address' : '102 South Hasler Boulevard Bastrop TX 78602',
-                    'mobileNumber' : '+1 512-581-3338'
+                    'mobileNumber' : '+1 512-581-3338',
+                    'rating':'4.0'
                 },
                 {
                     'name' : 'PAWN 311 Texas 71 Frontage Rd',
                     'address' : '311 Texas 71 Frontage Rd Bastrop TX 78602',
-                    'mobileNumber' : '+1 512-303-9337'
+                    'mobileNumber' : '+1 512-303-9337',
+                    'rating':'4.0'
                 },
                 {
                     'name' : 'Cash Pawn 516 Leander Road',
                     'address' : '516 Leander Road Georgetown TX 78626',
-                    'mobileNumber' : '+1 512-931-2911'
+                    'mobileNumber' : '+1 512-931-2911',
+                    'rating':'4.0'
                 },
                 {
                     'name' : 'Cash Pawn 8409 North Lamar Boulevard',
                     'address' : '8409 North Lamar Boulevard Austin TX 78753',
-                    'mobileNumber' : '+1 512-836-8388'
+                    'mobileNumber' : '+1 512-836-8388',
+                    'rating':'2.0'
                 }]
             }
+        },
+        mounted(){
+
         },
         methods:{
             openMap(){
                 this.openMapFlag = true;
             },
-            searchbyStores(){
+            searchbyStores(field){
                 this.searchFieldFlag = true;
+                axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field)
+                .then((response)=>{
+                    console.log('response', response)
+                    this.pawnstores = response.data.searchResults;
+                })
+                .catch((error)=>{
+                    console.log('error', error)
+                    alert("Error in search")
+                })
             }
         }
     }
@@ -141,6 +160,14 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+    .cardsContent{
+        display: flex;
+        height:80vh;
+        width:100%;
+    }
+    .SearchResults{
+        width:50%;padding:2%;  overflow-y: scroll;height: 80vh;
     }
 }
 .bannerBackground{

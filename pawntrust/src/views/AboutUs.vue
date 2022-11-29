@@ -28,6 +28,9 @@
                 </div>
             </div>
         </div>
+        <!-- <div>
+            <img style="width:100%;" src ="https://pawntrust.com/wp-content/uploads/2022/10/footer-shape-2.png" />
+        </div> -->
         <Footer></Footer>
     </div>
 </template>

@@ -56,6 +56,10 @@
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Pawn Shops</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p style="text-align:left;">{{pawnshopsparagraph}}</p>
+                    <img 
+                    style="width:100%; height:auto;padding:0% 0% 10% 0%;cursor: pointer;"
+                    src="../assets/pawnshopsdemo.jpg"
+                    />
                 </div>
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
                     <img
@@ -64,7 +68,11 @@
                     src = "../assets/Titlepawncompanies.png"/>
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Title Pawn Companies</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
-                    <p style="text-align:left;">{{microlendingparagraph}}</p>
+                    <p style="text-align:left;">{{pawncompaniesparagraph}}</p>
+                    <img 
+                    style="width:100%; height:auto;padding:0% 0% 10% 0%;cursor: pointer;"
+                    src="../assets/pawncompaniesdemo.jpeg"
+                    />
                 </div>
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
                     <img
@@ -74,6 +82,10 @@
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Microlending</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p style="text-align:left;">{{microlendingparagraph}}</p>
+                    <img 
+                    style="width:100%; height:auto;padding:0% 0% 10% 0%;cursor: pointer;"
+                    src="../assets/microlendingdemo.jpeg"
+                    />
                 </div>
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
                     <img 
@@ -83,6 +95,10 @@
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Non-Fungible Tokens</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p style="text-align:left;">{{nonfungibleparagraph}}</p>
+                    <img 
+                    style="width:100%; height:auto;padding:0% 0% 10% 0%;cursor: pointer;"
+                    src="../assets/nonfungibledemo.jpeg"
+                    />
                 </div>
             </div>
         </div>

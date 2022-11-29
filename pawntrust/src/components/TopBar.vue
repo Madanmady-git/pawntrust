@@ -73,10 +73,7 @@
                         <Heading :heading-name="'Features'" :items="featureItems"/>
                         <Heading :heading-name="'Pawn It'"/>
                         <Heading :heading-name="'Sell It'"/>
-                        <Heading :heading-name="'Contact Us'"/>
-                        <Heading :heading-name="'About Us'"/>
-                        <Heading :heading-name="'Investor Relations'"/>
-                        <!-- <Heading :heading-name="'More'" :items="moreItems"/> -->
+                        <Heading :heading-name="'More'" :items="moreItems"/>
                 </div>
                 <div v-else>
                     <Heading :heading-name="'More'" :items="allItems"/>
@@ -104,16 +101,16 @@ export default {
                     { title: 'Investor Relations' },
                 ],
                 allItems :[
+                    { title: 'Search' },
                     { title: 'Pawn Shops' },
                     { title: 'Microlending' },
                     { title: 'Non-Fungible Tokens' },
                     {title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
-                    {title: 'Home'},
-                    { title: 'Search' },
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
+                    {title: 'Home'},
                 ]
             }
         },
