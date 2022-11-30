@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mainMobileClass' : 'mainDesktopClass'">
-            <div :class="($mq =='mobile' || $mq == 'tablet')  ? 'mobileLogo' : 'DesktopLogo'">
+            <div v-if="$mq != 'mobile'" class="DesktopLogo">
                 <img :class="($mq =='mobile') ? 'logoImageMobile' :  ''"
                     src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
                 />
@@ -45,38 +45,50 @@
                             <span>(888)-243-2680</span>
                         </div>
                     </div>
-                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile2' : 'headerAlignDesktop'">
                         <v-btn icon style="cursor: pointer;" href="https://www.facebook.com/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-facebook</v-icon></v-btn>
                         <v-btn icon style="cursor: pointer;" href="https://twitter.com/dinewiseinc" target="_blank"><v-icon color="#F19B14" size="40">mdi-twitter</v-icon></v-btn>
                         <v-btn icon style="cursor: pointer;" href="https://www.reddit.com/user/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-reddit</v-icon></v-btn>
                     </div>
                     
-                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
                         <v-btn
-                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
+                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
                         @click="SignIn()"
                         >
                             <span style="font-weight:600">Sign In</span>
                         </v-btn>
                         <v-btn
-                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;"
+                        style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
                         @click="SignUp()"
                         >
-                        <span style="font-weight:600">Sign Up</span>
+                        <span style="font-weight:600;">Sign Up</span>
                         </v-btn>
                     </div>
                 </div>
                 <v-divider></v-divider>
-                <div v-if="$mq == 'desktop'" class="commonHeaderClass">
-                        <Heading :heading-name="'Home'"/>
-                        <Heading :heading-name="'Search'"/>
-                        <Heading :heading-name="'Features'" :items="featureItems"/>
-                        <Heading :heading-name="'Pawn It'"/>
-                        <Heading :heading-name="'Sell It'"/>
-                        <Heading :heading-name="'More'" :items="moreItems"/>
-                </div>
-                <div v-else>
-                    <Heading :heading-name="'More'" :items="allItems"/>
+                <div :class="$mq == 'mobile' ? 'mobileMenuClass' : ''">
+                    <div style="width:40%;">
+                        <div v-if="$mq == 'mobile'" class="mobileLogo">
+                            <img style="width:100%;"
+                                src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div v-if="$mq == 'desktop'" class="commonHeaderClass">
+                                <Heading :heading-name="'Home'"/>
+                                <Heading :heading-name="'Search'"/>
+                                <Heading :heading-name="'Features'" :items="featureItems"/>
+                                <Heading :heading-name="'Pawn It'"/>
+                                <Heading :heading-name="'Sell It'"/>
+                                <Heading :heading-name="'More'" :items="moreItems"/>
+                            </div>
+                            <div v-else>
+                                <Heading :heading-name="'More'" :items="allItems"/>
+                            </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -101,16 +113,17 @@ export default {
                     { title: 'Investor Relations' },
                 ],
                 allItems :[
+                    { title: 'Home'},
                     { title: 'Search' },
                     { title: 'Pawn Shops' },
                     { title: 'Microlending' },
                     { title: 'Non-Fungible Tokens' },
+                    { title: 'Pawn It' },
+                    { title: 'Sell It' },
                     {title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
-                    { title: 'Pawn It' },
-                    { title: 'Sell It' },
-                    {title: 'Home'},
+                    
                 ]
             }
         },
@@ -147,7 +160,7 @@ export default {
 }
 
 .topBarMobile{
-    display:flex; flex-direction : column;justify-content:space-around;padding:14px
+    display:flex; flex-direction : column;align-items: flex-end; padding:1%;
 }
 
 .topBarDesktop{
@@ -155,7 +168,14 @@ export default {
 }
 
 .headerAlignMobile{
-    display:flex; flex-direction : row;justify-content:flex-end;padding: 3% 0%;
+    display:flex; flex-direction : row;justify-content:flex-end;padding: 1% 0%;
+}
+.headerAlignMobile2{
+    width:50%; display:flex; flex-direction : row;justify-content:space-between; padding: 1% 0%;
+}
+
+.headerAlignMobile3{
+    width:60%; display:flex; flex-direction : row;justify-content:space-between; padding: 1% 0%;
 }
 
 .headerAlignDesktop{
@@ -163,14 +183,14 @@ export default {
 }
 
 .mobileLogo{
-    width: 50%;display: flex;flex-direction: row; justify-content: center;align-items:center;
+    width: 100%;display: flex;flex-direction: row; justify-content: center;align-items:center;
 }
 
 .DesktopLogo{
     width: 30%;display: flex;flex-direction: row; justify-content: center;align-items:center;
 }
 .mobileTopBarContent{
-    width:50%;
+    width:100%;
 }
 .DesktopTopBarContent{
     width:70%;
@@ -200,5 +220,11 @@ export default {
 
 .avatarClass {
     display:flex;flex-direction: row; justify-content:center;
+}
+
+.mobileMenuClass{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 </style>
