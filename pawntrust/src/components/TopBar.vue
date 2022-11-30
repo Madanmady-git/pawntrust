@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mainMobileClass' : 'mainDesktopClass'">
-            <div v-if="$mq != 'mobile'" class="DesktopLogo">
+            <div v-if="$mq == 'desktop'" class="DesktopLogo">
                 <img :class="($mq =='mobile') ? 'logoImageMobile' :  ''"
                     src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
                 />
@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <v-divider></v-divider>
-                <div :class="$mq == 'mobile' ? 'mobileMenuClass' : ''">
+                <div :class="$mq != 'desktop' ? 'mobileMenuClass' : ''">
                     <div style="width:40%;">
-                        <div v-if="$mq == 'mobile'" class="mobileLogo">
+                        <div v-if="$mq != 'desktop'" class="mobileLogo">
                             <img style="width:100%;"
                                 src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
                             />
