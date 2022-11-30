@@ -33,14 +33,17 @@
                 >
                 <v-hover v-slot="{ hover }" >
                 <v-list-item-title >
+                   
                     <v-btn
+                    hide-details
                     text
-                    style="text-transform: capitalize;font-size: 17px;font-weight: 400;letter-spacing: 0rem;padding: 1% 0%;width:100%;box-shadow: unset;"
+                    style="text-transform: capitalize; display: flex;justify-content: flex-start; font-size: 17px;font-weight: 600;letter-spacing: 0rem;padding: 1% 0%;width:100%;box-shadow: unset;"
                     :style="{ 'background-color': hover ? '#F19B14' : '#FFFFFF' , }"
                     @click="routeToRightMethod(item.title)"
                     >
                         {{ item.title }}
                     </v-btn>
+                    <v-divider></v-divider>
                 </v-list-item-title>
                 </v-hover>
                 </v-list-item>

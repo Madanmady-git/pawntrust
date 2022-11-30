@@ -1,7 +1,7 @@
 <template>
     <div>
         <TopBar></TopBar>
-        <div style="margin-bottom: 5%;position: relative;">
+        <div v-if="$mq == 'desktop'" style="margin-bottom: 5%;position: relative;">
             <v-carousel
             hide-delimiters
             :show-arrows="false"
@@ -17,7 +17,7 @@
                     style="width:100%;height:100vh;"
                     src = "../assets/bannerImage.jpeg" /> -->
                     <div class="bannerBackground" style="display:flex; flex-direction:column;justify-content:center; align-items:center;">
-                        <span style="font-size:3rem;font-weight:900;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust Is A Revolutionary Evolution In Pawn Shops and Microlending</span>
+                        <span style="font-size:3rem; font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust Is A Revolutionary Evolution In Pawn Shops and Microlending</span>
                         <v-btn
                         rounded
                         color="#F19B14"
@@ -37,7 +37,40 @@
                 </v-carousel-item>
             </v-carousel>
         </div>
-        <div style="position:absolute;margin-top: -18%;width: 100%;">
+        <div v-else >
+            <v-carousel
+            hide-delimiters
+            :show-arrows="false"
+            cycle
+            height="50vh"
+            interval="6000"
+            >
+                <v-carousel-item
+                    v-for="(slide, i) in slides"
+                    :key="i"
+                >
+                    <div class="mobileBannerBackground" style="display:flex; flex-direction:column;justify-content:center; align-items:center;">
+                        <span style="font-size:1.4rem;font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust Is A Revolutionary Evolution In Pawn Shops and Microlending</span>
+                        <v-btn
+                        rounded
+                        color="#F19B14"
+                        height="6%"
+                        
+                        >
+                            <span style="color:#FFFFFF; font-weight: 600;">Get Started</span>
+                            <v-icon
+                                right
+                                dark
+                                color="#FFFFFF"
+                            >
+                            mdi-chevron-right-circle
+                            </v-icon>
+                        </v-btn>
+                    </div>
+                </v-carousel-item>
+            </v-carousel>
+        </div>
+        <div :class="$mq == 'desktop' ? 'bottomDesignDesktop' : 'bottomDesignMobile'">
             <img
             style=" width:100%;"
             src="https://pawntrust.com/wp-content/uploads/2022/10/banner-shape.png"/>
@@ -181,6 +214,16 @@ import Footer from '../components/Footer.vue';
     background-position:center center;
 }
 
+.mobileBannerBackground{
+    background:url('../assets/bannerImage.jpeg');
+    width:100%;
+    height:50vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:right center;
+    object-fit: contain;
+}
+
 .textStyle{
     font-size:1rem;
     font-weight: 600;
@@ -188,6 +231,18 @@ import Footer from '../components/Footer.vue';
 }
 .avatarClass {
     display:flex;flex-direction: row; justify-content:center;
+}
+
+.bottomDesignMobile{
+    position:absolute;
+    margin-top: -16%;
+    width: 100%;
+}
+
+.bottomDesignDesktop{
+    position:absolute;
+    margin-top: -18%;
+    width: 100%;
 }
 </style>
 

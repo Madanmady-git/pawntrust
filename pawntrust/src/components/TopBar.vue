@@ -8,25 +8,6 @@
             </div>
             <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileTopBarContent' : 'DesktopTopBarContent'">
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'topBarMobile' : 'topBarDesktop'">
-                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
-                        <v-avatar
-                        color="#F19B14"
-                        size="36"
-                        >
-                        <v-btn icon style="cursor: pointer;" href="mailto:info@pawntrust.com">
-                            <v-icon
-                                small
-                                color="#FFFFFF"
-                                >
-                                mdi-email
-                            </v-icon>
-                        </v-btn>
-                        </v-avatar>
-                        <div class="emailandPhone">
-                            &nbsp;<span> info@pawntrust.com</span>
-                        </div>
-                    </div>
-                    <v-divider vertical style="margin:0% 2%"></v-divider>
                     <div :class="($mq =='mobile' || $mq == 'tablet')? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-avatar
                         color="#F19B14"
@@ -45,6 +26,25 @@
                             <span>(888)-243-2680</span>
                         </div>
                     </div>
+                    <v-divider vertical style="margin:0% 2%"></v-divider>
+                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile' : 'headerAlignDesktop'">
+                        <v-avatar
+                        color="#F19B14"
+                        size="36"
+                        >
+                        <v-btn icon style="cursor: pointer;" href="mailto:info@pawntrust.com">
+                            <v-icon
+                                small
+                                color="#FFFFFF"
+                                >
+                                mdi-email
+                            </v-icon>
+                        </v-btn>
+                        </v-avatar>
+                        <div class="emailandPhone">
+                            &nbsp;<span> info@pawntrust.com</span>
+                        </div>
+                    </div>
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile2' : 'headerAlignDesktop'">
                         <v-btn icon style="cursor: pointer;" href="https://www.facebook.com/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-facebook</v-icon></v-btn>
                         <v-btn icon style="cursor: pointer;" href="https://twitter.com/dinewiseinc" target="_blank"><v-icon color="#F19B14" size="40">mdi-twitter</v-icon></v-btn>
@@ -53,12 +53,14 @@
                     
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
                         <v-btn
+                        :small="$mq != 'desktop'"
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
                         @click="SignIn()"
                         >
                             <span style="font-weight:600">Sign In</span>
                         </v-btn>
                         <v-btn
+                        :small="$mq != 'desktop'"
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
                         @click="SignUp()"
                         >
