@@ -2,7 +2,16 @@
     <div>
         <TopBar></TopBar>
         <div>
-            <div style="height:60vh;background-color:#F19B14;display: flex;margin:auto">
+            <div style="padding:0% 7%;">
+                <div style="text-align:left;">
+                    <span><span style="font-size:2.3rem;font-weight:600;">Search</span></span>
+                    <br>
+                    <span style="font-size:1.6rem;color:#000000; font-family:Open Sans Hebrew Condensed, Sans-serif;font-weight:600;">We make doing business with pawn shops private, efficient and easier for you. Here, you have instant access to inventory from 10,000 verified pawn shops in Texas and Georgia with more coming soon!</span>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div :class="searchFieldFlag ? 'searchBar2' : 'searchBar'">
                 <div class="searchMain">
                     <v-text-field
                     v-model="searchField"
@@ -32,32 +41,31 @@
                     </v-text-field> -->
                     <v-btn
                     style="text-transform: capitalize;margin-left:1%; box-shadow: none;"
+                    :disabled = "(searchField.length == 0)"
+                    :loading="searchFieldLoadingFlag"
                     @click="searchbyStores(searchField)"
                     >
                         Search
                     </v-btn>
                 </div>
             </div>
-            <div style="padding:0% 7%;">
-                <div style="text-align:left;">
-                    <span><span style="font-size:2.3rem;font-weight:600;">Search</span></span>
-                    <br>
-                    <span style="font-size:1rem;color:#000000">You can access the almost 10,000 pawn shops across the United States, without leaving your home! Start here to bring every pawn shop to your doorstep, 24 hours a day.</span>
-                    <br>
-                    <br>
-                </div>
-                <div >    
-            </div>
-            </div>
         </div>
-        <div v-if="zipcodeFieldFlag || searchFieldFlag" class="cardsContent" @click="openMap">
+        <div v-if="searchFieldFlag" class="cardsContent">
             <div class="SearchResults">
                 <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
-                    <pawnStoreCard :pawnstore="store"></pawnStoreCard>
+                    <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
                 </div>
+                <!-- <div>
+                    <v-btn
+                    rounded small outlined style="background-color:#FFFFFF;color:#F19B14; text-transform: capitalize;box-shadow: none;"
+                    >
+                    Show More Results
+                    </v-btn>
+                    <span>Showing {{}} - {{}} out of {{totalCount}}</span>
+                </div> -->
             </div>
             <div v-if="openMapFlag" style="width:50%;">
-                <Map></Map>
+                <Map :searchField="searchField" :pawnstores="pawnstores"></Map>
             </div>
             <div v-else style="margin:auto">
                 <span>Select pawn store to get map details</span>
@@ -80,39 +88,11 @@ import axios from 'axios'
                 slides : 3,
                 zipcodeField : '',
                 searchField : '',
-                zipcodeFieldFlag : false,
                 searchFieldFlag : false,
-                openMapFlag : false,
-                pawnstores : [{
-                    'name' : 'Cash Converters 510 Kenhorst Plaza',
-                    'address' : '510 Kenhorst Plaza Reading PA 19607',
-                    'mobileNumber' : '+1 610-796-2999',
-                    'rating':'4.0'
-                },
-                {
-                    'name' : 'Cash Pawn 102 South Hasler Boulevard',
-                    'address' : '102 South Hasler Boulevard Bastrop TX 78602',
-                    'mobileNumber' : '+1 512-581-3338',
-                    'rating':'4.0'
-                },
-                {
-                    'name' : 'PAWN 311 Texas 71 Frontage Rd',
-                    'address' : '311 Texas 71 Frontage Rd Bastrop TX 78602',
-                    'mobileNumber' : '+1 512-303-9337',
-                    'rating':'4.0'
-                },
-                {
-                    'name' : 'Cash Pawn 516 Leander Road',
-                    'address' : '516 Leander Road Georgetown TX 78626',
-                    'mobileNumber' : '+1 512-931-2911',
-                    'rating':'4.0'
-                },
-                {
-                    'name' : 'Cash Pawn 8409 North Lamar Boulevard',
-                    'address' : '8409 North Lamar Boulevard Austin TX 78753',
-                    'mobileNumber' : '+1 512-836-8388',
-                    'rating':'2.0'
-                }]
+                searchFieldLoadingFlag : false,
+                openMapFlag : true,
+                pawnstores : [],
+                totalCount:0
             }
         },
         mounted(){
@@ -123,14 +103,19 @@ import axios from 'axios'
                 this.openMapFlag = true;
             },
             searchbyStores(field){
-                this.searchFieldFlag = true;
+                this.searchFieldLoadingFlag = true;
                 axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field)
                 .then((response)=>{
                     console.log('response', response)
                     this.pawnstores = response.data.searchResults;
+                    this.totalCount = response.data.recordsTotal;
+                    this.searchFieldFlag = true;
+                    this.searchFieldLoadingFlag = false;
                 })
                 .catch((error)=>{
                     console.log('error', error)
+                    this.searchFieldFlag = false;
+                    this.searchFieldLoadingFlag = false;
                     alert("Error in search")
                 })
             }
@@ -150,6 +135,19 @@ import axios from 'axios'
         justify-content: space-between;
         align-items: center;
     }
+
+    .searchBar{
+        height:20vh;
+        background-color:#F19B14;
+        display: flex;
+        margin:auto
+    }
+    .searchBar2{
+        height:10vh;
+        background-color:#F19B14;
+        display: flex;
+        margin:auto
+    }
 }
 
 @media screen and (min-width:951px){
@@ -168,6 +166,19 @@ import axios from 'axios'
     }
     .SearchResults{
         width:50%;padding:2%;  overflow-y: scroll;height: 80vh;
+    }
+    .searchBar{
+        height:36vh;
+        background-color:#F19B14;
+        display: flex;
+        margin:auto
+    }
+
+    .searchBar2{
+        height:12vh;
+        background-color:#F19B14;
+        display: flex;
+        margin:auto
     }
 }
 .bannerBackground{

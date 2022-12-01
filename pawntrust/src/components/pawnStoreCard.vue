@@ -3,28 +3,42 @@
         <v-card class="cardStyle">
             <div class="pawnStoreContent">
                 <div class="flexCol">
-                    <span style="font-size:larger; font-weight:550;color:#0E2334">{{pawnstore.name}}</span>
+                    <span style="font-size:larger; font-weight:550;color:#0E2334">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">{{pawnstore.name}}
+                        <v-icon medium>mdi-arrow-top-right</v-icon></a></span>
                     <span>{{pawnstore.address}}</span>
-                    <span>{{pawnstore.phone}}</span>
-                    <span v-if="pawnstore.workingHours"><b>Working Hours :</b>{{pawnstore.workingHours}}</span>
-                </div>
-                <div class="Ratings">
-                        <v-rating
-                            v-model=pawnstore.rating
-                            icon-label="custom icon label text {4} of {1}"
-                        ></v-rating>
-                    <span><b>Reviews:</b> 434</span>
+                    <span><b>{{pawnstore.phone.substring(2)}}</b></span>
+                    <div class="workingClass" v-if="((Object.keys(pawnstore.workingHours).length > 0) && openCard)">
+                        <span v-if="pawnstore.workingHours"><b>Working Hours :</b></span>
+                        <span>Sunday: {{pawnstore.workingHours.Sunday}}</span>
+                        <span>Monday: {{pawnstore.workingHours.Monday}}</span>
+                        <span>Tuesday: {{pawnstore.workingHours.Tuesday}}</span>
+                        <span>Wednesday: {{pawnstore.workingHours.Wednesday}}</span>
+                        <span>Thursday: {{pawnstore.workingHours.Thursday}}</span>
+                        <span>Friday: {{pawnstore.workingHours.Friday}}</span>
+                        <span>Saturday: {{pawnstore.workingHours.Saturday}}</span>
+                    </div>
                 </div>
             </div>
+            <div class="Ratings" v-if="openCard">
+                <span><b>Rating:</b></span>
+                <v-rating
+                    readonly
+                    size="16"
+                    v-model=pawnstore.rating
+                    icon-label="custom icon label text {4} of {1}"
+                ></v-rating>
+                <span v-if="(pawnstore.reviewCount == 1)">({{pawnstore.reviewCount}} review)</span>
+                <span v-else>({{pawnstore.reviewCount}} reviews)</span>
+            </div>
             <div class="buttonsStyle">
-                <v-btn class="vBtnClass" rounded small style="background-color:#F19B14;color:#FFFFFF">
-                    Store Details
+                <v-btn class="vBtnClass" rounded small style="background-color:#F19B14;color:#FFFFFF" @click="cardAction()">
+                    {{(!openCard) ? 'Open Store Details' : 'Close Store Details'}}
                     <v-icon color="#FFFFFF">mdi-store</v-icon>
                 </v-btn>
-                <v-btn class="vBtnClass" rounded small style="background-color:#00407d;color:#FFFFFF">
+                <!-- <v-btn v-if="openCard" class="vBtnClass" rounded small style="background-color:#00407d;color:#FFFFFF">
                     Get Directions
                     <v-icon color="#FFFFFF">mdi-directions</v-icon>
-                </v-btn>
+                </v-btn> -->
             </div>
         </v-card>
     </div>
@@ -34,8 +48,13 @@ export default{
     props : ['pawnstore'],
     data (){
        return {
-        rating: 4,
+        openCard : false
        }
+    },
+    methods:{
+        cardAction(){
+            this.openCard = !this.openCard;
+        },
     }
 }
 </script>
@@ -80,6 +99,10 @@ export default{
 }
 }
 
+.workingClass{
+    display: flex;
+    flex-direction: column;
+}
 .flexCol{
     display: flex;
     flex-direction: column;
@@ -92,8 +115,8 @@ export default{
 }
 .Ratings{
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content:flex-start;
 }
 .flexRow{
     display: flex;
@@ -103,5 +126,11 @@ export default{
 .vBtnClass{
     box-shadow: none !important;
     text-transform: capitalize;
+}
+</style>
+
+<style>
+.v-rating .v-icon {
+    padding: 0rem;
 }
 </style>
