@@ -50,19 +50,26 @@
                 </div>
             </div>
         </div>
-        <div v-if="searchFieldFlag" class="cardsContent">
+        <div v-if="(totalCount==0)" class="flexCenter" style="height:18vh;">
+                <span>No Search Results Found 😑😔😞</span>
+        </div>
+        <div v-else-if="searchFieldFlag" class="cardsContent">
             <div class="SearchResults">
                 <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
                     <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
                 </div>
-                <!-- <div>
+                <div class="flexCenter">
                     <v-btn
-                    rounded small outlined style="background-color:#FFFFFF;color:#F19B14; text-transform: capitalize;box-shadow: none;"
+                    rounded outlined style="background-color:#FFFFFF;color:#F19B14; text-transform: capitalize;box-shadow: none;"
+                    @click="showMore(searchField)"
+                    :loading="showMoreLoading"
+                    :disabled="(end >= totalCount)"
                     >
                     Show More Results
                     </v-btn>
-                    <span>Showing {{}} - {{}} out of {{totalCount}}</span>
-                </div> -->
+                    <span>Showing {{(1)}} - {{(end)}} out of {{totalCount}}</span>
+                    {{pawnstores.length}}
+                </div>
             </div>
             <div v-if="openMapFlag" style="width:50%;">
                 <Map :searchField="searchField" :pawnstores="pawnstores"></Map>
@@ -92,7 +99,12 @@ import axios from 'axios'
                 searchFieldLoadingFlag : false,
                 openMapFlag : true,
                 pawnstores : [],
-                totalCount:0
+                totalCount:-1,
+                paginatedPawnStores:[],
+                start:0,
+                end:0,
+                showMoreLoading:false,
+                noResultsFound:false
             }
         },
         mounted(){
@@ -104,13 +116,16 @@ import axios from 'axios'
             },
             searchbyStores(field){
                 this.searchFieldLoadingFlag = true;
-                axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field)
+                this.start=0;
+                axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20')
                 .then((response)=>{
-                    console.log('response', response)
+                    console.log('response', response);
                     this.pawnstores = response.data.searchResults;
                     this.totalCount = response.data.recordsTotal;
                     this.searchFieldFlag = true;
                     this.searchFieldLoadingFlag = false;
+                    this.end = this.pawnstores.length;
+                    if(this.end == 0) this.noResultsFound=true
                 })
                 .catch((error)=>{
                     console.log('error', error)
@@ -118,6 +133,25 @@ import axios from 'axios'
                     this.searchFieldLoadingFlag = false;
                     alert("Error in search")
                 })
+            },
+            showMore(field){
+                if(this.end < this.totalCount){
+                    this.showMoreLoading = true;
+                    axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field+'&start='+String(this.end)+'&length=20')
+                    .then((response)=>{
+                        console.log('response', response)
+                        this.paginatedPawnStores = response.data.searchResults
+                        this.pawnstores = this.pawnstores.concat(this.paginatedPawnStores);
+                        this.showMoreLoading = false;
+                        this.start = this.end;
+                        this.end = this.end+this.paginatedPawnStores.length;
+                    })
+                    .catch((error)=>{
+                        console.log('error', error)
+                        this.showMoreLoading = false;
+                        alert("Error in search")
+                    })
+                }
             }
         }
     }
