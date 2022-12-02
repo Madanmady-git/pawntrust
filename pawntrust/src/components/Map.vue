@@ -130,7 +130,7 @@ export default {
         // for(let i=0;i<polygonCoordsSet.length;i++){
         //   polygonCoordsSet[i].push(polygonCoordsSet[i][0]);
         // }
-        console.log(polygonCoordsSet);
+        //console.log(polygonCoordsSet);
         let circleCoordsSet = [];
 
         for (let i = 0; i < polygonCoordsSet.length; i++) {
@@ -148,7 +148,7 @@ export default {
           // console.log(lat_arr[(lat_arr.length / 2)]);
           let center_lat = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
           let center_lng = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
-          console.log(center_lat, center_lng, i);
+          //console.log(center_lat, center_lng, i);
           let max_radius = 0;
           for (let j = 0; j < polygonCoordsSet[i].length; j++) {
             var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(center_lat, center_lng), new google.maps.LatLng(polygonCoordsSet[i][j].lat, polygonCoordsSet[i][j].lng));
@@ -159,7 +159,7 @@ export default {
             radius: max_radius
           })
         }
-        console.log(circleCoordsSet);
+        //console.log(circleCoordsSet);
 
 
         const fillColors = ["#038489"];
