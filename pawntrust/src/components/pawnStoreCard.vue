@@ -3,11 +3,11 @@
         <v-card class="cardStyle">
             <div class="pawnStoreContent">
                 <div class="flexCol">
-                    <span style="font-size:larger; font-weight:550;color:#0E2334">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">{{pawnstore.name}}
+                    <span style="font-size:larger; font-weight:550;color:#0E2334;padding: 2px;">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">{{pawnstore.name}}
                         <v-icon medium>mdi-arrow-top-right</v-icon></a></span>
-                    <span>{{pawnstore.address}}</span>
-                    <span><b>{{pawnstore.phone.substring(2)}}</b></span>
-                    <div class="workingClass" v-if="((Object.keys(pawnstore.workingHours).length > 0) && openCard)">
+                    <span style="padding: 2px;"><v-icon color="#F19B14">mdi-map-marker-outline</v-icon>{{pawnstore.address}}</span>
+                    <span style="padding: 2px;"><v-icon color="#F19B14">mdi-phone</v-icon><b>{{pawnstore.phone.substring(2)}}</b></span>
+                    <!-- <div class="workingClass" v-if="((Object.keys(pawnstore.workingHours).length > 0) && openCard)">
                         <span v-if="pawnstore.workingHours"><b>Working Hours :</b></span>
                         <span>Sunday: {{pawnstore.workingHours.Sunday}}</span>
                         <span>Monday: {{pawnstore.workingHours.Monday}}</span>
@@ -16,23 +16,24 @@
                         <span>Thursday: {{pawnstore.workingHours.Thursday}}</span>
                         <span>Friday: {{pawnstore.workingHours.Friday}}</span>
                         <span>Saturday: {{pawnstore.workingHours.Saturday}}</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="Ratings" v-if="openCard">
+            <div class="Ratings" v-if="openCard" style="padding: 2px;">
                 <span><b>Rating:</b></span>
                 <v-rating
                     readonly
                     size="16"
                     v-model=pawnstore.rating
                     icon-label="custom icon label text {4} of {1}"
-                ></v-rating>
+                ></v-rating>&nbsp;{{pawnstore.rating}} / 5 &nbsp;
                 <span v-if="(pawnstore.reviewCount == 1)">({{pawnstore.reviewCount}} review)</span>
+                <span v-else-if="(pawnstore.reviewCount == 0)">(No reviews)</span>
                 <span v-else>({{pawnstore.reviewCount}} reviews)</span>
             </div>
             <div class="buttonsStyle">
                 <v-btn class="vBtnClass" rounded small style="background-color:#F19B14;color:#FFFFFF" @click="cardAction()">
-                    {{(!openCard) ? 'Open Store Details' : 'Close Store Details'}}
+                    {{(!openCard) ? 'Show more' : 'Show less'}}
                     <v-icon color="#FFFFFF">mdi-store</v-icon>
                 </v-btn>
                 <!-- <v-btn v-if="openCard" class="vBtnClass" rounded small style="background-color:#00407d;color:#FFFFFF">

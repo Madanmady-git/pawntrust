@@ -68,7 +68,7 @@
                     Show More Results
                     </v-btn>
                     <span>Showing {{(1)}} - {{(end)}} out of {{totalCount}}</span>
-                    {{pawnstores.length}}
+                    <!-- {{pawnstores.length}} -->
                 </div>
             </div>
             <div v-if="openMapFlag" style="width:50%;">
