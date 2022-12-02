@@ -51,7 +51,7 @@
                         <v-btn icon style="cursor: pointer;" href="https://www.reddit.com/user/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-reddit</v-icon></v-btn>
                     </div>
                     
-                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
+                    <!-- <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
                         <v-btn
                         :small="$mq != 'desktop'"
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
@@ -66,7 +66,7 @@
                         >
                         <span style="font-weight:600;">Sign Up</span>
                         </v-btn>
-                    </div>
+                    </div> -->
                 </div>
                 <v-divider></v-divider>
                 <div :class="$mq != 'desktop' ? 'mobileMenuClass' : ''">

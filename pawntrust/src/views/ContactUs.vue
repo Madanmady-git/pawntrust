@@ -4,13 +4,15 @@
         <div>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2071.331691630778!2d-84.3862489769204!3d33.77469388925303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5046f5730dc11%3A0x1093833a7eb0ce38!2s730%20Midtown!5e0!3m2!1sen!2sin!4v1669055037440!5m2!1sen!2sin" width="1200" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div style="background-color:#F19B14;height: 94vh;">
+        <div class="mainClass">
             <span style="font-size:2rem;font-weight:600; color:#FFFFFF;">Contact Us</span>
             <v-divider style="border-top:3.5px solid #FFFFFF; width:8%;margin-top:1%;margin:auto;margin-bottom: 2%;"></v-divider>
             <div style="display:flex; flex-direction:column;align-items: center;">
-                <div style="display:flex; flex-direction:row;justify-content: space-around;width:80%">
+                <div class="contactUs">
                     <div style="width:45%">
                         <v-text-field
+                        :rules="nameRule"
+                        v-model="firstName"
                         label="First Name"
                         solo 
                         flat
@@ -20,6 +22,8 @@
                     </div>
                     <div style="width:45%">
                         <v-text-field
+                        :rules="nameRule"
+                        v-model="lastName"
                         label="Last Name"
                         solo 
                         flat
@@ -28,9 +32,11 @@
                         </v-text-field>
                     </div>
                 </div>
-                <div style="display:flex; flex-direction:row;justify-content: space-around;width:80%">
+                <div class="contactUs">
                     <div style="width:45%">
                         <v-text-field
+                        v-model="email"
+                        :rules = "emailRules"
                         label="Email Address"
                         solo 
                         flat
@@ -40,6 +46,8 @@
                     </div>
                     <div style="width:45%">
                         <v-text-field
+                        v-model="mobileNumber"
+                        :rules="mobileNumberRules"
                         label="Phone Number"
                         solo 
                         flat
@@ -48,24 +56,26 @@
                         </v-text-field>
                     </div>
                 </div>
-                <div style="width:76%">
+                <div class="contactUs1">
                     <v-textarea
+                    v-model="message"
                     solo
                     label="Message"
                     flat
                     >
                     </v-textarea>
                 </div>
-                <div style="display:flex;flex-direction:column; align-items:flex-start;width:76%">
+                <div class="contactUs2">
                     <div>
                         <span style="font-weight:600;font-size: 1.2rem;color: #000000;">Captcha</span>
                         <span style="color:red;font-weight:600;font-size: 1.2rem;">*</span>
                     </div>
                     <div style="display:flex; flex-direction:row;">
                         <div style="display:flex;justify-content:center;align-items:center; ">
-                            <span > 3 + 4 = </span>
+                            <span > {{randomInt1}} + {{randomInt2}} = </span>
                         </div>
                         <v-text-field
+                        v-model="captchaInput"
                         solo
                         flat
                         hide-details
@@ -77,7 +87,9 @@
             </div>
             <div>
                 <v-btn 
-                style="margin: 0px 4%;"
+                @click="SubmitMail()"
+                :disabled = "validationCheck()"
+                class="submit"
                     rounded
                     color="#0E2334;"
                     dark
@@ -100,8 +112,105 @@
 <script>
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
+import emailjs from 'emailjs-com';
     export default {
         components : { TopBar, Footer },
+        data(){
+            return{
+                firstName : '',
+                lastName : '',
+                email: '',
+                mobileNumber : '',
+                message : '',
+                captchaInput : '',
+                randomInt1 : 1,
+                randomInt2 : 1,
+                emailRules : [
+                                v => !!v || 'Email is required',
+                                v => (/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/g.test(v)) || 'Enter valid Email'
+                            ],
+                mobileNumberRules: [
+                    v => !!v || 'Phone Number is required',
+                    v => (v.length == 10) || 'Phone Number should 10 digits',
+                    v => v > 0 || 'Phone Number cannot be negative',
+                ],
+                nameRule : [
+                    v => !!v || 'This field is mandatary',
+                    v => (/^[a-zA-Z]+$/.test(v)) || 'Only Characters are allowed'
+                ]
+            }
+        },
+        mounted(){
+            this.randomInt1 = Math.floor((Math.random() * 10) + 1);
+            this.randomInt2 = Math.floor((Math.random() * 10) + 1);
+        },
+        methods:{
+            SubmitMail(){
+                console.log("here..." , process.env.EMAIL_SERVICE_ID, process.env.EMAIL_TEMPLATE_ID);
+                emailjs.send('service_0b25vj3', 'template_k8x5kf5',
+                {
+                'from_name': this.firstName+' '+this.lastName,
+                'mobileNumber': this.mobileNumber,
+                'email': this.email,
+                'message': this.message
+                },
+                'uFRs5Fgu_WZBtxC_t'
+                ).then((response)=>{
+                    console.log('response', response)
+                })
+                .catch((error) =>{
+                console.log('error', error)
+                })
+                // Reset form field
+                this.firstName = ''
+                this.lastName = ''
+                this.mobileNumber = ''
+                this.email = ''
+                this.message = ''
+            },
+            validationCheck(){
+                return (this.randomInt1 + this.randomInt2 != this.captchaInput) || this.firstName+this.lastName == '' || this.email == '' || this.mobileNumber == '';
+            }
+        }
     }
 
 </script>
+
+<style scoped>
+
+@media screen and (max-width:900px) {
+    .contactUs{
+        display:flex; flex-direction:row;justify-content: space-around;width:100%;
+    }
+    .contactUs2{
+        display:flex;flex-direction:column; align-items:flex-start;width:95%;
+    }
+    .contactUs1{
+       width:95%;
+    }
+    .mainClass{
+        background-color:#F19B14;height: 75vh;
+    }
+
+    
+}
+
+@media screen and (min-width:901px) {
+    .contactUs{
+        display:flex; flex-direction:row;justify-content: space-around;width:80%;
+    }
+    .contactUs2{
+        display:flex;flex-direction:column; align-items:flex-start;width:76%;
+    }
+    .contactUs1{
+       width:76%;
+    }
+    .mainClass{
+        background-color:#F19B14;height: 80vh;
+    }
+}
+
+.submit{
+        margin: 4%;
+    }
+</style>

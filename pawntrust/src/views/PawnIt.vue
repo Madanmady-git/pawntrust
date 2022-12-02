@@ -2,11 +2,11 @@
     <div >
         <TopBar></TopBar>
         <div style="padding:0% 7%;">
-            <div >
+            <!-- <div >
                 <div class="flexCenter">
                     <img style="width: 25%;margin:auto;padding: 2%;" src="../assets/pawnit.png"/>
                 </div>
-            </div>
+            </div> -->
             <!-- <div style="width: 40%;margin:auto;padding: 2% 0% 0% 0%;">
                 <template >
                     <v-file-input
