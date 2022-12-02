@@ -105,6 +105,29 @@
                 </v-btn>
             </div>
         </div>
+        <div>
+            <v-dialog
+            v-model="dialog"
+            max-width="600px"
+            hide-overlay
+            >
+                <template>
+                    <v-card>
+                        <br>
+                        <br>
+                        <br>
+                        {{popUpContent}}
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <v-btn v-if="mailSuccess" color="#F19B14" text-color="#FFFFFF" @click="clearForm()">ok</v-btn>
+                        <br>
+                        <br>
+                    </v-card>
+                </template>
+            </v-dialog>
+        </div>
         <Footer></Footer>
     </div>
 </template>
@@ -125,6 +148,9 @@ import emailjs from 'emailjs-com';
                 captchaInput : '',
                 randomInt1 : 1,
                 randomInt2 : 1,
+                dialog : false,
+                popUpContent : 'Sending your mail....📧📧...📨',
+                mailSuccess : false,
                 emailRules : [
                                 v => !!v || 'Email is required',
                                 v => (/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/g.test(v)) || 'Enter valid Email'
@@ -146,6 +172,7 @@ import emailjs from 'emailjs-com';
         },
         methods:{
             SubmitMail(){
+                this.dialog = true;
                 console.log("here..." , process.env.EMAIL_SERVICE_ID, process.env.EMAIL_TEMPLATE_ID);
                 emailjs.send('service_0b25vj3', 'template_k8x5kf5',
                 {
@@ -156,20 +183,30 @@ import emailjs from 'emailjs-com';
                 },
                 'uFRs5Fgu_WZBtxC_t'
                 ).then((response)=>{
-                    console.log('response', response)
+                    console.log('response', response);
+                    this.mailSuccess = true;
+                    this.popUpContent = 'You have contacted us successfully'
                 })
                 .catch((error) =>{
                 console.log('error', error)
+                    this.dialog = true;
+                    this.mailSuccess = true;
+                    this.popUpContent = 'Please give right email';
                 })
-                // Reset form field
-                this.firstName = ''
-                this.lastName = ''
-                this.mobileNumber = ''
-                this.email = ''
-                this.message = ''
             },
             validationCheck(){
                 return (this.randomInt1 + this.randomInt2 != this.captchaInput) || this.firstName+this.lastName == '' || this.email == '' || this.mobileNumber == '';
+            },
+            clearForm(){
+                this.dialog = false
+                this.firstName = '',
+                this.lastName = '',
+                this.email = '',
+                this.mobileNumber = '',
+                this.message = '',
+                this.captchaInput = ''
+                window.location.reload(true);
+
             }
         }
     }
