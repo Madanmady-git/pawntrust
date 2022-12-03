@@ -5,8 +5,16 @@
                 <div class="flexCol">
                     <span style="font-size:larger; font-weight:550;color:#0E2334;padding: 2px;">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">{{pawnstore.name}}
                         <v-icon medium>mdi-arrow-top-right</v-icon></a></span>
-                    <span style="padding: 2px;"><v-icon color="#F19B14">mdi-map-marker-outline</v-icon>{{pawnstore.address}}</span>
-                    <span style="padding: 2px;"><v-icon color="#F19B14">mdi-phone</v-icon><b>{{pawnstore.phone.substring(2)}}</b></span>
+                    <span style="padding: 2px;cursor: pointer;"><v-icon color="#F19B14">mdi-map-marker-outline</v-icon>{{pawnstore.address}}</span>
+                    
+                    <span style="padding: 2px;cursor: pointer;">
+                        <v-icon color="#F19B14" >
+                            mdi-phone
+                        </v-icon>
+                        <a style="text-decoration: none; color: #0E2334;" :href="'tel:'+pawnstore.phone.substring(2)">
+                            <b>{{pawnstore.phone.substring(2)}}</b>
+                        </a>
+                    </span>
                     <!-- <div class="workingClass" v-if="((Object.keys(pawnstore.workingHours).length > 0) && openCard)">
                         <span v-if="pawnstore.workingHours"><b>Working Hours :</b></span>
                         <span>Sunday: {{pawnstore.workingHours.Sunday}}</span>

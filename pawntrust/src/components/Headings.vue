@@ -66,6 +66,11 @@ export default {
                     name: 'Search'
                 })
             }
+            else if (route=="Title Pawn Companies") {
+                this.$router.push({
+                    name: 'Search'
+                })
+            }
             else if (route=="Microlending") {
                 this.$router.push({
                     name: 'Search'

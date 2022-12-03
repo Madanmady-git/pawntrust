@@ -106,6 +106,7 @@ export default {
                 search : '',
                 featureItems : [
                     { title: 'Pawn Shops' },
+                    { title: 'Title Pawn Companies' },
                     { title: 'Microlending' },
                     { title: 'Non-Fungible Tokens' },
                 ],
