@@ -59,20 +59,20 @@ const routes = [
 		params : true,
 		props : true
 	},
-	// {
-	// 	path: '/login',
-	// 	name: 'Login',
-	// 	component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Login.vue'),
-	// 	params : true,
-	// 	props : true
-	// },
-	// {
-	// 	path: '/signup',
-	// 	name: 'SignUp',
-	// 	component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SignUp.vue'),
-	// 	params : true,
-	// 	props : true
-	// },
+	{
+		path: '/login',
+		name: 'Login',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Login.vue'),
+		params : true,
+		props : true
+	},
+	{
+		path: '/signup',
+		name: 'SignUp',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SignUp.vue'),
+		params : true,
+		props : true
+	},
 ];
 
 const router = new VueRouter({

@@ -7,21 +7,21 @@
                     <v-btn class="btnclass" style="background-color:grey;color:#FFF;align-items: left;" @click = "decrementStep()"><v-icon small>mdi-arrow-left</v-icon>Back</v-btn>
                 </div>
                 <div v-if="$mq == 'mobile'">
-                    <v-stepper style="box-shadow:none;" alt-labels>
+                    <v-stepper v-model="move" style="box-shadow:none;" alt-labels>
                     <v-stepper-header>
-                        <v-stepper-step step="1">
+                        <v-stepper-step :complete="move > 1" step="1">
                             <small>Financial</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="2">
+                        <v-stepper-step :complete="move > 2" step="2">
                             <small>Income</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="3">
+                        <v-stepper-step :complete="move > 3" step="3">
                             <small>Personal</small>
                         </v-stepper-step>
 
