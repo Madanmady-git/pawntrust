@@ -80,7 +80,7 @@
                     <div>
                         <div v-if="$mq == 'desktop'" class="commonHeaderClass">
                                 <Heading :heading-name="'Home'"/>
-                                <Heading :heading-name="'Search'"/>
+                                <Heading :heading-name="'Pawn Scan'"/>
                                 <Heading :heading-name="'Features'" :items="featureItems"/>
                                 <Heading :heading-name="'Pawn It'"/>
                                 <Heading :heading-name="'Sell It'"/>
@@ -117,7 +117,7 @@ export default {
                 ],
                 allItems :[
                     { title: 'Home'},
-                    { title: 'Search' },
+                    { title: 'Pawn Scan' },
                     { title: 'Pawn Shops' },
                     { title: 'Microlending' },
                     { title: 'Non-Fungible Tokens' },
@@ -134,7 +134,7 @@ export default {
             searchMethod(word){
                 console.log("Entered in search Area");
                 this.$router.push({
-                    name:'Search',
+                    name:'Pawn Scan',
                     params : {
                         searchword : word
                     }

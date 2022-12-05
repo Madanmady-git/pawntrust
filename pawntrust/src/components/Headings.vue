@@ -101,7 +101,7 @@ export default {
                     name: 'Home'
                 })
             }
-            else if (route=="Search") {
+            else if (route=="Pawn Scan") {
                 this.$router.push({
                     name: 'SearchDetails'
                 })

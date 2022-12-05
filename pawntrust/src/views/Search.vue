@@ -4,9 +4,13 @@
         <div>
             <div style="padding:0% 7%;">
                 <div style="text-align:left;">
-                    <span><span style="font-size:2.3rem;font-weight:600;">Search</span></span>
+                    <span><span style="font-size:2.3rem;font-weight:600;">Pawn Scan</span></span>
                     <br>
-                    <span style="font-size:1.6rem;color:#000000; font-family:Open Sans Hebrew Condensed, Sans-serif;font-weight:600;">We make doing business with pawn shops private, efficient and easier for you. Here, you have instant access to inventory from 10,000 verified pawn shops in Texas and Georgia with more coming soon!</span>
+                    <span style="font-size:1.6rem;color:#000000; font-family:Open Sans Hebrew Condensed, Sans-serif;font-weight:600;">We have made doing business with pawn shops private, efficient and easier. Here, you have instant access to to shops in these
+                        <u 
+                        style="text-decoration-color:orange; text-color:orange;cursor:pointer;" 
+                        @click="(dialog = true)"
+                        >zip codes</u>, with more coming soon!</span>
                     <br>
                     <br>
                 </div>
@@ -45,7 +49,7 @@
                     :loading="searchFieldLoadingFlag"
                     @click="searchbyStores(searchField)"
                     >
-                        Search
+                        Pawn Scan
                     </v-btn>
                 </div>
             </div>
@@ -78,6 +82,255 @@
                 <span>Select pawn store to get map details</span>
             </div>
         </div>
+        <!-- <div>
+            <v-dialog
+            v-model="dialog"
+            max-width="600px"
+            hide-overlay
+            >
+                <template>
+                    <v-card>
+                            11101   
+                            11103
+                            11106
+                            15601
+                            22201
+                            22314
+                            29407
+                            29575
+                            31322
+                            31907
+                            32801
+                            33432
+                            38115
+                            38116
+                            55401
+                            60098
+                            75006
+                            75034
+                            75501
+                            76033
+                            77002
+                            77003
+                            77004
+                            77005
+                            77006
+                            77007
+                            77008
+                            77009
+                            77010
+                            77011
+                            77014
+                            77015
+                            77016
+                            77017
+                            77018
+                            77020
+                            77021
+                            77022
+                            77023
+                            77024
+                            77025
+                            77026
+                            77027
+                            77028
+                            77029
+                            77031
+                            77033
+                            77034
+                            77035
+                            77036
+                            77037
+                            77038
+                            77039
+                            77040
+                            77042
+                            77045
+                            77046
+                            77047
+                            77049
+                            77051
+                            77053
+                            77054
+                            77055
+                            77056
+                            77057
+                            77058
+                            77060
+                            77061
+                            77063
+                            77064
+                            77065
+                            77066
+                            77067
+                            77068
+                            77069
+                            77070
+                            77071
+                            77072
+                            77073
+                            77074
+                            77076
+                            77077
+                            77079
+                            77080
+                            77081
+                            77082
+                            77083
+                            77084
+                            77086
+                            77087
+                            77088
+                            77089
+                            77090
+                            77091
+                            77092
+                            77093
+                            77095
+                            77096
+                            77098
+                            77099
+                            77204
+                            77219
+                            77301
+                            77327
+                            77338
+                            77340
+                            77346
+                            77357
+                            77365
+                            77373
+                            77375
+                            77377
+                            77379
+                            77380
+                            77396
+                            77401
+                            77449
+                            77450
+                            77459
+                            77471
+                            77477
+                            77478
+                            77479
+                            77489
+                            77494
+                            77502
+                            77503
+                            77504
+                            77505
+                            77506
+                            77511
+                            77518
+                            77520
+                            77521
+                            77530
+                            77532
+                            77536
+                            77539
+                            77546
+                            77571
+                            77573
+                            77581
+                            77587
+                            77591
+                            77598
+                            77701
+                            77840
+                            78209
+                            78210
+                            78217
+                            78504
+                            78586
+                            78629
+                            79101
+                            83835
+                            85282
+                            89074
+                            91205
+                            98121
+                            10003
+                            10036
+                            10309
+                            11238
+                            17201
+                            17257
+                            17325
+                            19053
+                            23518
+                            27332
+                            27612
+                            28213
+                            28461
+                            30701
+                            30747
+                            32011
+                            32218
+                            32566
+                            33064
+                            33132
+                            33759
+                            34420
+                            34432
+                            35055
+                            35601
+                            35645
+                            35956
+                            37343
+                            38555
+                            40509
+                            44095
+                            47119
+                            50801
+                            64507
+                            65203
+                            65401
+                            71046
+                            72364
+                            74145
+                            76105
+                            77012
+                            77013
+                            77019
+                            77030
+                            77032
+                            77041
+                            77043
+                            77044
+                            77059
+                            77062
+                            77075
+                            77078
+                            77094
+                            77336
+                            77339
+                            77382
+                            77386
+                            77388
+                            77406
+                            77429
+                            77469
+                            77498
+                            77523
+                            77531
+                            77565
+                            77583
+                            77586
+                            77802
+                            77803
+                            83815
+                            84627
+                            85501
+                            88210
+                            91730
+                            95818
+                            98901
+                        <br>
+                        <br>
+                    </v-card>
+                </template>
+            </v-dialog>
+        </div> -->
         <Footer></Footer>
     </div>
 </template>
@@ -92,6 +345,7 @@ import axios from 'axios'
         components : { TopBar, Footer, pawnStoreCard, Map },
         data(){
             return{
+                dialog:false,
                 slides : 3,
                 zipcodeField : '',
                 searchField : '',
