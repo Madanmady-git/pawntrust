@@ -46,8 +46,14 @@
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="4">
-                            <small>Submit</small>
+                        <v-stepper-step step="4" :complete="(move > 4)">
+                            <small>Personal Information</small>
+                        </v-stepper-step>
+
+                        <v-divider></v-divider>
+
+                        <v-stepper-step step="5" :complete="(move > 5)">
+                            <small>Verification</small>
                         </v-stepper-step>
                     </v-stepper-header>
                     </v-stepper>
@@ -102,13 +108,39 @@
                                     placeholder="Click here to open Camera"
                                     capture="user"
                                     accept="image/*"
-                                >hi</v-file-input>
+                                ></v-file-input>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div v-else-if="(move == 4)">
+                    <div class="LoginMain">
+                        <div class="heightStyle">
+                            <v-card style = "padding:2% 0%;box-shadow: none;">
+                                <span class="flexStart content">Username</span>
+                                <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field>
+                                <span class="flexStart content">Password</span>
+                                <v-text-field flat solo outlined placeholder="Enter Password"></v-text-field>
+                                <span class="flexStart content">Mobile Number</span>
+                                <v-text-field flat solo outlined placeholder="Enter Mobile Number"></v-text-field>
+                                <span class="flexStart content">Email</span>
+                                <v-text-field flat solo outlined placeholder="Enter Email"></v-text-field>
+                            </v-card>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="(move == 5)" class="LoginMain">
+                    <div class="heightStyleOTP">
+                        <v-card style = "padding:6% 0%;box-shadow: none;">
+                            <span class="flexStart content">OTP</span>
+                            <!-- <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field> -->
+                            <v-otp-input
+                                length="4"
+                            ></v-otp-input>
+                        </v-card>
+                    </div>
+                </div>
             </div>
-            {{move}}
             <div>
                 <div class="buttonsAlign">
                     <v-btn
@@ -124,7 +156,7 @@
                         @click="incrementStep()"
                         class="btnclass" 
                         style="background-color:#F19B14;color:#FFF;">
-                        {{(move != 3) ? 'Next' : "Submit"}}&nbsp;
+                        {{(move != 5) ? 'Next' : "Verify"}}&nbsp;
                         <v-icon small>mdi-arrow-right</v-icon>
                     </v-btn>
                 </div>
@@ -132,7 +164,7 @@
             <div>
                 <img
                 style="width:100%;"
-                src="https://pawntrust.com/wp-content/uploads/2022/11/growth-dollar-way-out-global-crisis-sale-shares-stock-exchange-2048x1367.jpg"
+                src="../assets/growth-dollar-way-out-global-crisis-sale-shares-stock-exchange-2048x1367.jpg"
                 />
             </div>
         </div>
@@ -211,6 +243,23 @@ import Footer from '../components/Footer.vue';
         width:90%;
         padding: 4%;
     }
+    .LoginMain{
+        /* width:80%;
+        margin:0px auto; */
+        /* height: 100vh; */
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+    }
+    .heightStyle{
+        width:100%;
+        margin-top:5%;
+    }
+
+    .heightStyleOTP{
+        width:80%;
+    }
 }
 
 @media screen and (min-width:901px) {
@@ -256,6 +305,22 @@ import Footer from '../components/Footer.vue';
     .cardUpload{
         width:33%;
     }
+
+    .LoginMain{
+        /* height: 60vh; */
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+    }
+    .heightStyle{
+        width:50%;
+        /* margin-top:5%; */
+    }
+
+    .heightStyleOTP{
+        width:25%;
+    }
 }
 .bannerBackground{
     background:url('../assets/bannerImage.jpeg');
@@ -268,6 +333,15 @@ import Footer from '../components/Footer.vue';
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.flexStart{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.content{
+    font-weight:600;
 }
 
 

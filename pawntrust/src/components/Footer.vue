@@ -17,7 +17,7 @@
         <div class="footerSubMain">
             <div class="flexStart footerDivision">
                 <div >
-                    <img style="width:100%;" src="https://pawntrust.com/wp-content/uploads/2022/10/footer-logo.png" />
+                    <img style="width:100%;" src="../assets/footer-logo.png" />
                 </div>
                 <div>
                     <span class="footerName1">© 2022 Pawn Trust. All Rights Reserved</span>

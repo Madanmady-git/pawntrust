@@ -3,7 +3,7 @@
         <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mainMobileClass' : 'mainDesktopClass'">
             <div v-if="$mq == 'desktop'" class="DesktopLogo">
                 <img :class="($mq =='mobile') ? 'logoImageMobile' :  ''"
-                    src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
+                    src="../assets/header-logo.png"
                 />
             </div>
             <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileTopBarContent' : 'DesktopTopBarContent'">
@@ -73,7 +73,7 @@
                     <div style="width:40%;">
                         <div v-if="$mq != 'desktop'" class="mobileLogo">
                             <img style="width:100%;"
-                                src="https://pawntrust.com/wp-content/uploads/2022/10/header-logo.png"
+                                src="../assets/header-logo.png"
                             />
                         </div>
                     </div>

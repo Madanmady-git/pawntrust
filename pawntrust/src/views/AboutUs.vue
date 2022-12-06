@@ -2,7 +2,7 @@
     <div>
         <TopBar></TopBar>
         <div class="aboutMain">
-            <img style="width:100%;" src ="https://pawntrust.com/wp-content/uploads/2022/10/about-1-img.png"/>
+            <img style="width:100%;" src ="../assets/about-1-img.png"/>
             <div style="background-color: #F19B14;width:100%;display: flex;justify-content: center;flex-direction: column;">
                 <span style="font-size:2rem; font-weight:600;color:#FFFFFF;display: flex; justify-content: flex-start;padding: 0px 4%;">About Us</span>
                 <v-divider style="border-top:3.5px solid #FFFFFF; width:8%;margin-top:1%;display: flex; justify-content: flex-start;margin: 0px 4%;"></v-divider>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <!-- <div>
-            <img style="width:100%;" src ="https://pawntrust.com/wp-content/uploads/2022/10/footer-shape-2.png" />
+            <img style="width:100%;" src ="../assets/footer-shape-2.png" />
         </div> -->
         <Footer></Footer>
     </div>
