@@ -6,11 +6,11 @@
                 <div style="text-align:left;">
                     <span><span style="font-size:2.3rem;font-weight:600;">Pawn Scan</span></span>
                     <br>
-                    <span style="font-size:1.6rem;color:#000000; font-family:Open Sans Hebrew Condensed, Sans-serif;font-weight:600;">We have made doing business with pawn shops private, efficient and easier. Here, you have instant access to to shops in these
-                        <u 
-                        style="text-decoration-color:orange; text-color:orange;cursor:pointer;" 
+                    <span style="font-size:1.5rem; font-family:Open Sans Hebrew Condensed, Sans-serif;">We have made doing business with pawn shops private, efficient and easier. Here, you have instant access to  pawn shops in these 
+                        <u
+                        style="text-decoration-color:navy;color: #0E2334; text-color:orange;cursor:pointer;font-weight: 600;" 
                         @click="(dialog = true)"
-                        >zip codes</u>, with more coming soon!</span>
+                        > ZIP CODES</u> or any city in Texas with more coming soon!</span>
                     <br>
                     <br>
                 </div>
@@ -82,7 +82,7 @@
                 <span>Select pawn store to get map details</span>
             </div>
         </div>
-        <!-- <div>
+        <div>
             <v-dialog
             v-model="dialog"
             max-width="600px"
@@ -330,7 +330,7 @@
                     </v-card>
                 </template>
             </v-dialog>
-        </div> -->
+        </div>
         <Footer></Footer>
     </div>
 </template>

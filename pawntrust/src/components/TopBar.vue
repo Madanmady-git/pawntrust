@@ -81,9 +81,9 @@
                         <div v-if="$mq == 'desktop'" class="commonHeaderClass">
                                 <Heading :heading-name="'Home'"/>
                                 <Heading :heading-name="'Pawn Scan'"/>
-                                <Heading :heading-name="'Features'" :items="featureItems"/>
                                 <Heading :heading-name="'Pawn It'"/>
                                 <Heading :heading-name="'Sell It'"/>
+                                <Heading :heading-name="'Features'" :items="featureItems"/>
                                 <Heading :heading-name="'More'" :items="moreItems"/>
                             </div>
                             <div v-else>

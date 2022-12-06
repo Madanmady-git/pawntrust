@@ -27,9 +27,22 @@
                 <v-avatar
                 size="80%"
                 >
-                    <img src="https://pawntrust.com/wp-content/uploads/2022/10/investor-img.png"
+                    <img src="../assets/investor-img.png"
                 />
                 </v-avatar>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row;justify-content: center;margin-top: 5%;">
+            <div class="InvestorRelImages">
+                <div class="relationImage1">
+                    <img
+                    style="width:100%"
+                    src="../assets/realations-img.png" />
+                </div>
+                <div class="relationImage2">
+                    <img
+                    src="../assets/inves-img1.png" />
+                </div>
             </div>
         </div>
         <Footer></Footer>
@@ -46,3 +59,34 @@ import Footer from '../components/Footer.vue';
         })
 }
 </script>
+
+<style scoped >
+
+@media screen and (max-width:900px) {
+    .InvestorRelImages{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .relationImage1{
+        width:95%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width:901px) {
+    .InvestorRelImages{
+        width:95%;display: flex; flex-direction: row;
+    }
+    .relationImage1{
+        width:70%;display: flex;flex-direction: column;justify-content: center;
+    }
+    .relationImage2{
+        width:30%;
+    }
+}
+    
+</style>
