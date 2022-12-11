@@ -118,12 +118,13 @@ export default {
                 allItems :[
                     { title: 'Home'},
                     { title: 'Pawn Scan' },
-                    { title: 'Pawn Shops' },
-                    { title: 'Microlending' },
-                    { title: 'Non-Fungible Tokens' },
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
-                    {title: 'Contact Us'},
+                    { title: 'Pawn Shops' },
+                    { title: 'Title Pawn Companies' },
+                    { title: 'Microlending' },
+                    { title: 'Non-Fungible Tokens' },
+                    { title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
                     

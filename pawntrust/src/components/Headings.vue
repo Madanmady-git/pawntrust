@@ -67,9 +67,7 @@ export default {
                 })
             }
             else if (route=="Title Pawn Companies") {
-                this.$router.push({
-                    name: 'Search'
-                })
+                window.open("https://titlepal.com/" , "_blank")
             }
             else if (route=="Microlending") {
                 this.$router.push({

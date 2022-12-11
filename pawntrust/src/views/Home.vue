@@ -73,7 +73,7 @@
         <div :class="$mq == 'desktop' ? 'bottomDesignDesktop' : 'bottomDesignMobile'">
             <img
             style=" width:100%;"
-            src="https://pawntrust.com/wp-content/uploads/2022/10/banner-shape.png"/>
+            src="../assets/banner-shape.png"/>
         </div>
         <div>
             <span style="font-size:2rem;font-weight:500; color:#F19B14">&nbsp; Services</span>
@@ -95,10 +95,11 @@
                     />
                 </div>
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
-                    <img
-                    @click="temporaryMethod"
-                    style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
-                    src = "../assets/Titlepawncompanies.png"/>
+                    <a href="https://titlepal.com/" target="_blank">
+                        <img
+                        style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
+                        src = "../assets/Titlepawncompanies.png"/>
+                    </a>
                     <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Title Pawn Companies</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p class="textStyle">{{pawncompaniesparagraph}}</p>
