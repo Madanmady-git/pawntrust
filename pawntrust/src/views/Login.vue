@@ -17,19 +17,47 @@
                     <span ><a href="/searchDetails" style="color:#F19B14">Forgot Password</a></span>
                     <span style="color:#F19B14">&nbsp; | &nbsp;</span>
                     <span ><a href="/signup" style="color:#F19B14">Sign Up</a></span>
+                    <div style="display:flex; justify-content:center" id="buttonDiv"></div>
                 </v-card>
             </div>
         </div>
         <Footer></Footer>
     </div>
 </template>
-
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
 export default {
-        components : { TopBar, Footer },
-        }
+    components : { TopBar, Footer },
+    data: () => ({
+            token : 'Hello'
+        }),
+    mounted(){
+        console.log("In mounted now")
+        console.log('check' , this.token)
+            
+          google.accounts.id.initialize({
+            client_id: "322547822846-168ib8tuqi7kriovdn7dbhl50t966ipp.apps.googleusercontent.com",
+            callback: data => this.handleCredentialResponse(data)
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "filled_blue", size: "large"}  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+    },
+    methods:{
+        handleCredentialResponse(response) {
+                console.log("Encoded JWT ID token: " + response.credential);
+                this.token = response.credential
+                console.log("token" , this.token)
+                this.$router.push({
+                    name:'Home',
+                })
+            }
+    }
+}
 </script>
 
 <style scoped>
