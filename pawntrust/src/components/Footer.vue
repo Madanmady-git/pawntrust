@@ -72,15 +72,15 @@
                         <div>
                             <a
                             style="cursor: pointer;color: #FFFFFF;text-decoration: none;" 
-                            href="https://www.reddit.com/user/pawntrust"
+                            href="https://www.instagram.com/dinewiseinc/"
                             target="_blank"
                             >
-                                <v-icon class="socialMedia">mdi-reddit</v-icon>
+                                <v-icon class="socialMedia">mdi-instagram</v-icon>
                             </a>
                         </div>
                     </div>
                     <!-- <div style="display: flex;flex-direction: row;justify-content:space-evenly;">
-                        <v-icon class="socialMedia">mdi-reddit</v-icon>
+                        <v-icon class="socialMedia">mdi-instagram</v-icon>
                         <v-icon class="socialMedia">mdi-youtube</v-icon>
                     </div> -->
                 </div>

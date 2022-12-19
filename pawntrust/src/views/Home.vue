@@ -100,7 +100,7 @@
                         style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
                         src = "../assets/Titlepawncompanies.png"/>
                     </a>
-                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Title Pawn Companies</span>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Titlepal Companies</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p class="textStyle">{{pawncompaniesparagraph}}</p>
                     <img 
@@ -121,7 +121,7 @@
                     src="../assets/microlendingdemo.jpeg"
                     />
                 </div>
-                <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
+                <!-- <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileCategory' : 'desktopCategory'">
                     <img 
                     @click="temporaryMethod"
                     style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
@@ -133,7 +133,7 @@
                     style="width:100%; height:auto;padding:0% 0% 10% 0%;cursor: pointer;"
                     src="../assets/nonfungibledemo.jpeg"
                     />
-                </div>
+                </div> -->
             </div>
         </div>
         <Footer></Footer>
@@ -184,7 +184,7 @@ import Footer from '../components/Footer.vue';
 }
 
 .desktopCategory{
-    width:20%;
+    width:25%;
     padding: 0% 2%;
 }
 .headerClass {

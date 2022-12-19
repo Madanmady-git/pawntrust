@@ -48,7 +48,7 @@
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile2' : 'headerAlignDesktop'">
                         <v-btn icon style="cursor: pointer;" href="https://www.facebook.com/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-facebook</v-icon></v-btn>
                         <v-btn icon style="cursor: pointer;" href="https://twitter.com/dinewiseinc" target="_blank"><v-icon color="#F19B14" size="40">mdi-twitter</v-icon></v-btn>
-                        <v-btn icon style="cursor: pointer;" href="https://www.reddit.com/user/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-reddit</v-icon></v-btn>
+                        <v-btn icon style="cursor: pointer;" href="https://www.instagram.com/dinewiseinc/" target="_blank"><v-icon color="#F19B14" size="40">mdi-instagram</v-icon></v-btn>
                     </div>
                     
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
@@ -106,9 +106,9 @@ export default {
                 search : '',
                 featureItems : [
                     { title: 'Pawn Shops' },
-                    { title: 'Title Pawn Companies' },
+                    { title: 'Titlepal Companies' },
                     { title: 'Microlending' },
-                    { title: 'Non-Fungible Tokens' },
+                    // { title: 'Non-Fungible Tokens' },
                 ],
                 moreItems : [
                     {title: 'Contact Us'},
@@ -121,9 +121,9 @@ export default {
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
                     { title: 'Pawn Shops' },
-                    { title: 'Title Pawn Companies' },
+                    { title: 'Titlepal Companies' },
                     { title: 'Microlending' },
-                    { title: 'Non-Fungible Tokens' },
+                    // { title: 'Non-Fungible Tokens' },
                     { title: 'Contact Us'},
                     { title: 'About Us' },
                     { title: 'Investor Relations' },
