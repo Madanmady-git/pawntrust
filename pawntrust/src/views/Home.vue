@@ -100,7 +100,7 @@
                         style="width:100%; height:auto;padding:10% 4%;cursor: pointer;"
                         src = "../assets/Titlepawncompanies.png"/>
                     </a>
-                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Titlepal Companies</span>
+                    <span style="font-size:1.1rem;font-weight:550; color:#0E2334">Titlepal</span>
                     <v-divider style="border-top:3.5px solid orange; width:15%; margin:auto; margin-top:10px;margin-bottom: 20px;"></v-divider>
                     <p class="textStyle">{{pawncompaniesparagraph}}</p>
                     <img 
@@ -148,7 +148,7 @@ import Footer from '../components/Footer.vue';
         data: () => ({
             slides : 3,
             pawnshopsparagraph : "We will bring the pawn shop online, providing worldwide access through our app. This gives the customer the ability to do business online, rather than the traditional method of walking into a brick-and-mortar shop, where there is substandard service and embarrassment from face-to-face contact. The app will further collaborate worldwide inventory giving the individual Pawn Shop exponential exposure. Moreover, this app allows a consumer to take a picture of their item and get a quote instantaneously. They will have the option to choose whether to “sell” or “pawn” the item. Once that choice is made, a shipping label will be generated for the item to arrive in our distribution center in Atlanta, Georgia.",
-            pawncompaniesparagraph : "Our app “TitlePawn” allows anyone with a free, clear auto title the ability to get cash in minutes. Once an application is received, the applicant is verified through the app. These algorithms range from customer verification, and the ability to pay as well as vehicle inspection. After verifying this information and upon approval, money is immediately deposited via blockchain (cryptocurrency), Paypal, debit card, or ACH.",
+            pawncompaniesparagraph : "Our app “Titlepal” allows anyone with a free, clear auto title the ability to get cash in minutes. Once an application is received, the applicant is verified through the app. These algorithms range from customer verification, and the ability to pay as well as vehicle inspection. After verifying this information and upon approval, money is immediately deposited via blockchain (cryptocurrency), Paypal, debit card, or ACH.",
             microlendingparagraph : "PawnTrust will lend capital to small businesses. These loans will be based on the consumer’s monthly revenues. PawnTrust will purchase revenue streams at a discounted rate that allows its consumers immediate capital to grow their business. Our virtual underwriting method can approve our clients and fund the same day.",
             nonfungibleparagraph : "With the NFT on the blockchain, we can put any product from any pawn shop nationwide as a Non-fungible token. This way you get millions of views to buy immediately through crypto. This will turn PawnTrust into a pawn shop market place for people to buy and sell…world wide.",
             

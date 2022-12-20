@@ -8,7 +8,7 @@
             </div>
             <div :class="($mq =='mobile' || $mq == 'tablet') ? 'mobileTopBarContent' : 'DesktopTopBarContent'">
                 <div :class="($mq =='mobile' || $mq == 'tablet') ? 'topBarMobile' : 'topBarDesktop'">
-                    <div :class="($mq =='mobile' || $mq == 'tablet')? 'headerAlignMobile' : 'headerAlignDesktop'">
+                    <!-- <div :class="($mq =='mobile' || $mq == 'tablet')? 'headerAlignMobile' : 'headerAlignDesktop'">
                         <v-avatar
                         color="#F19B14"
                         size="36"
@@ -44,7 +44,7 @@
                         <div class="emailandPhone">
                             &nbsp;<span> info@pawntrust.com</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile2' : 'headerAlignDesktop'">
                         <v-btn icon style="cursor: pointer;" href="https://www.facebook.com/pawntrust" target="_blank"><v-icon color="#F19B14" size="40">mdi-facebook</v-icon></v-btn>
                         <v-btn icon style="cursor: pointer;" href="https://twitter.com/dinewiseinc" target="_blank"><v-icon color="#F19B14" size="40">mdi-twitter</v-icon></v-btn>
@@ -106,7 +106,7 @@ export default {
                 search : '',
                 featureItems : [
                     { title: 'Pawn Shops' },
-                    { title: 'Titlepal Companies' },
+                    { title: 'Titlepal' },
                     { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                 ],
@@ -121,7 +121,7 @@ export default {
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
                     { title: 'Pawn Shops' },
-                    { title: 'Titlepal Companies' },
+                    { title: 'Titlepal' },
                     { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                     { title: 'Contact Us'},

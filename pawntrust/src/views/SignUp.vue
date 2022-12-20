@@ -10,7 +10,7 @@
                     <v-stepper v-model="move" style="box-shadow:none;" alt-labels>
                     <v-stepper-header>
                         <v-stepper-step :complete="move > 1" step="1">
-                            <small>Income</small>
+                            <small>Verification</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
@@ -19,11 +19,11 @@
                             <small>Personal</small>
                         </v-stepper-step>
 
-                        <v-divider></v-divider>
+                        <!-- <v-divider></v-divider> -->
 
-                        <v-stepper-step :complete="move > 3" step="3">
+                        <!-- <v-stepper-step :complete="move > 3" step="3">
                             <small>Verification</small>
-                        </v-stepper-step>
+                        </v-stepper-step> -->
 
                         <!-- <v-divider></v-divider>
 
@@ -36,22 +36,22 @@
                 <div v-else>
                     <div>
                         <v-stepper v-model="move" vertical style="box-shadow: none;">
-                            <v-stepper-step :complete="move > 1" step="1">
+                            <!-- <v-stepper-step :complete="move > 1" step="1">
                                 Annual Income
                             <small>Summarize if needed</small>
                             </v-stepper-step>
 
                             <v-stepper-content step="1">
+                            </v-stepper-content> -->
+
+                            <v-stepper-step :complete="move > 1" step="1">Personal Information</v-stepper-step>
+
+                            <v-stepper-content step="1">
                             </v-stepper-content>
 
-                            <v-stepper-step :complete="move > 2" step="2">Personal Information</v-stepper-step>
+                            <v-stepper-step :complete="move > 2" step="2">Verification</v-stepper-step>
 
                             <v-stepper-content step="2">
-                            </v-stepper-content>
-
-                            <v-stepper-step :complete="move > 3" step="3">Verification</v-stepper-step>
-
-                            <v-stepper-content step="3">
                             </v-stepper-content>
 
                             <!-- <v-stepper-step  step="4">Submit</v-stepper-step>
@@ -81,7 +81,7 @@
                         <v-btn class="btnclass" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
                     </div>
                 </div> -->
-                <div v-if="(move == 1)" style="width:80%">
+                <!-- <div v-if="(move == 1)" style="width:80%">
                     <div class="flexCol alignLeftClass">
                         <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Annual Income</span>
                         <span style="font-size:1.6rem; font-weight:600;">What is your annual income?</span>
@@ -94,11 +94,11 @@
                         <v-btn block outline class="btnclass" @click = "incrementStep()">75,000 to 1,00,000</v-btn>
                         <v-btn block outline class="btnclass" @click = "incrementStep()">more than 1,00,000</v-btn>
                     </div>
-                    <!-- <div>
+                    <div>
                         <v-btn class="btnclass" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
-                    </div> -->
-                </div>
-                <div v-else-if="(move == 2)" style="width:80%">
+                    </div>
+                </div> -->
+                <div v-if="(move == 1)" style="width:80%">
                     <div class="flexCol alignLeftClass">
                         <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Personal Details</span>
                     </div>
@@ -120,7 +120,7 @@
                         <v-btn class="btnclass" @click = "incrementStep()" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
                     </div>
                 </div>
-                <div v-else-if="(move == 3)" style="width:80%">
+                <div v-else-if="(move == 2)" style="width:80%">
                     <div class="flexCol alignLeftClass">
                         <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Verification</span>
                     </div>

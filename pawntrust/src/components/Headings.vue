@@ -66,7 +66,7 @@ export default {
                     name: 'Search'
                 })
             }
-            else if (route=="Titlepal Companies") {
+            else if (route=="Titlepal") {
                 window.open("https://titlepal.com/" , "_blank")
             }
             else if (route=="Microlending") {

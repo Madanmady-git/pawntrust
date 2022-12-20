@@ -10,11 +10,13 @@
   "dependencies": {
     "@emailjs/nodejs": "^2.1.1",
     "@fawmi/vue-google-maps": "^0.9.79",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@mdi/js": "^7.0.96",
     "axios": "^1.2.0",
     "core-js": "^3.6.5",
     "emailjs-com": "^3.2.0",
     "load-google-maps-api": "^2.0.2",
+    "polylabel": "^1.1.0",
     "vue": "^2.6.11",
     "vue-mq": "^1.0.1"
   },

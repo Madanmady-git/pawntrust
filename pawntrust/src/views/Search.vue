@@ -59,6 +59,24 @@
         </div>
         <div v-else-if="searchFieldFlag" class="cardsContent">
             <div class="SearchResults">
+                <!-- <div class="sortMainClass">
+                    <v-select
+                        color="orange"
+                        label="Sort By"
+                        :items="sortByItems"
+                        outlined
+                    >
+                    <template v-slot:item="{item, attrs, on}">
+                        <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                            <v-radio
+                                :label="item"
+                                :value="item"
+                            >
+                            </v-radio>
+                        </v-radio-group>
+                    </template>
+                    </v-select>
+                </div> -->
                 <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
                     <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
                 </div>
@@ -76,7 +94,8 @@
                 </div>
             </div>
             <div v-if="openMapFlag" style="width:50%;">
-                <Map :searchField="searchField" :pawnstores="pawnstores"></Map>
+                <Map :searchField="searchField" :pawnstores="pawnstores" :filterpawnStores="filterpawnStores"
+                    :unfilterpawnStores="unfilterpawnStores"></Map>
             </div>
             <div v-else style="margin:auto">
                 <span>Select pawn store to get map details</span>
@@ -345,6 +364,7 @@ import axios from 'axios'
         components : { TopBar, Footer, pawnStoreCard, Map },
         data(){
             return{
+                radioGroup: 'Rating (high to low)',
                 dialog:false,
                 slides : 3,
                 zipcodeField : '',
@@ -358,20 +378,38 @@ import axios from 'axios'
                 start:0,
                 end:0,
                 showMoreLoading:false,
-                noResultsFound:false
+                noResultsFound:false,
+                sortByItems : [
+                    'Rating (high to low)',
+                    'Rating (low to high)',
+                    'ReviewCount (high to low)',
+                    'ReviewCount (low to high)',
+                ]
             }
         },
         mounted(){
 
         },
         methods:{
+            filterpawnStores(polygonMessage, polygonObject) {
+                console.log(polygonMessage);
+                console.log(polygonObject);
+                //Polygon Contains Location API:
+                //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
+            },
+            unfilterpawnStores(polygonMessage, polygonObject) {
+                console.log(polygonMessage);
+                console.log(polygonObject);
+                //Polygon Contains Location  API:
+                //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
+            },
             openMap(){
                 this.openMapFlag = true;
             },
             searchbyStores(field){
                 this.searchFieldLoadingFlag = true;
                 this.start=0;
-                axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20')
+                axios.get('https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20')
                 .then((response)=>{
                     console.log('response', response);
                     this.pawnstores = response.data.searchResults;
@@ -391,7 +429,7 @@ import axios from 'axios'
             showMore(field){
                 if(this.end < this.totalCount){
                     this.showMoreLoading = true;
-                    axios.get('http://a5e4b65a5c6d3478dacab9c107809059-68476208.us-west-2.elb.amazonaws.com/api/v1/search?searchValue='+field+'&start='+String(this.end)+'&length=20')
+                    axios.get('https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.end)+'&length=20')
                     .then((response)=>{
                         console.log('response', response)
                         this.paginatedPawnStores = response.data.searchResults
@@ -436,6 +474,11 @@ import axios from 'axios'
         display: flex;
         margin:auto
     }
+    .sortMainClass{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
 }
 
 @media screen and (min-width:951px){
@@ -467,6 +510,11 @@ import axios from 'axios'
         background-color:#F19B14;
         display: flex;
         margin:auto
+    }
+    .sortMainClass{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 }
 .bannerBackground{

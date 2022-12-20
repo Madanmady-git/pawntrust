@@ -6,10 +6,12 @@
 import loadGoogleMapsApi from "load-google-maps-api";
 //import searchResults  from "./../constants/searchResults.js";
 import apiKey from "./../constants/apiKey.js";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import polylabel from 'polylabel';
 
 export default {
   name: "Map",
-  props: ['searchField', 'pawnstores'],
+  props: ['searchField', 'pawnstores', 'filterpawnStores', 'unfilterpawnStores'],
   data() {
     return {
       map: null,
@@ -43,7 +45,7 @@ export default {
         key: apiKey.key,
         libraries: ["places", "drawing", "geometry"],
       }).then(async () => {
-        const mapZoom = 9;
+        const mapZoom = 14;
         const { google } = window;
 
         //   let address = ''+this.zipcode;
@@ -58,32 +60,34 @@ export default {
         //     }
         //   });
 
-        // let bounds = new google.maps.LatLngBounds();
-        // let arr = [];
-        // for (let i = 0; i < this.pawnstores.length; i++) {
-        //   arr.push(new google.maps.LatLng(parseFloat(this.pawnstores[i].latitude), parseFloat(this.pawnstores[i].longitude)));
-        // }
-        // for (let i = 0; i < arr.length; i++) {
-        //   bounds.extend(arr[i]);
-        // }
 
-        // console.log(bounds.getCenter().lat(), bounds.getCenter().lng());
         // let centerlatitude = bounds.getCenter().lat()
         // let centerlongitude = bounds.getCenter().lng();
-        let lat_arr = [];
-        let lng_arr = [];
+        //  let lat_arr = [];
+        let min_lat = 10000000;
+        let max_lat = -10000000;
+        // let lng_arr = [];
+        let min_lng = 10000000;
+        let max_lng = -10000000;
         for (let i = 0; i < this.pawnstores.length; i++) {
-          lat_arr.push(parseFloat(this.pawnstores[i].latitude));
-          lng_arr.push(parseFloat(this.pawnstores[i].longitude));
+          let latitude = this.pawnstores[i].latitude;
+          let longitude = this.pawnstores[i].longitude;
+          // lat_arr.push(parseFloat(latitude));
+          //lng_arr.push(parseFloat(longitude));
+          min_lat = Math.min(latitude, min_lat);
+          max_lat = Math.max(latitude, max_lat);
+          min_lng = Math.min(longitude, min_lng);
+          max_lng = Math.max(longitude, max_lng);
+          console.log(min_lng, this.pawnstores[i].name, i);
         }
-        lat_arr.sort(); lng_arr.sort();
-        let centerlatitude = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
-        let centerlongitude = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
+        //lat_arr.sort(); lng_arr.sort();
+        // let centerlatitude = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
+        // let centerlongitude = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
         //console.log(centerlatitude, centerlongitude, "hey");
+        //centered according to created polygons at the end of file
         const mapOptions = {
           zoom: mapZoom,
-          mapTypeId: "terrain",
-          center: new google.maps.LatLng({ lat: centerlatitude, lng: centerlongitude }),
+          center: new google.maps.LatLng({ lat: 29, lng: -95 }),
           mapTypeControl: false,
           streetViewControl: false,
           mapTypeControlOptions: {
@@ -96,7 +100,141 @@ export default {
         );
         //console.log("there");
         // console.log(this.pawnstores);
-        const polygonCoordsSet = [];
+        //collision avoidance:
+
+        //getting standard deviation(neglect)
+        let lat_low = Math.floor(min_lat) - 1;
+        let lat_high = Math.ceil(max_lat) + 1;
+        let lng_low = Math.floor(min_lng) - 1;
+        let lng_high = Math.ceil(max_lng) + 1;
+        console.log("here");
+        console.log(lat_low, lat_high);
+        console.log(lng_low, lng_high);
+        const factor = 0.25;
+        let no_lats = parseInt(Math.abs(lat_low - lat_high)) * (parseInt((1 / factor)));
+        let no_lngs = parseInt(Math.abs(lng_low - lng_high)) * (parseInt((1 / factor)));
+        let no_rects = no_lats * no_lngs;
+        let polygon_sets = {
+
+        }
+        for (let i = 1; i <= no_rects; i++) {
+          polygon_sets[i] = [];
+        }
+
+        for (let i = 0; i < this.pawnstores.length; i++) {
+          let latitude = parseFloat(this.pawnstores[i].latitude);
+          let longitude = parseFloat(this.pawnstores[i].longitude);
+          console.log(latitude, longitude);
+          let k = 1;
+          let up = -1;
+          for (let j = lat_low; j < lat_high; j += factor) {
+            if (latitude >= j && latitude < (j + factor)) {
+              break;
+            }
+            k++;
+          }
+          up = k;
+          console.log(up);
+          k = 1;
+          let right = -1;
+          for (let j = lng_low; j < lng_high; j += factor) {
+            if (longitude >= j && longitude < (j + factor)) {
+              break;
+            }
+            k++;
+          }
+          right = k;
+          console.log(right);
+          let index = (k * no_lats) + up;
+          polygon_sets[index].push({
+            lat: latitude,
+            lng: longitude,
+          });
+
+
+        }
+        console.log(polygon_sets);
+        let polygonCoordsSet = [];
+        for (let j = 1; j <= no_rects; j++) {
+          if (polygon_sets[j].length == 0) {
+            continue;
+          }
+          else {
+            // let u = parseInt((j % no_lats));
+            // let r = parseInt((j - u) / no_lats);
+            // console.log(u, r);
+            // let min_la = lat_low + ((u - 1) * 0.25);
+            // let max_la = min_la + 0.25;
+            // let min_ln = lng_low + ((u - 1) * 0.25);
+            // let max_ln = min_ln + 0.25;
+            // polygon_sets[j].push({
+            //   lat: (min_la + max_la) / 2,
+            //   lng: (min_ln + max_ln) / 2,
+            // });
+            // polygon_sets[j].push({
+            //   lat: min_la + 0.1,
+            //   lng: max_ln - 0.1,
+            // });
+            // polygon_sets[j].push({
+            //   lat: max_la - 0.15,
+            //   lng: max_ln - 0.12,
+            // });
+            if (polygon_sets[j].length <= 3) {
+              let lati = polygon_sets[j][0].lat;
+              let lngi = polygon_sets[j][0].lng;
+              let min_la = lat_low + (parseInt((lati - lat_low) / factor)) * factor;
+              let min_ln = lng_low + (parseInt((lngi - lng_low) / factor)) * factor;
+              console.log("Heyyyyyyyy");
+              console.log(polygon_sets[j]);
+              console.log(min_la, min_ln);
+
+              polygon_sets[j].push({
+                lat: 0.15 + min_la,
+                lng: 0.12 + min_ln,
+              });
+              polygon_sets[j].push({
+                lat: 0.2 + min_la,
+                lng: 0.157 + min_ln,
+              });
+              polygon_sets[j].push({
+                lat: 0.13 + min_la,
+                lng: 0.20 + min_ln,
+              });
+              polygon_sets[j].push({
+                lat: 0.05 + min_la,
+                lng: 0.10 + min_ln,
+              });
+              // for good shapes :
+              // polygon_sets[j].push({
+              //   lat: 0.05 + min_la,
+              //   lng: 0.24 + min_ln,
+              // });
+              // polygon_sets[j].push({
+              //   lat: 0.125 + min_la,
+              //   lng: 0.125 + min_ln,
+              // });
+
+
+            }
+
+            polygonCoordsSet.push(polygon_sets[j]);
+
+
+
+
+          }
+        }
+
+
+
+
+
+
+
+
+
+
+        /*let polygonCoordsSet = [];
         let recordsLength = this.pawnstores.length;
         const polyVerticesCount = 10;
         const a = Math.ceil((recordsLength / polyVerticesCount));
@@ -126,150 +264,468 @@ export default {
             }
             polygonCoordsSet.push(mini_pol)
           }
-        }
+        }*/
         // for(let i=0;i<polygonCoordsSet.length;i++){
         //   polygonCoordsSet[i].push(polygonCoordsSet[i][0]);
         // }
         //console.log(polygonCoordsSet);
-        let circleCoordsSet = [];
+        /*  let circleCoordsSet = [];
+  
+          for (let i = 0; i < polygonCoordsSet.length; i++) {
+            lat_arr = [];
+            lng_arr = [];
+            for (let j = 0; j < polygonCoordsSet[i].length; j++) {
+              lat_arr.push(parseFloat(polygonCoordsSet[i][j].lat));
+              lng_arr.push(parseFloat(polygonCoordsSet[i][j].lng));
+            }
+  
+            lat_arr.sort(); lng_arr.sort();
+            // console.log(lat_arr);
+            // console.log(lng_arr);
+            // console.log((lat_arr.length / 2));
+            // console.log(lat_arr[(lat_arr.length / 2)]);
+            let center_lat = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
+            let center_lng = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
+            //console.log(center_lat, center_lng, i);
+            let max_radius = 0;
+            for (let j = 0; j < polygonCoordsSet[i].length; j++) {
+              var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(center_lat, center_lng), new google.maps.LatLng(polygonCoordsSet[i][j].lat, polygonCoordsSet[i][j].lng));
+              max_radius = Math.max(max_radius, parseInt(Math.ceil(distance)));
+            }
+            circleCoordsSet.push({
+              center: { lat: center_lat, lng: center_lng },
+              radius: max_radius
+            })
+          }
+          //console.log(circleCoordsSet);*/
 
+        //polygons ordering
+
+        let polyset = [];
         for (let i = 0; i < polygonCoordsSet.length; i++) {
-          lat_arr = [];
-          lng_arr = [];
-          for (let j = 0; j < polygonCoordsSet[i].length; j++) {
-            lat_arr.push(parseFloat(polygonCoordsSet[i][j].lat));
-            lng_arr.push(parseFloat(polygonCoordsSet[i][j].lng));
+          let arr = polygonCoordsSet[i];
+          console.log("a");
+          console.log(arr);
+          arr.sort((a, b) => {
+            if (a.lng !== b.lng) {
+              return (a.lng - b.lng);
+            }
+            else {
+              return (b.lat - a.lat);
+            }
+          });
+          console.log("b");
+          console.log(arr);
+          let min_lng = arr[0].lng;
+          let max_lng = arr[arr.length - 1].lng;
+          let min_lng_min_lat = 100000000;
+          let max_lng_min_lat = 100000000;
+          for (let j = 0; j < arr.length; j++) {
+            if (arr[j].lng === min_lng) {
+              min_lng_min_lat = Math.min(min_lng_min_lat, arr[j].lat);
+            }
+            if (arr[j].lng === max_lng) {
+              max_lng_min_lat = Math.min(max_lng_min_lat, arr[j].lat);
+            }
+          }
+          console.log("c");
+          console.log(min_lng_min_lat, max_lng_min_lat);
+          let base_line = Math.min(min_lng_min_lat, max_lng_min_lat);
+          min_lng = min_lng - 0.0000001;
+          console.log(base_line);
+          let arr_n = [];
+          arr_n.push({
+            lat: min_lng_min_lat,
+            lng: min_lng,
+
+          });
+          let fin_arr = arr_n.concat(arr);
+          console.log("d");
+          console.log(fin_arr);
+          let visited = [];
+          for (let j = 0; j < fin_arr.length; j++) {
+            visited.push(false);
+          }
+          let ans_arr = [];
+          let j = 0;
+          let opt_arr = [];
+          let prev = {
+            lat: -100000,
+            lng: -100000,
+          };
+
+          while (j < fin_arr.length) {
+
+            if (fin_arr[j].lat >= base_line) {
+              ans_arr.push(fin_arr[j]);
+              console.log(j, fin_arr[j]);
+              visited[j] = true;
+              if (fin_arr[j].lng !== prev.lng) {
+                if (fin_arr[j].lat > prev.lat) {
+                  prev = {
+                    lat: fin_arr[j].lat,
+                    lng: fin_arr[j].lng,
+                  }
+                  opt_arr.push(fin_arr[j]);
+                }
+                if (fin_arr[j].lng === max_lng) {
+                  if (prev.lat !== fin_arr[j].lat) {
+                    prev = {
+                      lat: prev.lat,
+                      lng: fin_arr[j].lng,
+                    }
+                    opt_arr.push(prev);
+                  }
+                }
+
+              }
+
+            }
+
+
+            j++;
+          }
+          if (base_line === min_lng_min_lat) {
+            ans_arr.push({
+              lat: min_lng_min_lat - 0.0000001,
+              lng: max_lng
+            });
+          }
+          opt_arr.push({
+            lat: base_line - 0.0000001,
+            lng: max_lng
+          });
+          j = fin_arr.length - 1;
+          prev = {
+            lat: base_line - 0.0000001,
+            lng: max_lng
           }
 
-          lat_arr.sort(); lng_arr.sort();
-          // console.log(lat_arr);
-          // console.log(lng_arr);
-          // console.log((lat_arr.length / 2));
-          // console.log(lat_arr[(lat_arr.length / 2)]);
-          let center_lat = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
-          let center_lng = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
-          //console.log(center_lat, center_lng, i);
-          let max_radius = 0;
-          for (let j = 0; j < polygonCoordsSet[i].length; j++) {
-            var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(center_lat, center_lng), new google.maps.LatLng(polygonCoordsSet[i][j].lat, polygonCoordsSet[i][j].lng));
-            max_radius = Math.max(max_radius, parseInt(Math.ceil(distance)));
+          while (j >= 0) {
+
+            if (visited[j] !== true) {
+              ans_arr.push(fin_arr[j]);
+              console.log(j, fin_arr[j]);
+              visited[j] = true;
+              if (fin_arr[j] !== prev.lng) {
+                if (fin_arr[j].lat < prev.lat) {
+                  prev = {
+                    lat: fin_arr[j].lat,
+                    lng: fin_arr[j].lng,
+                  }
+                  opt_arr.push(prev);
+                }
+
+              }
+
+            }
+
+
+            j--;
           }
-          circleCoordsSet.push({
-            center: { lat: center_lat, lng: center_lng },
-            radius: max_radius
-          })
+          if (base_line === max_lng_min_lat) {
+            ans_arr.push({
+              lat: max_lng_min_lat - 0.0000001,
+              lng: min_lng,
+            });
+          }
+          if (base_line === max_lng_min_lat) {
+            opt_arr.push({
+              lat: prev.lat,
+              lng: min_lng,
+            });
+          }
+          // opt_arr.push({
+          //   lat: base_line - 0.0000001,
+          //   lng: min_lng,
+          // })
+
+          console.log("e");
+          console.log(ans_arr);
+          //  ans_arr.splice(0, 1);
+          console.log("f");
+          // console.log(ans_arr);
+          //polyset.push(ans_arr);
+          console.log(opt_arr);
+          polyset.push(opt_arr);
         }
-        //console.log(circleCoordsSet);
+        polygonCoordsSet = polyset;
+        console.log(polygonCoordsSet);
+
+        /* let center_lat_arr = [];
+         let center_lng_arr = [];
+         for (let q = 0; q < polygonCoordsSet.length; q++) {
+           for (let r = 0; r < polygonCoordsSet[q].length; r++) {
+             center_lat_arr.push(polygonCoordsSet[q][r].lat);
+             center_lng_arr.push(polygonCoordsSet[q][r].lng);
+           }
+         }
+         let center_lat = center_lat_arr[parseInt(Math.ceil(center_lat_arr.length / 2))];
+         let center_lng = center_lng_arr[parseInt(Math.ceil(center_lng_arr.length / 2))];
+ 
+         const mapOptions = {
+           zoom: mapZoom,
+           mapTypeId: "terrain",
+           center: new google.maps.LatLng({ lat: center_lat, lng: center_lng }),
+           mapTypeControl: false,
+           streetViewControl: false,
+           mapTypeControlOptions: {
+             position: google.maps.ControlPosition.BOTTOM_LEFT,
+           },
+         };
+         this.map = new google.maps.Map(
+           document.getElementById("polygon-label-map"),
+           mapOptions
+         );*/
+
+
+
+
+
+
+        //the only issue now has is single record result handling and collision avoidance
 
 
         const fillColors = ["#038489"];
         const strokeColors = ["#038489"];
-        /* const PolygonShapes = [];
-         for (let i = 0; i < polygonCoordsSet.length; i++) {
-           const polygonShapeContructor = new google.maps.Polygon({
-             paths: polygonCoordsSet[i],
-             strokeColor: strokeColors[0],
-             map: this.map,
-             strokeWeight: 2,
-             fillColor: fillColors[0],
-             fillOpacity: 0.2,
-             zIndex: 99999,
-           });
-           google.maps.event.addListener(
-             polygonShapeContructor,
-             "mouseover",
-             () => {
-               polygonShapeContructor.setOptions({
-                 fillOpacity: 0.8,
-               });
-             }
-           );
-           google.maps.event.addListener(
-             polygonShapeContructor,
-             "mouseout",
-             () => {
-               polygonShapeContructor.setOptions({
-                 fillOpacity: 0.2,
-               });
-             }
-           );
-           google.maps.event.addListener(
-             polygonShapeContructor,
-             "click",
-             () => {
-               //alert("hi");
-               const endPoints = [];
-               let endpointsString = "";
-               console.log(polygonShapeContructor.getPath());
-               for (let i = 0; i < polygonShapeContructor.getPath().Vc.length; i++) {
-                 let latitude = polygonShapeContructor.getPath().Vc[i].lat();
-                 let longitude = polygonShapeContructor.getPath().Vc[i].lng();
-                 endPoints.push({ lat: latitude, lng: longitude });
-                 endpointsString += ("[latitude : " + latitude + "," + "longitude : " + longitude + "]");
- 
-               }
-               console.log(endPoints);
-               alert(endpointsString);
-             }
-           );
-           PolygonShapes.push(polygonShapeContructor);
-         }
-         PolygonShapes.forEach((polygon) => {
-           polygon.setMap(this.map);
-         });
-         this.map.setZoom(14);*/
+        const PolygonShapes = [];
+        let polygon_centers = {
+
+        };
+        let dict = {
+
+        };
+        for (let i = 0; i < polygonCoordsSet.length; i++) {
+          dict[i] = null;
 
 
-        const circleShapes = [];
+          //let poly_lat_arr = []; let poly_lng_arr = [];
+          // let lat_sum = 0;
+          // let lng_sum = 0;
+          //var bound = new google.maps.LatLngBounds();
+          // const polygon = [[[3116, 3071], [3118, 3068], [3108, 3102], [3751, 927]]];
+          // polylabel(polygon);
+          // polylabel(polygon, 1.0);
+          let polygon = [[]]
+          for (let j = 0; j < polygonCoordsSet[i].length; j++) {
+            // lat_sum = lat_sum + polygonCoordsSet[i][j].lat;
+            // lng_sum = lng_sum + polygonCoordsSet[i][j].lng;
+            //bound.extend(new google.maps.LatLng(polygonCoordsSet[i][j].lat, polygonCoordsSet[i][j].lng));
+            polygon[0].push([polygonCoordsSet[i][j].lng, polygonCoordsSet[i][j].lat]);
 
-        for (let i = 0; i < circleCoordsSet.length; i++) {
 
-          const cityCircle = new google.maps.Circle({
+
+            //poly_lat_arr.push(polygonCoordsSet[i][j].lat);
+            //poly_lng_arr.push(polygonCoordsSet[i][j].lng);
+
+          }
+          // console.log(bound.getCenter().lat(), bound.getCenter().lng());
+          console.log("centerrrrrrrrrrrrrrr");
+          let center_arr = polylabel(polygon, 10.0);
+          console.log(center_arr);
+          //poly_lat_arr.sort(); poly_lng_arr.sort();
+          // lat_sum = lat_sum / polygonCoordsSet[i].length;
+          // lng_sum = lng_sum / polygonCoordsSet[i].length;
+          // polygon_centers[i] = {
+          //   lat: poly_lat_arr[parseInt(Math.ceil(poly_lat_arr.length / 2))],
+          //   lng: poly_lng_arr[parseInt(Math.ceil(poly_lng_arr.length / 2))],
+          // };
+          // polygon_centers[i] = {
+          //   lat: lat_sum,
+          //   lng: lng_sum
+          // };
+          // polygon_centers[i] = {
+          //   lat: bound.getCenter().lat(),
+          //   lng: bound.getCenter().lng(),
+          // };
+          polygon_centers[i] = {
+            lat: center_arr[1],
+            lng: center_arr[0],
+          };
+          console.log(i, polygon_centers[i]);
+          //bounded rectangles midpoints
+
+
+        }
+
+        for (let i = 0; i < polygonCoordsSet.length; i++) {
+          const polygonShapeContructor = new google.maps.Polygon({
+            paths: polygonCoordsSet[i],
             strokeColor: strokeColors[0],
             map: this.map,
             strokeWeight: 2,
             fillColor: fillColors[0],
             fillOpacity: 0.2,
             zIndex: 99999,
-            center: circleCoordsSet[i].center,
-            radius: circleCoordsSet[i].radius,
           });
-
           google.maps.event.addListener(
-            cityCircle,
+            polygonShapeContructor,
             "mouseover",
             () => {
-              cityCircle.setOptions({
-                fillOpacity: 0.8,
+              polygonShapeContructor.setOptions({
+                fillOpacity: 0.6,
               });
+
+
+
+
             }
           );
           google.maps.event.addListener(
-            cityCircle,
+            polygonShapeContructor,
             "mouseout",
             () => {
-              cityCircle.setOptions({
-                fillOpacity: 0.2,
-              });
+              if (dict[i] === null) {
+                polygonShapeContructor.setOptions({
+                  fillOpacity: 0.2,
+                });
+              }
             }
           );
           google.maps.event.addListener(
-            cityCircle,
+            polygonShapeContructor,
             "click",
             () => {
               //alert("hi");
-              //console.log(cityCircle.center.lat(), cityCircle.center.lng());
-              //console.log(cityCircle.radius);
-              //alert("centerlat : " + cityCircle.center.lat() + ", centerlng : " + cityCircle.center.lng() + ", radius : " + cityCircle.radius);
+              // const endPoints = [];
+              // let endpointsString = "";
+              // console.log(polygonShapeContructor.getPath());
+              // for (let i = 0; i < polygonShapeContructor.getPath().Vc.length; i++) {
+              //   let latitude = polygonShapeContructor.getPath().Vc[i].lat();
+              //   let longitude = polygonShapeContructor.getPath().Vc[i].lng();
+              //   endPoints.push({ lat: latitude, lng: longitude });
+              //   endpointsString += ("[latitude : " + latitude + "," + "longitude : " + longitude + "]");
+
+              // }
+              // console.log(endPoints);
+              // alert(endpointsString);
+
+              if (dict[i] !== null) {
+                dict[i].setMap(null);
+                dict[i] = null;
+                polygonShapeContructor.setOptions({
+                  fillOpacity: 0.2,
+                });
+                this.unfilterpawnStores("unfilter polygon : " + i, polygonShapeContructor);
+
+              }
+              else {
+
+                let center_pos = {
+                  lat: polygon_centers[i].lat,
+                  lng: polygon_centers[i].lng,
+                };
+                var marker = new google.maps.Marker({
+                  position: center_pos,
+                  map: this.map,
+                  icon: {
+                    path: faCircleCheck.icon[4],
+                    fillColor: "#00656c",
+                    fillOpacity: 1,
+                    anchor: new google.maps.Point(
+                      faCircleCheck.icon[0] / 6, // width
+                      faCircleCheck.icon[1] / 3 // height
+                    ),
+                    strokeWeight: 2,
+                    strokeColor: "#00656c",
+                    scale: 0.060,
+                  },
+
+                });
+                polygonShapeContructor.setOptions({
+                  fillOpacity: 0.6,
+                });
+
+                marker.setMap(this.map);
+                dict[i] = marker;
+                this.filterpawnStores("filter polygon : " + i, polygonShapeContructor);
+              }
+
             }
           );
-          circleShapes.push(cityCircle);
+          PolygonShapes.push(polygonShapeContructor);
         }
-        console.log(circleShapes);
-        circleShapes.forEach((circle) => {
-          circle.setMap(this.map);
+
+        PolygonShapes.forEach((polygon) => {
+          polygon.setMap(this.map);
         });
-        this.map.setZoom(14);
+
+        //centering and zooming corresponding to created polygons because here now polygons are main cases
+        //let lat_arr = []; let lng_arr = [];
+        var bounds = new google.maps.LatLngBounds();
+        for (var j = 0; j < PolygonShapes.length; j++) {
+          for (var i = 0; i < PolygonShapes[j].getPath().getLength(); i++) {
+            let k = PolygonShapes[j].getPath().getAt(i);
+            bounds.extend(k);
+            // console.log("abc");
+            // lat_arr.push(k.lat());
+            // lng_arr.push(k.lng());
+          }
+        }
+        // lat_arr.sort();
+        // lng_arr.sort();
+
+        // let centerlatitude = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
+        // let centerlongitude = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
+        //sets zoom level accordingly to bounds of polygons:
+        this.map.fitBounds(bounds);
+        //sets center accordingly to bounds of polygons:
+        this.map.setCenter(new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng()));
+        //console.log(this.map.getCenter().lat(), this.map.getCenter().lng());
+        //this.map.setCenter(new google.maps.LatLng(centerlatitude, centerlongitude));
+        // this.map.setZoom(12);
+
+
+        /* const circleShapes = [];
+ 
+         for (let i = 0; i < circleCoordsSet.length; i++) {
+ 
+           const cityCircle = new google.maps.Circle({
+             strokeColor: strokeColors[0],
+             map: this.map,
+             strokeWeight: 2,
+             fillColor: fillColors[0],
+             fillOpacity: 0.2,
+             zIndex: 99999,
+             center: circleCoordsSet[i].center,
+             radius: circleCoordsSet[i].radius,
+           });
+ 
+           google.maps.event.addListener(
+             cityCircle,
+             "mouseover",
+             () => {
+               cityCircle.setOptions({
+                 fillOpacity: 0.8,
+               });
+             }
+           );
+           google.maps.event.addListener(
+             cityCircle,
+             "mouseout",
+             () => {
+               cityCircle.setOptions({
+                 fillOpacity: 0.2,
+               });
+             }
+           );
+           google.maps.event.addListener(
+             cityCircle,
+             "click",
+             () => {
+               //alert("hi");
+               //console.log(cityCircle.center.lat(), cityCircle.center.lng());
+               //console.log(cityCircle.radius);
+               //alert("centerlat : " + cityCircle.center.lat() + ", centerlng : " + cityCircle.center.lng() + ", radius : " + cityCircle.radius);
+             }
+           );
+           circleShapes.push(cityCircle);
+         }
+         console.log(circleShapes);
+         circleShapes.forEach((circle) => {
+           circle.setMap(this.map);
+         });
+         this.map.setZoom(14);*/
 
       });
     }
@@ -280,5 +736,6 @@ export default {
 <style scoped>
 .gMap {
   height: 100%;
+
 }
 </style>

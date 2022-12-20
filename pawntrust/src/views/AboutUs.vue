@@ -43,7 +43,7 @@
                 <br>
                 <span class="details">PawnTrust is a revolutionary evolution in the pawn shop and microlending industries!</span>
                 <br>
-                <span class="details">We offer instant, worldwide access to pawn shops and their services; small business loans; direct lending to pawn shops;  as well as TitlePawn.</span>
+                <span class="details">We offer instant, worldwide access to pawn shops and their services; small business loans; direct lending to pawn shops;  as well as Titlepal.</span>
                 <br>
                 <span class="details">We are bringing the pawn shop online providing worldwide access through our revolutionary mobile app. This gives the customer the ability to do business online, rather than the traditional method of walking into a brick-and-mortar shop, where there is substandard service and embarrassment from face-to-face contact. The app will further collaborate worldwide inventory giving the individual Pawn Shop exponential exposure.</span>
                 <br>
@@ -53,7 +53,7 @@
                 <br>
                 <span class="details">PawnTrust is a direct lender to Pawn Shops that allows an owner to increase its receivables and create additional revenue.</span>
                 <br>
-                <span class="details">Our app “TitlePawn” allows anyone with a free, clear auto title the ability to get cash in minutes. Once an application is received, the applicant is verified through the app. These algorithms range from customer verification, and the ability to pay as well as vehicle inspection. After verifying this information and upon approval, money is immediately deposited via the blockchain (cryptocurrency) Paypal, debit card, or ACH</span>
+                <span class="details">Our app “Titlepal” allows anyone with a free, clear auto title the ability to get cash in minutes. Once an application is received, the applicant is verified through the app. These algorithms range from customer verification, and the ability to pay as well as vehicle inspection. After verifying this information and upon approval, money is immediately deposited via the blockchain (cryptocurrency) Paypal, debit card, or ACH</span>
                 <br>
                 <span class="details">PawnTrust is a direct lender to Pawn Shops that allows an owner to increase its receivables and create additional revenue.</span>
             </div>

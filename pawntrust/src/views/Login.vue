@@ -17,7 +17,7 @@
                     <span ><a href="/searchDetails" style="color:#F19B14">Forgot Password</a></span>
                     <span style="color:#F19B14">&nbsp; | &nbsp;</span>
                     <span ><a href="/signup" style="color:#F19B14">Sign Up</a></span>
-                    <div style="display:flex; justify-content:center" id="buttonDiv"></div>
+                    <div style="display:flex; justify-content:center; margin-top: 10px;" id="buttonDiv"></div>
                 </v-card>
             </div>
         </div>

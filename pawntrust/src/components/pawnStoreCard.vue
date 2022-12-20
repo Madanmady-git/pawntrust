@@ -7,12 +7,12 @@
                         <v-icon medium>mdi-arrow-top-right</v-icon></a></span>
                     <span style="padding: 2px;cursor: pointer;"><v-icon color="#F19B14">mdi-map-marker-outline</v-icon>{{pawnstore.address}}</span>
                     
-                    <span style="padding: 2px;cursor: pointer;">
+                    <span v-if="pawnstore.phone!=''" style="padding: 2px;cursor: pointer;">
                         <v-icon color="#F19B14" >
                             mdi-phone
                         </v-icon>
                         <a style="text-decoration: none; color: #0E2334;" :href="'tel:'+pawnstore.phone.substring(2)">
-                            <b>{{pawnstore.phone.substring(2)}}</b>
+                            <b>{{pawnstore.phone.substring(0,3) == '+1 ' ?  pawnstore.phone.substring(3) : pawnstore.phone}}</b>
                         </a>
                     </span>
                     <!-- <div class="workingClass" v-if="((Object.keys(pawnstore.workingHours).length > 0) && openCard)">
