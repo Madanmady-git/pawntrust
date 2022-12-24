@@ -78,11 +78,11 @@
                 </div>
                 <div v-else-if="(move == 2)" class="outerMenuContent">
                     <div class="menuContent">
-                        <v-btn block outline class="btnclass" :color="(category == 'Watches') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
-                        <v-btn block outline class="btnclass" :color="(category == 'Jewellery') ? 'orange' : ''" @click = "clickedCategory('Jewellery')">Jewellery</v-btn>
-                        <v-btn block outline class="btnclass" :color="(category == 'Gold') ? 'orange' : ''" @click = "clickedCategory('Gold')">Gold</v-btn>
-                        <v-btn block outline class="btnclass" :color="(category == 'White Gold') ? 'orange' : ''" @click = "clickedCategory('White Gold')">White Gold</v-btn>
-                        <v-btn block outline class="btnclass" :color="(category == 'Diamonds') ? 'orange' : ''" @click = "clickedCategory('Diamonds')">Diamonds</v-btn>
+                        <v-btn block outline class="btnclass" :color="(categoryWatch != '') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
+                        <v-btn block outline class="btnclass" :color="(categoryJewel != '') ? 'orange' : ''" @click = "clickedCategory('Jewellery')">Jewellery</v-btn>
+                        <v-btn block outline class="btnclass" :color="(categoryGold != '') ? 'orange' : ''" @click = "clickedCategory('Gold')">Gold</v-btn>
+                        <v-btn block outline class="btnclass" :color="(categoryWhiteGold != '') ? 'orange' : ''" @click = "clickedCategory('White Gold')">White Gold</v-btn>
+                        <v-btn block outline class="btnclass" :color="(categoryDiamonds != '') ? 'orange' : ''" @click = "clickedCategory('Diamonds')">Diamonds</v-btn>
                     </div>
                 </div>
                 <div v-else-if="(move == 3)" class="uploadStyle">
@@ -91,6 +91,7 @@
                             <v-card min-height="30px" class="btnclass" style="background-color:#F19B14;color:#FFF;display: flex; flex-direction: row; justify-content: center;align-items: center;box-shadow: none;width: auto;">&nbsp; &nbsp;File upload&nbsp;<v-icon small color="#FFF">mdi-upload</v-icon> &nbsp;&nbsp;</v-card>
                             <div style="display:flex; alignItems:center;height: 80%; border:2px grey solid;border-radius: 10px;">
                                 <v-file-input
+                                    multiple
                                     v-model="choosenFile1"
                                     placeholder="Click to upload from device"
                                     solo
@@ -103,6 +104,7 @@
                             <v-card min-height="30px" class="btnclass" style="background-color:#F19B14;color:#FFF;display: flex; flex-direction: row; justify-content: center;align-items: center;box-shadow: none;width: auto;"> &nbsp;&nbsp;Camera&nbsp;<v-icon small color="#FFF">mdi-camera</v-icon> &nbsp;&nbsp;</v-card>
                             <div style="display:flex; alignItems:center;height: 80%; border:2px grey solid;border-radius: 10px;">
                                 <v-file-input
+                                    multiple
                                     solo
                                     flat
                                     dense
@@ -183,7 +185,11 @@ import Footer from '../components/Footer.vue';
         data() {
             return { 
                 move: 1,
-                category : '',
+                categoryWatch : '',
+                categoryJewel : '',
+                categoryGold : '',
+                categoryWhiteGold : '',
+                categoryDiamonds : '',
                 choosenFile1 : null,
                 choosenFile2 : null
              }
@@ -196,7 +202,21 @@ import Footer from '../components/Footer.vue';
                 this.move = this.move-1;
             },
             clickedCategory(value){
-                this.category = value;
+                if (value=='Watches') {
+                    this.categoryWatch = value
+                }
+                else if (value=='Jewellery') {
+                    this.categoryJewel = value
+                }
+                else if (value=='Gold') {
+                    this.categoryGold = value
+                }
+                else if (value=='White Gold') {
+                    this.categoryWhiteGold = value
+                }
+                else if (value=='Diamonds') {
+                    this.categoryDiamonds = value
+                }
             }
         }
     }
