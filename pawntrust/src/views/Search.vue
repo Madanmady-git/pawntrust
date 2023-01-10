@@ -6,11 +6,11 @@
                 <div style="text-align:left;">
                     <span><span style="font-size:2.3rem;font-weight:600;">Pawn Scan</span></span>
                     <br>
-                    <span style="font-size:1.5rem; font-family:Open Sans Hebrew Condensed, Sans-serif;">We have made doing business with pawn shops private, efficient and easier. Here, you have instant access to  pawn shops in these 
-                        <u
+                    <span style="font-size:1.5rem; font-family:Open Sans Hebrew Condensed, Sans-serif;">We have made doing business with pawn shops private, efficient and easier. Here, you have instant access to  pawn shops in these ZIP CODES or any city in Texas with more coming soon! </span>
+                        <!-- <u
                         style="text-decoration-color:navy;color: #0E2334; text-color:orange;cursor:pointer;font-weight: 600;" 
                         @click="(dialog = true)"
-                        > ZIP CODES</u> or any city in Texas with more coming soon!</span>
+                        > ZIP CODES</u> or any city in Texas with more coming soon!</span> -->
                     <br>
                     <br>
                 </div>

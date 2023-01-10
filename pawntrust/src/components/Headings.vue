@@ -50,14 +50,26 @@
             </v-list>
         </v-card>
         </v-menu>
+        <div>
+            <v-dialog
+            v-model="unauthorized"
+            :max-width="$mq != 'desktop' ? '600px' : '800px'"
+            hide-overlay
+            
+            >
+                <login @setAuthorized="setAuthorized()"/>
+            </v-dialog>
+        </div>
     </div>
 </template>
 
 <script>
+import login from '../views/LoginPopUp.vue'
 export default {
     props:['headingName' , 'items'],
+    components : {login},
     data: () => ({
-      
+        unauthorized : null
     }),
     methods:{
         routeToRightMethod(route){
@@ -105,18 +117,33 @@ export default {
                 })
             }
             else if (route=="Pawn It") {
-                this.$router.push({
-                    name: 'PawnIt'
-                })
+                if(this.$cookies.get('authorized')){
+                    this.unauthorized = false;
+                    this.$router.push({
+                        name: 'PawnIt'
+                    })
+                }
+                else{
+                    this.unauthorized = true;
+                }
             }
             else if (route=="Sell It") {
-                this.$router.push({
-                    name: 'SellIt'
-                })
+                if(this.$cookies.get('authorized')){
+                    this.unauthorized = false;
+                    this.$router.push({
+                        name: 'SellIt'
+                    })
+                }
+                else{
+                    this.unauthorized = true;
+                }
             }
             else {
                 console.log("No other possible route");
             }
+        },
+        setAuthorized(){
+            this.unauthorized = false;
         }
     }
 }

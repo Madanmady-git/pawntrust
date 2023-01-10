@@ -78,11 +78,11 @@
                 </div>
                 <div v-else-if="(move == 2)" class="outerMenuContent">
                     <div class="menuContent">
-                        <v-btn block outline class="btnclass" :color="(categoryWatch != '') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
-                        <v-btn block outline class="btnclass" :color="(categoryJewel != '') ? 'orange' : ''" @click = "clickedCategory('Jewellery')">Jewellery</v-btn>
-                        <v-btn block outline class="btnclass" :color="(categoryGold != '') ? 'orange' : ''" @click = "clickedCategory('Gold')">Gold</v-btn>
-                        <v-btn block outline class="btnclass" :color="(categoryWhiteGold != '') ? 'orange' : ''" @click = "clickedCategory('White Gold')">White Gold</v-btn>
-                        <v-btn block outline class="btnclass" :color="(categoryDiamonds != '') ? 'orange' : ''" @click = "clickedCategory('Diamonds')">Diamonds</v-btn>
+                        <v-btn block outline class="btnclass" :color="(category == 'Watches') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
+                        <v-btn block outline class="btnclass" :color="(category == 'Jewellery') ? 'orange' : ''" @click = "clickedCategory('Jewellery')">Jewellery</v-btn>
+                        <v-btn block outline class="btnclass" :color="(category == 'Gold') ? 'orange' : ''" @click = "clickedCategory('Gold')">Gold</v-btn>
+                        <v-btn block outline class="btnclass" :color="(category == 'White Gold') ? 'orange' : ''" @click = "clickedCategory('White Gold')">White Gold</v-btn>
+                        <v-btn block outline class="btnclass" :color="(category == 'Diamonds') ? 'orange' : ''" @click = "clickedCategory('Diamonds')">Diamonds</v-btn>
                     </div>
                 </div>
                 <div v-else-if="(move == 3)" class="uploadStyle">
@@ -185,11 +185,7 @@ import Footer from '../components/Footer.vue';
         data() {
             return { 
                 move: 1,
-                categoryWatch : '',
-                categoryJewel : '',
-                categoryGold : '',
-                categoryWhiteGold : '',
-                categoryDiamonds : '',
+                category : '',
                 choosenFile1 : null,
                 choosenFile2 : null
              }
@@ -202,21 +198,7 @@ import Footer from '../components/Footer.vue';
                 this.move = this.move-1;
             },
             clickedCategory(value){
-                if (value=='Watches') {
-                    this.categoryWatch = value
-                }
-                else if (value=='Jewellery') {
-                    this.categoryJewel = value
-                }
-                else if (value=='Gold') {
-                    this.categoryGold = value
-                }
-                else if (value=='White Gold') {
-                    this.categoryWhiteGold = value
-                }
-                else if (value=='Diamonds') {
-                    this.categoryDiamonds = value
-                }
+                this.category = value;
             }
         }
     }
