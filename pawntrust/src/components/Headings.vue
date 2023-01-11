@@ -66,7 +66,7 @@
 <script>
 import login from '../views/LoginPopUp.vue'
 export default {
-    props:['headingName' , 'items'],
+    props:['headingName' , 'items', 'page'],
     components : {login},
     data: () => ({
         unauthorized : null
@@ -144,6 +144,16 @@ export default {
         },
         setAuthorized(){
             this.unauthorized = false;
+            if (this.$props.page == 'SellIt') {
+                this.$router.push({
+                        name: 'SellIt'
+                    })
+            }
+            else if(this.$props.page == 'PawnIt'){
+                this.$router.push({
+                        name: 'PawnIt'
+                    })
+            }
         }
     }
 }

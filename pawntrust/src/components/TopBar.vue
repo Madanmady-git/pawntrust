@@ -81,8 +81,8 @@
                         <div v-if="$mq == 'desktop'" class="commonHeaderClass">
                                 <Heading :heading-name="'Home'"/>
                                 <Heading :heading-name="'Pawn Scan'"/>
-                                <Heading :heading-name="'Pawn It'"/>
-                                <Heading :heading-name="'Sell It'"/>
+                                <Heading :heading-name="'Pawn It'" :page="'PawnIt'"/>
+                                <Heading :heading-name="'Sell It'" :page="'SellIt'"/>
                                 <Heading :heading-name="'Features'" :items="featureItems"/>
                                 <Heading :heading-name="'More'" :items="moreItems"/>
                             </div>
@@ -101,6 +101,7 @@
 import Heading from '../components/Headings.vue';
 export default {
         components: { Heading },
+        props:['page'],
         data(){
             return{
                 search : '',
