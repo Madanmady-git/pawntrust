@@ -61,18 +61,19 @@
             </div>
             <div>
                 <div v-if="(move == 1)" style="text-align:left;">
-                    <span style="font-size:1rem;color:#000000;  font-weight:600;">Welcome to PawnTrust and thank you for choosing us for your pawn needs!</span>
+                    <span style="font-size:1rem;color:#000000; font-weight:600;">Welcome to PawnTrust and thank you for choosing us for your pawn needs!</span>
                     <br>
                     <br>
-                    <span style="font-size:1rem;color:#000000; font-weight:600;">As you have chosen to sell your item, we have made this process as effortless and quicker than ever thought possible. In fact, our revolutionary process is the first of its kind in the pawn industry.</span>
+                    <span style="font-size:1rem;color:#000000;  font-weight:600;">As you have chosen to sell your item, we have made this process as effortless and quicker than ever thought possible. In fact, our revolutionary process is the first of its kind in the pawn industry.</span>
                     <br>
                     <br>
-                    <span style="font-size:1rem;color:#000000; font-weight:600;">Simply take a photo of the item you wish to sell and we will give you a quote instantly. If you choose to follow through with the transaction, a shipping label will be generated for the item to arrive in our distribution center in Atlanta, Georgia. Once the product is received, it is checked and verified for authenticity. Once verified, it is sent to audit where a pawn contract will be initiated and you will be able to esign the appropriate document directly on the app. Payment will then be issued immediately through the blockchain (cryptocurrency), Paypal, debit card, or ACH.</span>
+                    <span style="font-size:1rem;color:#000000;  font-weight:600;">Simply take a photo of the item you wish to sell and it will be sent to the Pawntrust market place with over 7825 verified pawnshops to give you an <span style="font-size: 1.5rem;">OFFER</span> on it.</span>
                     <br>
                     <br>
+                    <span style="font-size:1rem;color:#000000;  font-weight:600;">The highest <span style="font-size: 1.5rem;">OFFER</span> will win the item. All <span style="font-size: 1.5rem;">OFFERS</span> will be live with a 5 minute window for the transaction. All transactions will be private between the pawnshops and the consumers.</span>
                     <br>
                     <br>
-                    <span style="font-size:1rem;color:#000000; font-weight:600;">We appreciate your business.</span>
+                    <span style="font-size:1rem;color:#000000;  font-weight:600;">We appreciate your business.</span>
                     <br>
                     <br>
                 </div>
