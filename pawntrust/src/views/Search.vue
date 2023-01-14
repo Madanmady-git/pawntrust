@@ -59,24 +59,80 @@
         </div>
         <div v-else-if="searchFieldFlag" class="cardsContent">
             <div class="SearchResults">
-                <!-- <div class="sortMainClass">
-                    <v-select
-                        color="orange"
-                        label="Sort By"
-                        :items="sortByItems"
-                        outlined
-                    >
-                    <template v-slot:item="{item, attrs, on}">
-                        <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
-                            <v-radio
-                                :label="item"
-                                :value="item"
-                            >
-                            </v-radio>
-                        </v-radio-group>
-                    </template>
-                    </v-select>
-                </div> -->
+                <div class="sortMainClass">
+                    <div class="sortCard">
+                        <v-select
+                            color="orange"
+                            label="Sort By"
+                            :items="sortByItems"
+                            outlined
+                        >
+                        <template v-slot:item="{item, attrs, on}">
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                                <v-radio
+                                    :label="item"
+                                    :value="item"
+                                >
+                                </v-radio>
+                            </v-radio-group>
+                        </template>
+                        </v-select>
+                    </div>
+                    <div class="sortCard">
+                        <v-select
+                            color="orange"
+                            label="Sort By"
+                            :items="sortByItems"
+                            outlined
+                        >
+                        <template v-slot:item="{item, attrs, on}">
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                                <v-radio
+                                    :label="item"
+                                    :value="item"
+                                >
+                                </v-radio>
+                            </v-radio-group>
+                        </template>
+                        </v-select>
+                    </div>
+                    <div class="sortCard">
+                        <v-select
+                            color="orange"
+                            label="Sort By"
+                            :items="sortByItems"
+                            outlined
+                        >
+                        <template v-slot:item="{item, attrs, on}">
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                                <v-radio
+                                    :label="item"
+                                    :value="item"
+                                >
+                                </v-radio>
+                            </v-radio-group>
+                        </template>
+                        </v-select>
+                    </div>
+                    <div class="sortCard">
+                        <v-select
+                            color="orange"
+                            label="Sort By"
+                            :items="sortByItems"
+                            outlined
+                        >
+                        <template v-slot:item="{item, attrs, on}">
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                                <v-radio
+                                    :label="item"
+                                    :value="item"
+                                >
+                                </v-radio>
+                            </v-radio-group>
+                        </template>
+                        </v-select>
+                    </div>
+                </div>
                 <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
                     <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
                 </div>
@@ -461,7 +517,7 @@ import axios from 'axios'
         justify-content: space-between;
         align-items: center;
     }
-
+    
     .searchBar{
         height:20vh;
         background-color:#F19B14;
@@ -489,6 +545,9 @@ import axios from 'axios'
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+    .sortCard{
+        padding: 0% 2%;
     }
     .cardsContent{
         display: flex;
