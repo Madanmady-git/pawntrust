@@ -68,7 +68,7 @@
                             outlined
                         >
                         <template v-slot:item="{item, attrs, on}">
-                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="sortBy(item)">
                                 <v-radio
                                     :label="item"
                                     :value="item"
@@ -81,53 +81,20 @@
                     <div class="sortCard">
                         <v-select
                             color="orange"
-                            label="Sort By"
-                            :items="sortByItems"
+                            label="Filter By Rating"
+                            :items="FilterItems"
                             outlined
                         >
                         <template v-slot:item="{item, attrs, on}">
-                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
-                                <v-radio
-                                    :label="item"
-                                    :value="item"
-                                >
-                                </v-radio>
-                            </v-radio-group>
-                        </template>
-                        </v-select>
-                    </div>
-                    <div class="sortCard">
-                        <v-select
-                            color="orange"
-                            label="Sort By"
-                            :items="sortByItems"
-                            outlined
-                        >
-                        <template v-slot:item="{item, attrs, on}">
-                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
-                                <v-radio
-                                    :label="item"
-                                    :value="item"
-                                >
-                                </v-radio>
-                            </v-radio-group>
-                        </template>
-                        </v-select>
-                    </div>
-                    <div class="sortCard">
-                        <v-select
-                            color="orange"
-                            label="Sort By"
-                            :items="sortByItems"
-                            outlined
-                        >
-                        <template v-slot:item="{item, attrs, on}">
-                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="searchbyStores(searchField)">
-                                <v-radio
-                                    :label="item"
-                                    :value="item"
-                                >
-                                </v-radio>
+                            <v-radio-group v-model="radioGroup" v-on="on" v-bind="attrs" @change="filterBy(item)">
+                                <div style="display:flex; flex-direction : row;align-items: center;justify-content: center;">
+                                    <v-radio
+                                        :label="item"
+                                        :value="item"
+                                    >
+                                    </v-radio>
+                                    <v-icon color="#F19B14" style="padding-bottom:8px">mdi-star</v-icon>
+                                </div>
                             </v-radio-group>
                         </template>
                         </v-select>
@@ -440,7 +407,12 @@ import axios from 'axios'
                     'Rating (low to high)',
                     'ReviewCount (high to low)',
                     'ReviewCount (low to high)',
-                ]
+                ],
+                FilterItems : [
+                    "1", "2", "3", "4", "5"
+                ],
+                sortField : '',
+                filterItem : ''
             }
         },
         mounted(){
@@ -462,10 +434,48 @@ import axios from 'axios'
             openMap(){
                 this.openMapFlag = true;
             },
+            sortBy(sortField){
+                if(sortField == 'Rating (high to low)'){
+                    this.sortField = 'Rating (high to low)'
+                }
+                else if(sortField == 'Rating (low to high)'){
+                    this.sortField = 'Rating (low to high)'
+                }
+                else if(sortField == 'ReviewCount (high to low)'){
+                    this.sortField = 'ReviewCount (high to low)'
+                }
+                else if(sortField == 'ReviewCount (low to high)'){
+                    this.sortField = 'ReviewCount (low to high)'
+                }
+                this.searchbyStores(this.searchField)
+            },
+            filterBy(filterItem){
+                console.log("Here...............1")
+                this.filterItem = filterItem;
+                this.searchbyStores(this.searchField);
+            },
             searchbyStores(field){
+                console.log("Here...............2")
                 this.searchFieldLoadingFlag = true;
                 this.start=0;
-                axios.get('https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20')
+                let apiURL = 'https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20'
+                if (this.sortField == 'Rating (high to low)') {
+                    apiURL = apiURL.concat("&sortField=rating&sortOrder=desc")
+                }
+                else if (this.sortField == 'Rating (low to high)') {
+                    apiURL = apiURL.concat("&sortField=rating&sortOrder=asc")
+                }
+                else if (this.sortField == 'ReviewCount (high to low)') {
+                    apiURL = apiURL.concat("&sortField=review_count&sortOrder=desc")
+                }
+                else if (this.sortField == 'ReviewCount (low to high)') {
+                    apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
+                }
+
+                if (this.sortField == '' && this.filterItem != '') {
+                    apiURL = apiURL.concat("&rating="+ this.filterItem)
+                }
+                axios.get(apiURL)
                 .then((response)=>{
                     console.log('response', response);
                     this.pawnstores = response.data.searchResults;
@@ -485,7 +495,24 @@ import axios from 'axios'
             showMore(field){
                 if(this.end < this.totalCount){
                     this.showMoreLoading = true;
-                    axios.get('https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.end)+'&length=20')
+                    let apiURL = 'https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.end)+'&length=20'
+                    if (this.sortField == 'Rating (high to low)') {
+                        apiURL = apiURL.concat("&sortField=rating&sortOrder=desc")
+                    }
+                    else if (this.sortField == 'Rating (low to high)') {
+                        apiURL = apiURL.concat("&sortField=rating&sortOrder=asc")
+                    }
+                    else if (this.sortField == 'ReviewCount (high to low)') {
+                        apiURL = apiURL.concat("&sortField=review_count&sortOrder=desc")
+                    }
+                    else if (this.sortField == 'ReviewCount (low to high)') {
+                        apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
+                    }
+
+                    if (this.sortField == '' && this.filterItem != '') {
+                        apiURL = apiURL.concat("&rating="+ this.filterItem)
+                    }
+                    axios.get(apiURL)
                     .then((response)=>{
                         console.log('response', response)
                         this.paginatedPawnStores = response.data.searchResults
