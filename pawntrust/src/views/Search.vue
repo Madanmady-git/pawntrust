@@ -28,6 +28,7 @@
                     style="background-color:#F19B14; height: 6%; width:30%;border-color:#F19B14;border:1px solid #F19B14"
                     hide-details
                     prepend-inner-icon="mdi-magnify"
+                    @keyup.enter="searchbyStores(searchField)"
                     >
                     </v-text-field>
                     <!-- <v-text-field
@@ -62,9 +63,11 @@
                 <div class="sortMainClass">
                     <div class="sortCard">
                         <v-select
+                            v-model="sortField"
                             color="orange"
                             label="Sort By"
                             :items="sortByItems"
+                            @change="sortBy(sortField)"
                             outlined
                         >
                         <template v-slot:item="{item, attrs, on}">
@@ -80,9 +83,11 @@
                     </div>
                     <div class="sortCard">
                         <v-select
+                            v-model="filterItem"
                             color="orange"
                             label="Filter By Rating"
                             :items="FilterItems"
+                            @change="filterBy(filterItem)"
                             outlined
                         >
                         <template v-slot:item="{item, attrs, on}">
@@ -100,7 +105,7 @@
                         </v-select>
                     </div>
                 </div>
-                <div v-for="store in pawnstores" :key="store.name" class="flexCenter"> 
+                <div v-for="store in pawnstores" :key="store.uuid" class="flexCenter"> 
                     <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
                 </div>
                 <div class="flexCenter">
@@ -387,7 +392,7 @@ import axios from 'axios'
         components : { TopBar, Footer, pawnStoreCard, Map },
         data(){
             return{
-                radioGroup: 'Rating (high to low)',
+                radioGroup: '',
                 dialog:false,
                 slides : 3,
                 zipcodeField : '',
@@ -403,10 +408,10 @@ import axios from 'axios'
                 showMoreLoading:false,
                 noResultsFound:false,
                 sortByItems : [
-                    'Rating (high to low)',
                     'Rating (low to high)',
-                    'ReviewCount (high to low)',
-                    'ReviewCount (low to high)',
+                    'Rating (high to low)',
+                    'Reviews (low to high)',
+                    'Reviews (high to low)',
                 ],
                 FilterItems : [
                     "1", "2", "3", "4", "5"
@@ -435,27 +440,27 @@ import axios from 'axios'
                 this.openMapFlag = true;
             },
             sortBy(sortField){
+                this.filterItem = '';
                 if(sortField == 'Rating (high to low)'){
                     this.sortField = 'Rating (high to low)'
                 }
                 else if(sortField == 'Rating (low to high)'){
                     this.sortField = 'Rating (low to high)'
                 }
-                else if(sortField == 'ReviewCount (high to low)'){
-                    this.sortField = 'ReviewCount (high to low)'
+                else if(sortField == 'Reviews (high to low)'){
+                    this.sortField = 'Reviews (high to low)'
                 }
-                else if(sortField == 'ReviewCount (low to high)'){
-                    this.sortField = 'ReviewCount (low to high)'
+                else if(sortField == 'Reviews (low to high)'){
+                    this.sortField = 'Reviews (low to high)'
                 }
                 this.searchbyStores(this.searchField)
             },
             filterBy(filterItem){
-                console.log("Here...............1")
+                this.sortField = '';
                 this.filterItem = filterItem;
                 this.searchbyStores(this.searchField);
             },
             searchbyStores(field){
-                console.log("Here...............2")
                 this.searchFieldLoadingFlag = true;
                 this.start=0;
                 let apiURL = 'https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20'
@@ -465,23 +470,33 @@ import axios from 'axios'
                 else if (this.sortField == 'Rating (low to high)') {
                     apiURL = apiURL.concat("&sortField=rating&sortOrder=asc")
                 }
-                else if (this.sortField == 'ReviewCount (high to low)') {
+                else if (this.sortField == 'Reviews (high to low)') {
                     apiURL = apiURL.concat("&sortField=review_count&sortOrder=desc")
                 }
-                else if (this.sortField == 'ReviewCount (low to high)') {
+                else if (this.sortField == 'Reviews (low to high)') {
                     apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
                 }
 
                 if (this.sortField == '' && this.filterItem != '') {
                     apiURL = apiURL.concat("&rating="+ this.filterItem)
+                    this.sortField = '';
                 }
                 axios.get(apiURL)
                 .then((response)=>{
                     console.log('response', response);
                     this.pawnstores = response.data.searchResults;
                     this.totalCount = response.data.recordsTotal;
+                    if (this.totalCount == 0) {
+                        this.radioGroup = '',
+                        this.start = 0,
+                        this.end=0,
+                        this.sortField = '',
+                        this.filterItem = ''
+                    }
                     this.searchFieldFlag = true;
+                    console.log("check..............1", this.searchFieldLoadingFlag)
                     this.searchFieldLoadingFlag = false;
+                    console.log("check..............2", this.searchFieldLoadingFlag)
                     this.end = this.pawnstores.length;
                     if(this.end == 0) this.noResultsFound=true
                 })
@@ -502,15 +517,16 @@ import axios from 'axios'
                     else if (this.sortField == 'Rating (low to high)') {
                         apiURL = apiURL.concat("&sortField=rating&sortOrder=asc")
                     }
-                    else if (this.sortField == 'ReviewCount (high to low)') {
+                    else if (this.sortField == 'Reviews (high to low)') {
                         apiURL = apiURL.concat("&sortField=review_count&sortOrder=desc")
                     }
-                    else if (this.sortField == 'ReviewCount (low to high)') {
+                    else if (this.sortField == 'Reviews (low to high)') {
                         apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
                     }
 
                     if (this.sortField == '' && this.filterItem != '') {
                         apiURL = apiURL.concat("&rating="+ this.filterItem)
+                        this.sortField = '';
                     }
                     axios.get(apiURL)
                     .then((response)=>{

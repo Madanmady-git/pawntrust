@@ -3,7 +3,7 @@
         <v-card class="cardStyle">
             <div class="pawnStoreContent">
                 <div class="flexCol">
-                    <span style="font-size:larger; font-weight:550;color:#0E2334;padding: 2px;">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">{{pawnstore.name}}
+                    <span style="font-size:larger; font-weight:550;color:#0E2334;padding: 2px;">{{pawnstore.name}}<a :href="pawnstore.website" target="_blank" style="text-decoration: none;color:rgb(14, 35, 52);">
                         <v-icon medium>mdi-arrow-top-right</v-icon></a></span>
                     <span style="padding: 2px;cursor: pointer;"><v-icon color="#F19B14">mdi-map-marker-outline</v-icon>{{pawnstore.address}}</span>
                     
