@@ -8,10 +8,11 @@ import loadGoogleMapsApi from "load-google-maps-api";
 import apiKey from "./../constants/apiKey.js";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import polylabel from 'polylabel';
+//import simplify from 'simplify-js';
 
 export default {
   name: "Map",
-  props: ['searchField', 'pawnstores', 'filterpawnStores', 'unfilterpawnStores'],
+  props: ['searchField', 'pawnstores', 'filterPawnstores', 'unfilterPawnstores', 'getStoreToPolygonMap'],
   data() {
     return {
       map: null,
@@ -78,7 +79,7 @@ export default {
           max_lat = Math.max(latitude, max_lat);
           min_lng = Math.min(longitude, min_lng);
           max_lng = Math.max(longitude, max_lng);
-          console.log(min_lng, this.pawnstores[i].name, i);
+          //console.log(min_lat, this.pawnstores[i].name, i, latitude, longitude);
         }
         //lat_arr.sort(); lng_arr.sort();
         // let centerlatitude = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
@@ -107,24 +108,31 @@ export default {
         let lat_high = Math.ceil(max_lat) + 1;
         let lng_low = Math.floor(min_lng) - 1;
         let lng_high = Math.ceil(max_lng) + 1;
-        console.log("here");
-        console.log(lat_low, lat_high);
-        console.log(lng_low, lng_high);
+        //console.log("here");
+        //console.log(lat_low, lat_high);
+        //console.log(lng_low, lng_high);
         const factor = 0.25;
         let no_lats = parseInt(Math.abs(lat_low - lat_high)) * (parseInt((1 / factor)));
         let no_lngs = parseInt(Math.abs(lng_low - lng_high)) * (parseInt((1 / factor)));
         let no_rects = no_lats * no_lngs;
+        //console.log(no_rects);
         let polygon_sets = {
 
         }
+        let poly_shops = {
+
+        };
         for (let i = 1; i <= no_rects; i++) {
           polygon_sets[i] = [];
+          poly_shops[i] = [];
         }
+
+
 
         for (let i = 0; i < this.pawnstores.length; i++) {
           let latitude = parseFloat(this.pawnstores[i].latitude);
           let longitude = parseFloat(this.pawnstores[i].longitude);
-          console.log(latitude, longitude);
+          //console.log(latitude, longitude);
           let k = 1;
           let up = -1;
           for (let j = lat_low; j < lat_high; j += factor) {
@@ -134,7 +142,7 @@ export default {
             k++;
           }
           up = k;
-          console.log(up);
+          //console.log(up);
           k = 1;
           let right = -1;
           for (let j = lng_low; j < lng_high; j += factor) {
@@ -144,85 +152,90 @@ export default {
             k++;
           }
           right = k;
-          console.log(right);
-          let index = (k * no_lats) + up;
+          //console.log(right);
+          let index = (right * no_lats) + up;
+          //console.log(index);
           polygon_sets[index].push({
             lat: latitude,
             lng: longitude,
           });
+          poly_shops[index].push(this.pawnstores[i]);
+          //console.log(poly_shops[index])
 
 
         }
-        console.log(polygon_sets);
+        //console.log(polygon_sets);
         let polygonCoordsSet = [];
+        let index_poly_shops = {};
         for (let j = 1; j <= no_rects; j++) {
           if (polygon_sets[j].length == 0) {
             continue;
           }
-          else {
-            // let u = parseInt((j % no_lats));
-            // let r = parseInt((j - u) / no_lats);
-            // console.log(u, r);
-            // let min_la = lat_low + ((u - 1) * 0.25);
-            // let max_la = min_la + 0.25;
-            // let min_ln = lng_low + ((u - 1) * 0.25);
-            // let max_ln = min_ln + 0.25;
-            // polygon_sets[j].push({
-            //   lat: (min_la + max_la) / 2,
-            //   lng: (min_ln + max_ln) / 2,
-            // });
-            // polygon_sets[j].push({
-            //   lat: min_la + 0.1,
-            //   lng: max_ln - 0.1,
-            // });
-            // polygon_sets[j].push({
-            //   lat: max_la - 0.15,
-            //   lng: max_ln - 0.12,
-            // });
-            if (polygon_sets[j].length <= 3) {
-              let lati = polygon_sets[j][0].lat;
-              let lngi = polygon_sets[j][0].lng;
-              let min_la = lat_low + (parseInt((lati - lat_low) / factor)) * factor;
-              let min_ln = lng_low + (parseInt((lngi - lng_low) / factor)) * factor;
-              console.log("Heyyyyyyyy");
-              console.log(polygon_sets[j]);
-              console.log(min_la, min_ln);
 
-              polygon_sets[j].push({
-                lat: 0.15 + min_la,
-                lng: 0.12 + min_ln,
-              });
-              polygon_sets[j].push({
-                lat: 0.2 + min_la,
-                lng: 0.157 + min_ln,
-              });
-              polygon_sets[j].push({
-                lat: 0.13 + min_la,
-                lng: 0.20 + min_ln,
-              });
-              polygon_sets[j].push({
-                lat: 0.05 + min_la,
-                lng: 0.10 + min_ln,
-              });
-              // for good shapes :
-              // polygon_sets[j].push({
-              //   lat: 0.05 + min_la,
-              //   lng: 0.24 + min_ln,
-              // });
-              // polygon_sets[j].push({
-              //   lat: 0.125 + min_la,
-              //   lng: 0.125 + min_ln,
-              // });
+          // let u = parseInt((j % no_lats));
+          // let r = parseInt((j - u) / no_lats);
+          // console.log(u, r);
+          // let min_la = lat_low + ((u - 1) * 0.25);
+          // let max_la = min_la + 0.25;
+          // let min_ln = lng_low + ((u - 1) * 0.25);
+          // let max_ln = min_ln + 0.25;
+          // polygon_sets[j].push({
+          //   lat: (min_la + max_la) / 2,
+          //   lng: (min_ln + max_ln) / 2,
+          // });
+          // polygon_sets[j].push({
+          //   lat: min_la + 0.1,
+          //   lng: max_ln - 0.1,
+          // });
+          // polygon_sets[j].push({
+          //   lat: max_la - 0.15,
+          //   lng: max_ln - 0.12,
+          // });
+          // if (polygon_sets[j].length <= 3) { 
+          // added some extra points in rectangular confined regions to make polygon shapes better
+          let lati = polygon_sets[j][0].lat;
+          let lngi = polygon_sets[j][0].lng;
+          let min_la = lat_low + (parseInt((lati - lat_low) / factor)) * factor;
+          let min_ln = lng_low + (parseInt((lngi - lng_low) / factor)) * factor;
+          //console.log(polygon_sets[j]);
+          //console.log(min_la, min_ln);
 
-
-            }
-
-            polygonCoordsSet.push(polygon_sets[j]);
+          polygon_sets[j].push({
+            lat: 0.15 + min_la,
+            lng: 0.12 + min_ln,
+          });
+          polygon_sets[j].push({
+            lat: 0.2 + min_la,
+            lng: 0.157 + min_ln,
+          });
+          polygon_sets[j].push({
+            lat: 0.13 + min_la,
+            lng: 0.20 + min_ln,
+          });
+          polygon_sets[j].push({
+            lat: 0.05 + min_la,
+            lng: 0.10 + min_ln,
+          });
+          // for good shapes :
+          // polygon_sets[j].push({
+          //   lat: 0.05 + min_la,
+          //   lng: 0.24 + min_ln,
+          // });
+          // polygon_sets[j].push({
+          //   lat: 0.125 + min_la,
+          //   lng: 0.125 + min_ln,
+          // });
 
 
+          // }
+
+          polygonCoordsSet.push(polygon_sets[j]);
+          index_poly_shops[polygonCoordsSet.length - 1] = j;
 
 
-          }
+
+
+
         }
 
 
@@ -304,8 +317,7 @@ export default {
         let polyset = [];
         for (let i = 0; i < polygonCoordsSet.length; i++) {
           let arr = polygonCoordsSet[i];
-          console.log("a");
-          console.log(arr);
+          //console.log(arr);
           arr.sort((a, b) => {
             if (a.lng !== b.lng) {
               return (a.lng - b.lng);
@@ -314,8 +326,7 @@ export default {
               return (b.lat - a.lat);
             }
           });
-          console.log("b");
-          console.log(arr);
+          //console.log(arr);
           let min_lng = arr[0].lng;
           let max_lng = arr[arr.length - 1].lng;
           let min_lng_min_lat = 100000000;
@@ -328,11 +339,10 @@ export default {
               max_lng_min_lat = Math.min(max_lng_min_lat, arr[j].lat);
             }
           }
-          console.log("c");
-          console.log(min_lng_min_lat, max_lng_min_lat);
+          //console.log(min_lng_min_lat, max_lng_min_lat);
           let base_line = Math.min(min_lng_min_lat, max_lng_min_lat);
           min_lng = min_lng - 0.0000001;
-          console.log(base_line);
+          //console.log(base_line);
           let arr_n = [];
           arr_n.push({
             lat: min_lng_min_lat,
@@ -340,8 +350,7 @@ export default {
 
           });
           let fin_arr = arr_n.concat(arr);
-          console.log("d");
-          console.log(fin_arr);
+          //console.log(fin_arr);
           let visited = [];
           for (let j = 0; j < fin_arr.length; j++) {
             visited.push(false);
@@ -358,7 +367,7 @@ export default {
 
             if (fin_arr[j].lat >= base_line) {
               ans_arr.push(fin_arr[j]);
-              console.log(j, fin_arr[j]);
+              //console.log(j, fin_arr[j]);
               visited[j] = true;
               if (fin_arr[j].lng !== prev.lng) {
                 if (fin_arr[j].lat > prev.lat) {
@@ -369,7 +378,7 @@ export default {
                   opt_arr.push(fin_arr[j]);
                 }
                 if (fin_arr[j].lng === max_lng) {
-                  if (prev.lat !== fin_arr[j].lat) {
+                  if (prev.lat !== fin_arr[j].lat || (prev.lat === fin_arr[j].lat && opt_arr[opt_arr.length - 1].lng !== max_lng && prev.lat !== base_line)) {
                     prev = {
                       lat: prev.lat,
                       lng: fin_arr[j].lng,
@@ -391,13 +400,19 @@ export default {
               lng: max_lng
             });
           }
+
           opt_arr.push({
-            lat: base_line - 0.0000001,
+            lat: base_line,
             lng: max_lng
           });
+
+          // opt_arr.push({
+          //   lat: base_line - 0.0000001,
+          //   lng: max_lng
+          // });
           j = fin_arr.length - 1;
           prev = {
-            lat: base_line - 0.0000001,
+            lat: base_line,
             lng: max_lng
           }
 
@@ -405,7 +420,7 @@ export default {
 
             if (visited[j] !== true) {
               ans_arr.push(fin_arr[j]);
-              console.log(j, fin_arr[j]);
+              //console.log(j, fin_arr[j]);
               visited[j] = true;
               if (fin_arr[j] !== prev.lng) {
                 if (fin_arr[j].lat < prev.lat) {
@@ -429,28 +444,52 @@ export default {
               lng: min_lng,
             });
           }
-          if (base_line === max_lng_min_lat) {
-            opt_arr.push({
-              lat: prev.lat,
-              lng: min_lng,
-            });
-          }
-          // opt_arr.push({
-          //   lat: base_line - 0.0000001,
-          //   lng: min_lng,
-          // })
 
-          console.log("e");
-          console.log(ans_arr);
+          // if (base_line === max_lng_min_lat) {
+          //   opt_arr.push({
+          //     lat: prev.lat,
+          //     lng: min_lng,
+          //   });
+          // }
+
+          opt_arr.push({
+            lat: base_line,
+            lng: min_lng,
+          })
+          //console.log(ans_arr);
           //  ans_arr.splice(0, 1);
-          console.log("f");
           // console.log(ans_arr);
           //polyset.push(ans_arr);
-          console.log(opt_arr);
+          //console.log(opt_arr);
           polyset.push(opt_arr);
         }
+
+        // Douglas Pecker algorithm using simplify-js 
+        // let tot_arr = [];
+        // for (let k = 0; k < polyset.length; k++) {
+        //   let polygon_arr = polyset[k];
+        //   let arr = [];
+        //   for (let p = 0; p < polygon_arr.length; p++) {
+        //     let obj = { x: null, y: null };
+        //     obj.x = polygon_arr[p].lng;
+        //     obj.y = polygon_arr[p].lat;
+        //     arr.push(obj);
+        //   }
+        //   console.log(arr);
+        //   let res_arr = simplify(arr, 5, true);
+        //   console.log(res_arr);
+        //   let r_arr = [];
+        //   for (let p = 0; p < res_arr.length; p++) {
+        //     r_arr.push({ lat: res_arr[p].y, lng: res_arr[p].x });
+        //   }
+        //   tot_arr.push(r_arr);
+        // }
+        // polygonCoordsSet = tot_arr;
+
+
         polygonCoordsSet = polyset;
-        console.log(polygonCoordsSet);
+
+        //console.log(polygonCoordsSet);
 
         /* let center_lat_arr = [];
          let center_lng_arr = [];
@@ -520,9 +559,9 @@ export default {
 
           }
           // console.log(bound.getCenter().lat(), bound.getCenter().lng());
-          console.log("centerrrrrrrrrrrrrrr");
+          //console.log("centerrrrrrrrrrrrrrr");
           let center_arr = polylabel(polygon, 10.0);
-          console.log(center_arr);
+          //console.log(center_arr);
           //poly_lat_arr.sort(); poly_lng_arr.sort();
           // lat_sum = lat_sum / polygonCoordsSet[i].length;
           // lng_sum = lng_sum / polygonCoordsSet[i].length;
@@ -542,12 +581,14 @@ export default {
             lat: center_arr[1],
             lng: center_arr[0],
           };
-          console.log(i, polygon_centers[i]);
+          //console.log(i, polygon_centers[i]);
           //bounded rectangles midpoints
 
 
         }
+        let storeToPolygonMap = {
 
+        };
         for (let i = 0; i < polygonCoordsSet.length; i++) {
           const polygonShapeContructor = new google.maps.Polygon({
             paths: polygonCoordsSet[i],
@@ -558,6 +599,14 @@ export default {
             fillOpacity: 0.2,
             zIndex: 99999,
           });
+
+          let arr = poly_shops[index_poly_shops[i]];
+          for (let j = 0; j < arr.length; j++) {
+            storeToPolygonMap[arr[j]["uuid"]] = polygonShapeContructor;
+            //console.log(arr[j].name, index_poly_shops[i]);
+          }
+          //console.log("OOOOOO");
+
           google.maps.event.addListener(
             polygonShapeContructor,
             "mouseover",
@@ -606,7 +655,7 @@ export default {
                 polygonShapeContructor.setOptions({
                   fillOpacity: 0.2,
                 });
-                this.unfilterpawnStores("unfilter polygon : " + i, polygonShapeContructor);
+                this.unfilterPawnstores(index_poly_shops[i], polygonShapeContructor, this.map, poly_shops[index_poly_shops[i]]);
 
               }
               else {
@@ -638,13 +687,20 @@ export default {
 
                 marker.setMap(this.map);
                 dict[i] = marker;
-                this.filterpawnStores("filter polygon : " + i, polygonShapeContructor);
+                this.filterPawnstores(index_poly_shops[i], polygonShapeContructor, this.map, poly_shops[index_poly_shops[i]]);
+                // let shops_arr = poly_shops[index_poly_shops[i]];
+                // console.log(poly_shops[index_poly_shops[i]]);
+                // for (let k = 0; k < shops_arr.length; k++) {
+                //   console.log(shops_arr[k].latitude, shops_arr[k].longitude);
+                // }
               }
 
             }
           );
           PolygonShapes.push(polygonShapeContructor);
         }
+        //console.log(storeToPolygonMap);
+        this.getStoreToPolygonMap(storeToPolygonMap);
 
         PolygonShapes.forEach((polygon) => {
           polygon.setMap(this.map);
@@ -653,6 +709,7 @@ export default {
         //centering and zooming corresponding to created polygons because here now polygons are main cases
         //let lat_arr = []; let lng_arr = [];
         var bounds = new google.maps.LatLngBounds();
+        //let arr = [];
         for (var j = 0; j < PolygonShapes.length; j++) {
           for (var i = 0; i < PolygonShapes[j].getPath().getLength(); i++) {
             let k = PolygonShapes[j].getPath().getAt(i);
@@ -660,10 +717,21 @@ export default {
             // console.log("abc");
             // lat_arr.push(k.lat());
             // lng_arr.push(k.lng());
+            // arr.push({ lng: k.lng(), lat: k.lat() });
           }
         }
+
         // lat_arr.sort();
         // lng_arr.sort();
+        // arr.sort((a, b) => {
+        //   if (a.lng !== b.lng) {
+        //     return (a.lng - b.lng);
+        //   }
+        //   else {
+        //     return (a.lat - b.lat);
+        //   }
+        // })
+        // let center_point = arr[parseInt(Math.ceil(arr.length / 2))];
 
         // let centerlatitude = lat_arr[parseInt(Math.ceil(lat_arr.length / 2))];
         // let centerlongitude = lng_arr[parseInt(Math.ceil(lng_arr.length / 2))];
@@ -674,6 +742,10 @@ export default {
         //console.log(this.map.getCenter().lat(), this.map.getCenter().lng());
         //this.map.setCenter(new google.maps.LatLng(centerlatitude, centerlongitude));
         // this.map.setZoom(12);
+        // this.map.setCenter(new google.maps.LatLng(center_point.lat, center_point.lng));
+        // this.map.setZoom(12);
+
+
 
 
         /* const circleShapes = [];

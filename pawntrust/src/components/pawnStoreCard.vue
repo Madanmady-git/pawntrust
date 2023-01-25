@@ -1,5 +1,6 @@
 <template>
-    <div class="mainContent">
+    <div class="mainContent" v-on:mouseover="mouseOverCard(pawnstore.uuid)"
+        v-on:mouseout="mouseOutCard(pawnstore.uuid)">
         <v-card class="cardStyle">
             <div class="pawnStoreContent">
                 <div class="flexCol">
@@ -54,7 +55,7 @@
 </template>
 <script>
 export default{
-    props : ['pawnstore'],
+    props : ['pawnstore', 'mouseOver', 'mouseOut'],
     data (){
        return {
         openCard : false
@@ -64,6 +65,12 @@ export default{
         cardAction(){
             this.openCard = !this.openCard;
         },
+        mouseOverCard(storeId) {
+            this.mouseOver(storeId);
+        },
+        mouseOutCard(storeId) {
+            this.mouseOut(storeId);
+        }
     }
 }
 </script>

@@ -105,10 +105,31 @@
                         </v-select>
                     </div>
                 </div>
-                <div v-for="store in pawnstores" :key="store.uuid" class="flexCenter"> 
-                    <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
+                <div v-if="isFiltered">
+                    <div v-for="store in filteredPawnstores" :key="store.uuid" class="flexCenter">
+                        <pawnStoreCard :pawnstore="store" :mouseOver="mouseOver" :mouseOut="mouseOut"></pawnStoreCard>
+                    </div>
                 </div>
-                <div class="flexCenter">
+                <div v-else>
+                    <div v-for="store in pawnstores" :key="store.uuid" class="flexCenter">
+                        <pawnStoreCard :pawnstore="store" :mouseOver="mouseOver" :mouseOut="mouseOut"></pawnStoreCard>
+                    </div>
+                </div>
+                <!-- <div v-for="store in pawnstores" :key="store.uuid" class="flexCenter"> 
+                    <pawnStoreCard :pawnstore="store" ></pawnStoreCard>
+                </div> -->
+                <div v-if="!isFiltered">
+                    <div class="flexCenter">
+                        <v-btn rounded outlined
+                            style="background-color:#FFFFFF;color:#F19B14; text-transform: capitalize;box-shadow: none;"
+                            @click="showMore(searchField)" :loading="showMoreLoading" :disabled="(end >= totalCount)">
+                            Show More Results
+                        </v-btn>
+                        <span>Showing {{ (1) }} - {{ (end) }} out of {{ totalCount }}</span>
+                        <!-- {{pawnstores.length}} -->
+                    </div>
+                </div>
+                <!-- <div class="flexCenter">
                     <v-btn
                     rounded outlined style="background-color:#FFFFFF;color:#F19B14; text-transform: capitalize;box-shadow: none;"
                     @click="showMore(searchField)"
@@ -118,12 +139,12 @@
                     Show More Results
                     </v-btn>
                     <span>Showing {{(1)}} - {{(end)}} out of {{totalCount}}</span>
-                    <!-- {{pawnstores.length}} -->
-                </div>
+                    {{pawnstores.length}}
+                </div> -->
             </div>
             <div v-if="openMapFlag" style="width:50%;">
-                <Map :searchField="searchField" :pawnstores="pawnstores" :filterpawnStores="filterpawnStores"
-                    :unfilterpawnStores="unfilterpawnStores"></Map>
+                <Map :searchField="searchField" :pawnstores="pawnstores" :filterPawnstores="filterPawnstores"
+                    :unfilterPawnstores="unfilterPawnstores" :getStoreToPolygonMap="getStoreToPolygonMap"></Map>
             </div>
             <div v-else style="margin:auto">
                 <span>Select pawn store to get map details</span>
@@ -401,6 +422,8 @@ import axios from 'axios'
                 searchFieldLoadingFlag : false,
                 openMapFlag : true,
                 pawnstores : [],
+                filteredPawnstores: [],
+                isFiltered: false,
                 totalCount:-1,
                 paginatedPawnStores:[],
                 start:0,
@@ -412,30 +435,160 @@ import axios from 'axios'
                     'Rating (high to low)',
                     'Reviews (low to high)',
                     'Reviews (high to low)',
+                    'Distance (low to high)',
+                    'Distance (high to low)'
                 ],
                 FilterItems : [
                     "1", "2", "3", "4", "5"
                 ],
                 sortField : '',
-                filterItem : ''
+                filterItem : '',
+                storeToPolygonMap: {},
+                position: null,
             }
         },
         mounted(){
-
+            // if(navigator.geolocation){
+            //     navigator.geolocation.getCurrentPosition(position => {
+            //         this.position = position.coords;
+            //         console.log("position1", this.position );
+            //     })
+            // }
+            this.getUserLocation();
+            console.log("position2", this.position );
         },
         methods:{
-            filterpawnStores(polygonMessage, polygonObject) {
-                console.log(polygonMessage);
-                console.log(polygonObject);
+            async getUserLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        this.position = {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        }
+                        //console.log(position.coords.latitude, position.coords.longitude);
+                        console.log("position2", this.position );
+                        return this.position;
+                    })
+                }
+                console.log("position3", this.position );
+            },
+            mouseOver(storeUUID) {
+                // console.log("Inside mouse over method");
+                //console.log(storeUUID);
+                if (!this.isFiltered) {
+
+                    this.storeToPolygonMap[storeUUID].setOptions({
+                        fillOpacity: 0.6,
+                    });
+                    // console.log(this.storeToPolygonMap[store]);
+                }
+            },
+            mouseOut(storeUUID) {
+                //console.log(storeUUID);
+                if (!this.isFiltered) {
+                    this.storeToPolygonMap[storeUUID].setOptions({
+                        fillOpacity: 0.2,
+                    });
+                    // console.log(this.storeToPolygonMap[store]);
+                }
+            },
+            getStoreToPolygonMap(obj) {
+                this.storeToPolygonMap = obj;
+                // const keys = Object.keys(obj);
+                // console.log(keys);
+                // keys.forEach((key) => {
+                //     //console.log(`${key}: ${obj[key]}`);
+                // });
+
+            },
+            filterPawnstores(polygonIndex, polygonObject, map, shops) {
+                // console.log(polygonIndex);
+                // console.log(polygonObject);
                 //Polygon Contains Location API:
                 //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
+
+                // const endPoints = [];
+                // let endpointsString = "";
+                //const { google } = window;
+                // let arr = [];
+                //console.log(polygonShapeContructor.getPath());
+                // for (let i = 0; i < polygonObject.getPath().Vc.length; i++) {
+                //     let latitude = polygonObject.getPath().Vc[i].lat();
+                //     let longitude = polygonObject.getPath().Vc[i].lng();
+                //     endPoints.push({ lat: latitude, lng: longitude });
+                //     // new google.maps.Marker({
+                //     //     position: endPoints[i],
+                //     //     map,
+                //     //     title: "[latitude : " + latitude + "," + "longitude : " + longitude + "]",
+                //     // });
+                //     const resultColor = google.maps.geometry.poly.containsLocation(
+                //         endPoints[i],
+                //         polygonObject
+                //     )
+                //         ? "blue"
+                //         : "red";
+                //     arr.push({ color: resultColor, lat: latitude, lng: longitude });
+                //     endpointsString += ("[latitude : " + latitude + "," + "longitude : " + longitude + "]");
+
+                // }
+                // console.log(endPoints);
+                // console.log(endpointsString);
+                //alert(endpointsString);
+                //console.log(arr);
+                // console.log(shops);
+
+                //this.filterPawnstoresMap[polygonMessage]["isMarked"] = true;
+                //this.setFilter();
+                let arr = this.filteredPawnstores;
+                this.filteredPawnstores = shops.concat(arr);
+                this.isFiltered = true;
+
+
+                //console.log(this.filterPawnstoresMap[polygonMessage]["shops"]);
             },
-            unfilterpawnStores(polygonMessage, polygonObject) {
-                console.log(polygonMessage);
-                console.log(polygonObject);
+            unfilterPawnstores(polygonIndex, polygonObject, map, shops) {
+
+                //this.filterPawnstoresMap[polygonMessage]["isMarked"] = false;
+                //this.setFilter();
+                let arr = this.filteredPawnstores;
+                let obj = shops[0];
+                let fin_arr = [];
+                let i = 0;
+                for (; i < arr.length; i++) {
+                    if (arr[i].uuid !== obj.uuid) {
+                        fin_arr.push(arr[i]);
+                    }
+                    else {
+                        break;
+                    }
+                }
+                for (let j = (i + shops.length); j < arr.length; j++) {
+                    fin_arr.push(arr[j]);
+                }
+
+                this.filteredPawnstores = fin_arr;
+                if (fin_arr.length === 0) {
+                    this.isFiltered = false;
+                }
+                // console.log(polygonIndex);
+                // console.log(polygonObject);
+                // console.log(shops);
+
                 //Polygon Contains Location  API:
                 //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
             },
+            // filterpawnStores(polygonMessage, polygonObject) {
+            //     console.log(polygonMessage);
+            //     console.log(polygonObject);
+            //     //Polygon Contains Location API:
+            //     //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
+            // },
+            // unfilterpawnStores(polygonMessage, polygonObject) {
+            //     console.log(polygonMessage);
+            //     console.log(polygonObject);
+            //     //Polygon Contains Location  API:
+            //     //https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
+            // },
             openMap(){
                 this.openMapFlag = true;
             },
@@ -453,6 +606,12 @@ import axios from 'axios'
                 else if(sortField == 'Reviews (low to high)'){
                     this.sortField = 'Reviews (low to high)'
                 }
+                else if(sortField == 'Distance (low to high)'){
+                    this.sortField = 'Distance (low to high)'
+                }
+                else if(sortField == 'Distance (high to low)'){
+                    this.sortField = 'Distance (high to low)'
+                }
                 this.searchbyStores(this.searchField)
             },
             filterBy(filterItem){
@@ -460,7 +619,8 @@ import axios from 'axios'
                 this.filterItem = filterItem;
                 this.searchbyStores(this.searchField);
             },
-            searchbyStores(field){
+            async searchbyStores(field){
+                console.log("positionchekc", this.position);
                 this.searchFieldLoadingFlag = true;
                 this.start=0;
                 let apiURL = 'https://api.pawntrust.com/api/v1/search?searchValue='+field+'&start='+String(this.start)+'&length=20'
@@ -476,14 +636,25 @@ import axios from 'axios'
                 else if (this.sortField == 'Reviews (low to high)') {
                     apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
                 }
+                else if (this.sortField == 'Distance (low to high)') {
+                    apiURL = apiURL.concat("&sortField=distance&sortOrder=asc&currentLocation=")
+                    apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                }
+                else if (this.sortField == 'Distance (high to low)') {
+                    apiURL = apiURL.concat("&sortField=distance&sortOrder=desc&currentLocation=")
+                    apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                }
 
                 if (this.sortField == '' && this.filterItem != '') {
                     apiURL = apiURL.concat("&rating="+ this.filterItem)
                     this.sortField = '';
                 }
+                console.log("apiURL", apiURL)
                 axios.get(apiURL)
                 .then((response)=>{
                     console.log('response', response);
+                    this.filteredPawnstores = [];
+                    this.isFiltered = false;
                     this.pawnstores = response.data.searchResults;
                     this.totalCount = response.data.recordsTotal;
                     if (this.totalCount == 0) {
@@ -523,6 +694,14 @@ import axios from 'axios'
                     else if (this.sortField == 'Reviews (low to high)') {
                         apiURL = apiURL.concat("&sortField=review_count&sortOrder=asc")
                     }
+                    else if (this.sortField == 'Distance (low to high)') {
+                        apiURL = apiURL.concat("&sortField=distance&sortOrder=asc&currentLocation=")
+                        apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                    }
+                    else if (this.sortField == 'Distance (high to low)') {
+                        apiURL = apiURL.concat("&sortField=distance&sortOrder=desc&currentLocation=")
+                        apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                    }
 
                     if (this.sortField == '' && this.filterItem != '') {
                         apiURL = apiURL.concat("&rating="+ this.filterItem)
@@ -531,6 +710,8 @@ import axios from 'axios'
                     axios.get(apiURL)
                     .then((response)=>{
                         console.log('response', response)
+                        this.filteredPawnstores = [];
+                        this.isFiltered = false;
                         this.paginatedPawnStores = response.data.searchResults
                         this.pawnstores = this.pawnstores.concat(this.paginatedPawnStores);
                         this.showMoreLoading = false;
