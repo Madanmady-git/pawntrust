@@ -696,11 +696,11 @@ import axios from 'axios'
                     }
                     else if (this.sortField == 'Distance (low to high)') {
                         apiURL = apiURL.concat("&sortField=distance&sortOrder=asc&currentLocation=")
-                        apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                        apiURL = apiURL.concat(this.position.latitude,"," , this.position.longitude)
                     }
                     else if (this.sortField == 'Distance (high to low)') {
                         apiURL = apiURL.concat("&sortField=distance&sortOrder=desc&currentLocation=")
-                        apiURL = apiURL.concat(this.position.latitude,", " , this.position.longitude)
+                        apiURL = apiURL.concat(this.position.latitude,"," , this.position.longitude)
                     }
 
                     if (this.sortField == '' && this.filterItem != '') {
