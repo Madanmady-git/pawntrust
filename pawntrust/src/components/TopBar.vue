@@ -83,7 +83,7 @@
                                 <Heading :heading-name="'Pawn Scan'"/>
                                 <Heading :heading-name="'Pawn It'" :page="'PawnIt'"/>
                                 <Heading :heading-name="'Sell It'" :page="'SellIt'"/>
-                                <Heading :heading-name="'Features'" :items="featureItems"/>
+                                <Heading :heading-name="'Partners'" :items="featureItems"/>
                                 <Heading :heading-name="'More'" :items="moreItems"/>
                             </div>
                             <div v-else>
@@ -106,9 +106,9 @@ export default {
             return{
                 search : '',
                 featureItems : [
-                    { title: 'Pawn Shops' },
+                    // { title: 'Pawn Shops' },
                     { title: 'Titlepal' },
-                    { title: 'Microlending' },
+                    // { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                 ],
                 moreItems : [
@@ -121,9 +121,9 @@ export default {
                     { title: 'Pawn Scan' },
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
-                    { title: 'Pawn Shops' },
+                    // { title: 'Pawn Shops' },
                     { title: 'Titlepal' },
-                    { title: 'Microlending' },
+                    // { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                     { title: 'Contact Us'},
                     { title: 'About Us' },
