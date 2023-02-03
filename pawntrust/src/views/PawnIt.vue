@@ -28,31 +28,31 @@
                 <div>
                     <v-stepper v-model="move" style="box-shadow:none;" alt-labels>
                     <v-stepper-header style="box-shadow:none;">
-                        <v-stepper-step :complete="move > 1" step="1">
+                        <!-- <v-stepper-step :complete="move > 1" step="1">
                             <small>Information</small>
                         </v-stepper-step>
 
-                        <v-divider></v-divider>
+                        <v-divider></v-divider> -->
 
-                        <v-stepper-step :complete="move > 2" step="2">
+                        <v-stepper-step :complete="move > 1" step="1">
                             <small>Category</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="move > 3" step="3">
+                        <v-stepper-step :complete="move > 2" step="2">
                             <small>Upload</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="4" :complete="(move > 4)">
+                        <v-stepper-step step="3" :complete="(move > 3)">
                             <small>Personal Information</small>
                         </v-stepper-step>
 
                         <v-divider></v-divider>
 
-                        <v-stepper-step step="5" :complete="(move > 5)">
+                        <v-stepper-step step="4" :complete="(move > 4)">
                             <small>Verification</small>
                         </v-stepper-step>
                     </v-stepper-header>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div>
-                <div v-if="(move == 1)" style="text-align:left;">
+                <!-- <div v-if="(move == 1)" style="text-align:left;">
                     <span style="font-size:1rem;color:#000000;  font-weight:600;">Welcome to PawnTrust and thank you for choosing us for your pawn needs!</span>
                     <br>
                     <br>
@@ -76,8 +76,8 @@
                     <span style="font-size:1rem;color:#000000; font-weight:600;">We appreciate your business.</span>
                     <br>
                     <br>
-                </div>
-                <div v-else-if="(move == 2)" class="outerMenuContent">
+                </div> -->
+                <div v-if="(move == 1)" class="outerMenuContent">
                     <div class="menuContent">
                         <v-btn block outline class="btnclass" :color="(category == 'Watches') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
                         <v-btn block outline class="btnclass" :color="(category == 'Jewellery') ? 'orange' : ''" @click = "clickedCategory('Jewellery')">Jewellery</v-btn>
@@ -86,13 +86,14 @@
                         <v-btn block outline class="btnclass" :color="(category == 'Diamonds') ? 'orange' : ''" @click = "clickedCategory('Diamonds')">Diamonds</v-btn>
                     </div>
                 </div>
-                <div v-else-if="(move == 3)" class="uploadStyle">
+                <div v-else-if="(move == 2)" class="uploadStyle">
                     <div class="uploadPage">
                         <div class="cardUpload">
                             <v-card min-height="30px" class="btnclass" style="background-color:#F19B14;color:#FFF;display: flex; flex-direction: row; justify-content: center;align-items: center;box-shadow: none;width: auto;">&nbsp; &nbsp;File upload&nbsp;<v-icon small color="#FFF">mdi-upload</v-icon> &nbsp;&nbsp;</v-card>
                             <div style="display:flex; alignItems:center;height: 80%; border:2px grey solid;border-radius: 10px;">
                                 <v-file-input
                                     v-model="choosenFile1"
+                                    @click="Preview_image"
                                     multiple
                                     placeholder="Click to upload from device"
                                     solo
@@ -117,8 +118,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="descriptionStyle">
+                        <v-textarea
+                        v-model="description"
+                        solo
+                        label="Description"
+                        flat
+                        outlined
+                        width="100%"
+                        >
+                        </v-textarea>
+                    </div>
                 </div>
-                <div v-else-if="(move == 4)">
+                <div v-else-if="(move == 3)">
                     <div class="LoginMain">
                         <div class="heightStyle">
                             <v-card style = "padding:2% 0%;box-shadow: none;">
@@ -134,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else-if="(move == 5)" class="LoginMain">
+                <div v-else-if="(move == 4)" class="LoginMain">
                     <div class="heightStyleOTP">
                         <v-card style = "padding:6% 0%;box-shadow: none;">
                             <span class="flexStart content">OTP</span>
@@ -142,6 +154,31 @@
                             <v-otp-input
                                 length="4"
                             ></v-otp-input>
+                        </v-card>
+                    </div>
+                </div>
+                <div v-else-if="(move == 5)">
+                    <div>
+                        <div class="previewAlignment" >
+                            <div ><span><b>Preview: </b></span></div>
+                            <v-btn 
+                            class="btnclass" 
+                            style="background-color:#F19B14;color:#FFF;"
+                            @click = "decrementStep()">
+                                <v-icon small>mdi-plus</v-icon>
+                                &nbsp;Add One More
+                            </v-btn>
+                        </div>
+                    </div>
+                    <div class="preview">
+                        <v-card style="width: 75%;padding:3%;" class="cardItems">
+                            <span>Category: &nbsp;<b>{{ category }}</b></span>
+                            <br>
+                            <span>Images:</span>
+                            <v-img :src="url"></v-img>
+                            <br>
+                            <span>Description: &nbsp;{{ description }}</span>
+                            <br>
                         </v-card>
                     </div>
                 </div>
@@ -157,7 +194,7 @@
                             &nbsp;Back
                     </v-btn>
                     <v-btn 
-                        :disabled = "((move == 2 && category == '' || (move==3 ? true : false)) && ((move == 2 ? true : false) || (move == 3 && choosenFile1 == null && choosenFile2 == null)))"
+                        :disabled = "((move == 1 && category == '' || (move==2 ? true : false)) && ((move == 1 ? true : false) || (move == 2 && choosenFile1 == null && choosenFile2 == null)))"
                         @click="incrementStep()"
                         class="btnclass" 
                         style="background-color:#F19B14;color:#FFF;">
@@ -187,7 +224,9 @@ import Footer from '../components/Footer.vue';
                 move: 1,
                 category : '',
                 choosenFile1 : null,
-                choosenFile2 : null
+                choosenFile2 : null,
+                description : '',
+                url : ''
              }
             },
         methods:{
@@ -199,6 +238,9 @@ import Footer from '../components/Footer.vue';
             },
             clickedCategory(value){
                 this.category = value
+            },
+            Preview_image() {
+                this.url= URL.createObjectURL(this.choosenFile1)
             }
         }
     }
@@ -227,6 +269,12 @@ import Footer from '../components/Footer.vue';
         flex-direction: row;
         justify-content: space-around;
     }
+    .previewAlignment{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     .menuContent{
         flex-wrap: wrap;
         display: flex; 
@@ -237,6 +285,10 @@ import Footer from '../components/Footer.vue';
         width:100%;
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+    .descriptionStyle{
+        width: 80%;
     }
     .uploadPage{
         width:100%;
@@ -248,6 +300,11 @@ import Footer from '../components/Footer.vue';
         width:90%;
         padding: 4%;
     }
+
+    .preview{
+        width: 80%;
+    }
+
     .LoginMain{
         /* width:80%;
         margin:0px auto; */
@@ -288,6 +345,29 @@ import Footer from '../components/Footer.vue';
         flex-direction: row;
         justify-content: center;
     }
+
+    .cardItems{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .preview{
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+    }
+
+    .previewAlignment{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .descriptionStyle{
+        width: 75%;
+    }
     .menuContent{
         width: 50%;
         flex-wrap: wrap;
@@ -304,8 +384,8 @@ import Footer from '../components/Footer.vue';
     }
     .uploadStyle{
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     .cardUpload{
         width:33%;
