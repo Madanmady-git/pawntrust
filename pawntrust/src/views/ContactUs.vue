@@ -68,6 +68,7 @@
                     solo
                     label="Message"
                     flat
+                    outlined
                     >
                     </v-textarea>
                 </div>
