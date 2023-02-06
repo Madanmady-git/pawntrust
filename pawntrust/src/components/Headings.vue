@@ -138,6 +138,11 @@ export default {
                     this.unauthorized = true;
                 }
             }
+            else if (route=="Buy It") {
+                this.$router.push({
+                    name : 'BuyIt'
+                })
+            }
             else {
                 console.log("No other possible route");
             }

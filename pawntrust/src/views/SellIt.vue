@@ -276,14 +276,14 @@
                 </div>
                 <div class="cardContent">
                     <div>
-                        <span>Model</span>
+                        <span>Price</span>
                     </div>
                     <div style="width:100%">
                         <v-text-field
                         v-model="product.model"
                         hide-details
                         solo
-                        label="Enter Model"
+                        label="Enter Price"
                         flat
                         outlined
                         >
