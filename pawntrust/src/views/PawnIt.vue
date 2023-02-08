@@ -1,13 +1,13 @@
 <template>
     <div >
         <TopBar></TopBar>
-        <div style="padding:0% 7%;">
-            <!-- <div >
+        <!-- <div style="padding:0% 7%;">
+            <div >
                 <div class="flexCenter">
                     <img style="width: 25%;margin:auto;padding: 2%;" src="../assets/pawnit.png"/>
                 </div>
-            </div> -->
-            <!-- <div style="width: 40%;margin:auto;padding: 2% 0% 0% 0%;">
+            </div>
+            <div style="width: 40%;margin:auto;padding: 2% 0% 0% 0%;">
                 <template >
                     <v-file-input
                         placeholder="Select file to pawn it"
@@ -20,7 +20,7 @@
                         height="20"
                     ></v-file-input>
                 </template>
-            </div> -->
+            </div>
             <div style="text-align:left;">
                 <span style="font-size:2.3rem;font-weight:600;">Pawn It</span>
             </div>
@@ -28,11 +28,11 @@
                 <div>
                     <v-stepper v-model="move" style="box-shadow:none;" alt-labels>
                     <v-stepper-header style="box-shadow:none;">
-                        <!-- <v-stepper-step :complete="move > 1" step="1">
+                        <v-stepper-step :complete="move > 1" step="1">
                             <small>Information</small>
                         </v-stepper-step>
 
-                        <v-divider></v-divider> -->
+                        <v-divider></v-divider>
 
                         <v-stepper-step :complete="move > 1" step="1">
                             <small>Category</small>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div>
-                <!-- <div v-if="(move == 1)" style="text-align:left;">
+                <div v-if="(move == 1)" style="text-align:left;">
                     <span style="font-size:1rem;color:#000000;  font-weight:600;">Welcome to PawnTrust and thank you for choosing us for your pawn needs!</span>
                     <br>
                     <br>
@@ -76,7 +76,7 @@
                     <span style="font-size:1rem;color:#000000; font-weight:600;">We appreciate your business.</span>
                     <br>
                     <br>
-                </div> -->
+                </div>
                 <div v-if="(move == 1)" class="outerMenuContent">
                     <div class="menuContent">
                         <v-btn block outline class="btnclass" :color="(category == 'Watches') ? 'orange' : ''" @click = "clickedCategory('Watches')">Watches</v-btn>
@@ -150,7 +150,7 @@
                     <div class="heightStyleOTP">
                         <v-card style = "padding:6% 0%;box-shadow: none;">
                             <span class="flexStart content">OTP</span>
-                            <!-- <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field> -->
+                            <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field>
                             <v-otp-input
                                 length="4"
                             ></v-otp-input>
@@ -209,6 +209,142 @@
                 src="../assets/growth-dollar-way-out-global-crisis-sale-shares-stock-exchange-2048x1367.jpg"
                 />
             </div>
+        </div> -->
+        <div style="text-align:left;padding:0% 7%;">
+            <span style="font-size:2.3rem;font-weight:600;">Pawn It</span>
+        </div>
+        <div class="mainDiv">
+            <v-card v-for="(product, index) in productItems" :key="product" style="border:1px #F19B14 solid;" class="mainCardStyle">
+                <div class="cardContent">
+                    <div>
+                        <span>Select Category</span>
+                    </div>
+                    <div>
+                        <v-select
+                            v-model="product.category"
+                            hide-details
+                            color="#F19B14"
+                            outlined
+                            :items="['Watches' , 'Jewellary', 'Gold', 'White Gold', 'Diamonds']"
+                            placeholder="Select Category"
+                        ></v-select>
+                    </div>
+                </div>
+                <div class="cardContent" style="width:100%;">
+                    <div>
+                        <span>Upload Image</span>
+                    </div>
+                    <div>
+                        <div>
+                            <v-btn
+                                color="primary"
+                                class="text-none"
+                                round
+                                depressed
+                                :loading="isSelecting"
+                                @click="onButtonClick(index)"
+                            >
+                                <v-icon left>
+                                    mdi-upload
+                                </v-icon>
+                                Upload Images
+                            </v-btn>
+                            <input
+                                ref="uploader"
+                                class="d-none"
+                                type="file"
+                                accept="image/*"
+                                @change="onFileChanged"
+                            >
+                        </div>
+                    </div>
+                    <div class="previewImages">
+                        <div style="display:flex; flex-direction: column;" v-for="(image,i) in product.images" :key="image">
+                            <img style="width:200px; height:200px; padding: 3% 3% 3% 0%;" :src="image.imageURL"/>
+                            <div>
+                                <!-- <span>{{ image.name }}</span> -->
+                                <div style="display: flex;justify-content: center;align-items: center;"
+                                    >
+                                        <span color="white" style="white-space: nowrap;display: inline-block;width: 175px; overflow: hidden;text-overflow: ellipsis;
+                                        ">{{ image.name }}
+                                        </span>
+                                    <v-icon color="red" dark style="cursor:pointer"
+                                    @click="removeImage(index, i)"
+                                    >
+                                        mdi-delete
+                                    </v-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cardContent">
+                    <div>
+                        <span>Product Name</span>
+                    </div>
+                    <div style="width:100%">
+                        <v-text-field
+                        v-model="product.productName"
+                        hide-details
+                        solo
+                        label="Enter Model"
+                        flat
+                        outlined
+                        >
+                        </v-text-field>
+                    </div>
+                </div>
+                <div class="cardContent">
+                    <div>
+                        <span>Description</span>
+                    </div>
+                    <div style="width:100%">
+                        <v-textarea
+                        v-model="product.description"
+                        hide-details
+                        solo
+                        label="Enter Description briefly about the product"
+                        flat
+                        outlined
+                        >
+                        </v-textarea>
+                    </div>
+                </div>
+                <div class="cardContent">
+                    <div>
+                        <span>Bought Years Before</span>
+                    </div>
+                    <div style="width:100%">
+                        <v-text-field
+                        v-model="product.age"
+                        hide-details
+                        solo
+                        label="Enter Age"
+                        flat
+                        outlined
+                        >
+                        </v-text-field>
+                    </div>
+                </div>
+            </v-card>
+            <div class="AddMoreButton">
+                <div >
+                    <v-btn
+                    @click="AddMoreProduct()"
+                    style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
+                    <v-icon small>mdi-plus</v-icon>
+                    &nbsp;Add One More
+                    </v-btn>
+                </div>
+                <div style="margin-left:2%;">
+                    <v-btn
+                        @click="Continue()"
+                        style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
+                        &nbsp;Continue
+                        <v-icon small>mdi-arrow-right</v-icon>
+                    </v-btn>
+                </div>
+            </div>
         </div>
         <Footer></Footer>
     </div>
@@ -226,7 +362,23 @@ import Footer from '../components/Footer.vue';
                 choosenFile1 : null,
                 choosenFile2 : null,
                 description : '',
-                url : ''
+                url : '',
+                productName : '',
+                selectedFile: [],
+                isSelecting: false,
+                images : [],
+                imageURL : '',
+                model : '',
+                age : '',
+                productIndex : '',
+                productItems : [{
+                    category : '',
+                    productName : '',
+                    images : [],
+                    description : '',
+                    model : '',
+                    age : ''
+                }]
              }
             },
         methods:{
@@ -258,6 +410,40 @@ import Footer from '../components/Footer.vue';
         justify-content: center;
         align-items: center; */
     }
+    .mainDiv{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .mainCardStyle{
+        width:90%;
+        margin: 2% 0%;
+        padding: 2% 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .AddMoreButton{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width:70%;
+        padding: 2% 0%;
+    }
+    .previewImages{
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+    .cardContent{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2% 0%;
+    }
     .btnclass{
     text-transform: capitalize;
     box-shadow: none;
@@ -269,12 +455,6 @@ import Footer from '../components/Footer.vue';
         flex-direction: row;
         justify-content: space-around;
     }
-    .previewAlignment{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
     .menuContent{
         flex-wrap: wrap;
         display: flex; 
@@ -285,10 +465,6 @@ import Footer from '../components/Footer.vue';
         width:100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-    }
-    .descriptionStyle{
-        width: 80%;
     }
     .uploadPage{
         width:100%;
@@ -300,11 +476,6 @@ import Footer from '../components/Footer.vue';
         width:90%;
         padding: 4%;
     }
-
-    .preview{
-        width: 80%;
-    }
-
     .LoginMain{
         /* width:80%;
         margin:0px auto; */
@@ -329,6 +500,46 @@ import Footer from '../components/Footer.vue';
         width:80%;
         margin: auto;
     }
+    .mainDiv{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .previewImages{
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    .mainCardStyle{
+        width:70%;
+        margin: 2% 0%;
+        padding: 2% 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: flex-start; */
+    }
+
+    .AddMoreButton{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width:70%;
+        padding: 0% 0% 2% 0%;
+    }
+
+    .cardContent{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2% 0%;
+    }
+
     .btnclass{
     text-transform: capitalize;
     box-shadow: none;
@@ -344,29 +555,6 @@ import Footer from '../components/Footer.vue';
         display: flex;
         flex-direction: row;
         justify-content: center;
-    }
-
-    .cardItems{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .preview{
-        display: flex;
-        justify-content: center;
-        align-items: center;    
-    }
-
-    .previewAlignment{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .descriptionStyle{
-        width: 75%;
     }
     .menuContent{
         width: 50%;
@@ -384,8 +572,8 @@ import Footer from '../components/Footer.vue';
     }
     .uploadStyle{
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
     }
     .cardUpload{
         width:33%;

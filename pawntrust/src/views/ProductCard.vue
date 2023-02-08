@@ -31,6 +31,7 @@
         padding: 3%;
         display: flex;
         flex-direction: column;
+        margin-bottom :10%;
     }
     .alignLeft{
         display: flex;
