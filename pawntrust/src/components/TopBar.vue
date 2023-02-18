@@ -83,7 +83,7 @@
                                 <Heading :heading-name="'Pawn Scan'"/>
                                 <Heading :heading-name="'Pawn It'" :page="'PawnIt'"/>
                                 <Heading :heading-name="'Sell It'" :page="'SellIt'"/>
-                                <Heading :heading-name="'Buy It'" :page="'BuyIt'"/>
+                                <!-- <Heading :heading-name="'Buy It'" :page="'BuyIt'"/> -->
                                 <Heading :heading-name="'Partners'" :items="featureItems"/>
                                 <Heading :heading-name="'More'" :items="moreItems"/>
                             </div>
@@ -122,7 +122,7 @@ export default {
                     { title: 'Pawn Scan' },
                     { title: 'Pawn It' },
                     { title: 'Sell It' },
-                    { title: 'Buy It' },
+                    // { title: 'Buy It' },
                     // { title: 'Pawn Shops' },
                     { title: 'Titlepal' },
                     // { title: 'Microlending' },

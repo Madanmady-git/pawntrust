@@ -174,8 +174,16 @@
             </div>
 
         </div> -->
-        <div style="text-align:left;padding:0% 7%;">
-            <span style="font-size:2.3rem;font-weight:600;">Sell It</span>
+        <div style="display: flex;justify-content:space-between;align-items: center;">
+            <div style="text-align:left;padding: 0% 7%;">
+                <span style="font-size:2.3rem;font-weight:600;">Sell It</span>
+            </div>
+            <div style="padding: 0% 7%;">
+                <v-btn @click="ButItAction()"
+                style="box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;padding: 0% 7%;">
+                            Buy It
+                        </v-btn>
+            </div>
         </div>
         <div class="mainDiv">
             <v-card v-for="(product, index) in productItems" :key="product" style="border:1px #F19B14 solid;" class="mainCardStyle">
@@ -229,8 +237,7 @@
                                 <!-- <span>{{ image.name }}</span> -->
                                 <div style="display: flex;justify-content: center;align-items: center;"
                                     >
-                                        <span color="white" style="white-space: nowrap;display: inline-block;width: 175px; overflow: hidden;text-overflow: ellipsis;
-                                        ">{{ image.name }}
+                                        <span color="white" style="white-space: nowrap;display: inline-block;width: 175px; overflow: hidden;text-overflow: ellipsis;">{{ image.name }}
                                         </span>
                                     <v-icon color="red" dark style="cursor:pointer"
                                     @click="removeImage(index, i)"
@@ -380,6 +387,11 @@ import Footer from '../components/Footer.vue';
                 console.log("Testing....", this.$refs);
                 this.$refs.uploader[index].click();
                 // this.$refs.uploader.click();
+                },
+                ButItAction(){
+                    this.$router.push({
+                        name:"BuyIt"
+                    })
                 },
             onFileChanged(e) {
                 this.imageURL = URL.createObjectURL(e.target.files[0]);
