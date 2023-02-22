@@ -7,26 +7,51 @@
                 <v-navigation-drawer
                         >
                         <v-list>
-                            <v-btn 
-                            @click="SellItAction()"
-                            style="display: flex;width: 100%;box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;">
-                                Sell It
-                            </v-btn>
-                            <v-list-item
-                            v-for="item in items"
-                            :key="item.title"
-                            link
-                            active-color="primary"
-                            style="display: flex;justify-content: flex-start;"
-                            >
-                            <v-list-item-icon>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-item-icon>
-                            <span>{{ item.title }}</span>
-                            <!-- <v-list-item-content>
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                            </v-list-item-content> -->
-                            </v-list-item>
+                            <div style="display:flex ;justify-content: center;align-items: center;">
+                                <v-btn 
+                                @click="SellItAction()"
+                                style="display: flex;width:80%; box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;">
+                                    Sell It
+                                </v-btn>
+                            </div>
+                            <div style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
+                                <div style="width:80%;">
+                                    <v-select
+                                        dense
+                                        color="#F19B14"
+                                        v-model="value"
+                                        :items="categories"
+                                        label="Categories"
+                                        multiple
+                                        solo
+                                        hide-details
+                                        outlined
+                                        flat
+                                        style="color:#FFF"
+                                        >
+                                    </v-select>
+                                </div>
+                            </div>
+                            <div style="display:flex ;flex-direction: column; justify-content: center;align-items: center;">
+                                <v-btn 
+                                @click="(price = !price)"
+                                style="display: flex;width:80%; box-shadow: none;text-transform: capitalize;margin-bottom: 40px;"
+                                outlined
+                                >
+                                    Price
+                                </v-btn>
+                                <div v-if="price" style="width:80%;">
+                                    <v-range-slider
+                                        hint="Im a hint"
+                                        max="1000"
+                                        min="10"
+                                        thumb-label="always"
+                                        thumb-size="32"
+                                        thumb-color="#F19B14"
+                                    ></v-range-slider>
+
+                                </div>
+                            </div>
                         </v-list>
                 </v-navigation-drawer>
             </div>
@@ -41,11 +66,42 @@
                         v-for="item in items2"
                         :key="item"
                         style="text-transform:capitalize;font-size: 1rem;font-weight: 600;"
+                        @click=tabClick(item)
                     >
                         {{ item }}
                     </v-tab>
                 </v-tabs>
                 <v-divider></v-divider>
+                <div v-if="categoriesFlag" style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
+                    <div style="width:80%;">
+                        <v-select
+                            dense
+                            color="#F19B14"
+                            v-model="value"
+                            :items="categories"
+                            label="Categories"
+                            multiple
+                            solo
+                            hide-details
+                            outlined
+                            flat
+                            style="color:#FFF"
+                            >
+                        </v-select>
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: center;align-items: center;">
+                    <div v-if="price" style="width:80%;margin-top: 40px;">
+                        <v-range-slider
+                            hint="Im a hint"
+                            max="1000"
+                            min="10"
+                            thumb-label="always"
+                            thumb-size="32"
+                            thumb-color="#F19B14"
+                        ></v-range-slider>
+                    </div>
+                </div>
             </div>
             <div class="mainDiv">
                 <div class="cardContent mobileCardContent">
@@ -106,10 +162,14 @@ import ProductCard from './ProductCard.vue';
             return { 
                 category : '',
                 items: [
-                    { title: 'Category', icon: 'mdi-view-dashboard' },
-                    { title: 'Price', icon: 'mdi-view-dashboard' },
+                    // { title: 'Category', icon: 'mdi-view-dashboard' },
+                    // { title: 'Price', icon: 'mdi-view-dashboard' },
                 ],
                 tab: null,
+                categories:['Gold', 'Silver'],
+                value:'',
+                price:false,
+                categoriesFlag : false,
                 items2: [
                 'Sell It', 'Categories', 'Price'
                 ],
@@ -123,6 +183,11 @@ import ProductCard from './ProductCard.vue';
                         name:"SellIt"
                     })
                 },
+                tabClick(item){
+                    console.log(item)
+                    if(item=='Categories') this.categoriesFlag = !this.categoriesFlag
+                    if(item=='Price') this.price = !this.price
+                }
         }
     }
 
