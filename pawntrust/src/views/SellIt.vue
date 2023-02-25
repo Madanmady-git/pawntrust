@@ -178,12 +178,12 @@
             <div style="text-align:left;padding: 0% 7%;">
                 <span style="font-size:2.3rem;font-weight:600;">Sell It</span>
             </div>
-            <div style="padding: 0% 7%;">
+            <!-- <div style="padding: 0% 7%;">
                 <v-btn @click="ButItAction()"
                 style="box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;padding: 0% 7%;">
                             Buy It
                         </v-btn>
-            </div>
+            </div> -->
         </div>
         <div class="mainDiv">
             <v-card v-for="(product, index) in productItems" :key="product" style="border:1px #F19B14 solid;" class="mainCardStyle">

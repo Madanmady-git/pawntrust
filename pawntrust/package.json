@@ -18,6 +18,7 @@
     "load-google-maps-api": "^2.0.2",
     "polylabel": "^1.1.0",
     "vue": "^2.6.11",
+    "vue-cookies": "^1.8.2",
     "vue-mq": "^1.0.1"
   },
   "devDependencies": {

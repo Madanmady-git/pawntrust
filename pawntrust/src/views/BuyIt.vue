@@ -7,13 +7,13 @@
                 <v-navigation-drawer
                         >
                         <v-list>
-                            <div style="display:flex ;justify-content: center;align-items: center;">
+                            <!-- <div style="display:flex ;justify-content: center;align-items: center;">
                                 <v-btn 
                                 @click="SellItAction()"
                                 style="display: flex;width:80%; box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;">
                                     Sell It
                                 </v-btn>
-                            </div>
+                            </div> -->
                             <div style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
                                 <div style="width:80%;">
                                     <v-select
@@ -42,13 +42,39 @@
                                 </v-btn>
                                 <div v-if="price" style="width:80%;">
                                     <v-range-slider
-                                        hint="Im a hint"
+                                        hint="Select from and to price"
                                         max="1000"
-                                        min="10"
+                                        min="0"
                                         thumb-label="always"
                                         thumb-size="32"
                                         thumb-color="#F19B14"
-                                    ></v-range-slider>
+                                        step="10"
+                                    >
+                                    <!-- <template v-slot:prepend>
+                                        <v-text-field
+                                            :model-value="range[0]"
+                                            hide-details
+                                            single-line
+                                            type="number"
+                                            variant="outlined"
+                                            density="compact"
+                                            style="width: 70px"
+                                            @change="$set(range, 0, $event)"
+                                        ></v-text-field>
+                                        </template>
+                                        <template v-slot:append>
+                                        <v-text-field
+                                            :model-value="range[1]"
+                                            hide-details
+                                            single-line
+                                            type="number"
+                                            variant="outlined"
+                                            style="width: 70px"
+                                            density="compact"
+                                            @change="$set(range, 1, $event)"
+                                        ></v-text-field>
+                                        </template> -->
+                                </v-range-slider>
 
                                 </div>
                             </div>
@@ -166,10 +192,11 @@ import ProductCard from './ProductCard.vue';
                     // { title: 'Price', icon: 'mdi-view-dashboard' },
                 ],
                 tab: null,
-                categories:['Gold', 'Silver'],
+                categories:['Jewellary', 'Watches', 'Gold', 'White Gold', 'Diamonds'],
                 value:'',
                 price:false,
                 categoriesFlag : false,
+                range:[0 , 1000],
                 items2: [
                 'Sell It', 'Categories', 'Price'
                 ],
