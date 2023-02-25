@@ -50,32 +50,33 @@
                                         thumb-color="#F19B14"
                                         step="10"
                                     >
-                                    <!-- <template v-slot:prepend>
+                                </v-range-slider>
+                                <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                                    <div style="width: 40%;">
                                         <v-text-field
-                                            :model-value="range[0]"
-                                            hide-details
-                                            single-line
-                                            type="number"
-                                            variant="outlined"
-                                            density="compact"
-                                            style="width: 70px"
-                                            @change="$set(range, 0, $event)"
+                                                :model-value="range[0]"
+                                                hide-details
+                                                single-line
+                                                type="number"
+                                                outlined
+                                                dense
+                                                
                                         ></v-text-field>
-                                        </template>
-                                        <template v-slot:append>
+                                    </div>
+                                    <div style="display: flex;justify-content: center;align-items: center;">
+                                        <span >to</span>
+                                    </div>
+                                    <div style="width: 40%;">
                                         <v-text-field
                                             :model-value="range[1]"
                                             hide-details
+                                            outlined
                                             single-line
+                                            dense
                                             type="number"
-                                            variant="outlined"
-                                            style="width: 70px"
-                                            density="compact"
-                                            @change="$set(range, 1, $event)"
                                         ></v-text-field>
-                                        </template> -->
-                                </v-range-slider>
-
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </v-list>
