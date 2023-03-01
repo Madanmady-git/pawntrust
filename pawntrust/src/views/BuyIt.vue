@@ -7,14 +7,26 @@
                 <v-navigation-drawer
                         >
                         <v-list>
-                            <!-- <div style="display:flex ;justify-content: center;align-items: center;">
+                            <div style="display:flex ;justify-content: center;align-items: center;">
+                                <div style="width:80%;margin: 4% 0% 6% 0%;">
+                                    <v-text-field
+                                    placeholder="Search"
+                                    filled
+                                    rounded
+                                    hide-details
+                                    dense
+                                    >
+                                    </v-text-field>
+                                </div>
+                            </div>
+                            <div style="display:flex ;justify-content: center;align-items: center;">
                                 <v-btn 
                                 @click="SellItAction()"
                                 style="display: flex;width:80%; box-shadow: none;text-transform: capitalize;color: #FFF;background-color: #F19B14;">
                                     Sell It
                                 </v-btn>
-                            </div> -->
-                            <div style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
+                            </div>
+                            <!-- <div style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
                                 <div style="width:80%;">
                                     <v-select
                                         dense
@@ -78,7 +90,31 @@
                                     </div>
                                 </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <v-list-group
+                                v-for="item in categoryItems"
+                                :key="item.title"
+                                v-model="item.active"
+                                :prepend-icon="item.action"
+                                color="#F19B14"
+                            >
+                                <template v-slot:activator>
+                                <v-list-item-content>
+                                    <v-list-item-title style="font-weight: 600;" v-text="item.title"></v-list-item-title>
+                                </v-list-item-content>
+                                </template>
+
+                                <v-list-item
+                                v-for="child in item.items"
+                                :key="child.title"
+                                link
+                                color="red"
+                                >
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="child.title"></v-list-item-title>
+                                </v-list-item-content>
+                                </v-list-item>
+                            </v-list-group>
                         </v-list>
                 </v-navigation-drawer>
             </div>
@@ -99,6 +135,19 @@
                     </v-tab>
                 </v-tabs>
                 <v-divider></v-divider>
+                <div style="display:flex ;justify-content: center;align-items: center;">
+                    <div style="width:90%;margin: 3% 0%;">
+                        <v-text-field
+                        placeholder="Search"
+                        filled
+                        rounded
+                        dense
+                        hide-details
+                        >
+                        </v-text-field>
+                    </div>
+                </div>
+
                 <div v-if="categoriesFlag" style="display:flex ;justify-content: center;align-items: center;padding: 8% 0%;">
                     <div style="width:80%;">
                         <v-select
@@ -131,9 +180,9 @@
                 </div>
             </div>
             <div class="mainDiv">
-                <div class="cardContent mobileCardContent">
+                <!-- <div class="cardContent mobileCardContent">
                     <span style="font-size:2.3rem;font-weight:600;">Buy It</span>
-                </div>
+                </div> -->
                 <!-- <div class="cardContentHeader">
                     <div class="cardContent">
                         <div>
@@ -198,6 +247,28 @@ import ProductCard from './ProductCard.vue';
                 price:false,
                 categoriesFlag : false,
                 range:[0 , 1000],
+                categoryItems:[
+                    {
+                    action: 'mdi-shape',
+                    active: true,
+                    items: [
+                        { title: 'Watches' },
+                        { title: 'Jewelllary' },
+                        { title: 'Gold' },
+                        { title: 'White Gold' },
+                        { title: 'Diamonds' }
+                    ],
+                    title: 'Categories',
+                    },
+                    {
+                    action: 'mdi-filter-menu',
+                    items: [
+                        { title: 'Location' },
+                        { title: 'Price' }
+                    ],
+                    title: 'Filter',
+                    },
+                ],
                 items2: [
                 'Sell It', 'Categories', 'Price'
                 ],
