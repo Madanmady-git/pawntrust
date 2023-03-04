@@ -43,16 +43,63 @@
                                         >
                                     </v-select>
                                 </div>
-                            </div>
-                            <div style="display:flex ;flex-direction: column; justify-content: center;align-items: center;">
-                                <v-btn 
-                                @click="(price = !price)"
-                                style="display: flex;width:80%; box-shadow: none;text-transform: capitalize;margin-bottom: 40px;"
-                                outlined
+                            </div> -->
+                            <v-list-group
+                                :value="true"
+                                prepend-icon="mdi-shape"
+                                active-class="leftAlignment"
                                 >
-                                    Price
-                                </v-btn>
-                                <div v-if="price" style="width:80%;">
+                                <template v-slot:activator>
+                                    <v-list-item-title>Categories</v-list-item-title>
+                                </template>
+
+                                <v-list-item
+                                    v-for="([title, icon], i) in admins"
+                                    :key="i"
+                                    link
+                                >
+                                    <v-list-item-title v-text="title"></v-list-item-title>
+
+                                    <v-list-item-icon>
+                                    <v-icon v-text="icon"></v-icon>
+                                    </v-list-item-icon>
+                                </v-list-item>
+                            </v-list-group>
+
+                            <v-list-group
+                                :value="true"
+                                prepend-icon="mdi-format-list-bulleted-type"
+                                >
+                                <template v-slot:activator>
+                                    <v-list-item-title>Brands</v-list-item-title>
+                                </template>
+
+                                <v-list-item
+                                    v-for="([title, icon], i) in Brands"
+                                    :key="i"
+                                    link
+                                >
+                                    <v-list-item-icon>
+                                        <v-icon v-text="icon"></v-icon>
+                                    </v-list-item-icon>
+                                    <v-list-item-title v-text="title"></v-list-item-title>
+                                        <v-checkbox
+                                        style="margin-top:0px; padding:0px;"
+                                        hide-details
+                                        ></v-checkbox>
+                                </v-list-item>
+                            </v-list-group>
+                            <v-list-group
+                                :value="true"
+                                prepend-icon="mdi-filter"
+                                >
+                                <template v-slot:activator>
+                                    <v-list-item-content>
+                                    <v-list-item-title>Price</v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <div style="display:flex ;flex-direction: column; justify-content: center;align-items: center;margin-top:12%;">
+                                <div style="width:80%;">
                                     <v-range-slider
                                         hint="Select from and to price"
                                         max="1000"
@@ -90,31 +137,30 @@
                                     </div>
                                 </div>
                                 </div>
-                            </div> -->
-                            <v-list-group
-                                v-for="item in categoryItems"
-                                :key="item.title"
-                                v-model="item.active"
-                                :prepend-icon="item.action"
-                                color="#F19B14"
-                            >
+                            </div>
+                            </v-list-group>
+                            <!-- <v-list-group
+                                :value="true"
+                                prepend-icon="mdi-filter"
+                                >
                                 <template v-slot:activator>
-                                <v-list-item-content>
-                                    <v-list-item-title style="font-weight: 600;" v-text="item.title"></v-list-item-title>
-                                </v-list-item-content>
+                                    <v-list-item-content>
+                                    <v-list-item-title>Filters</v-list-item-title>
+                                    </v-list-item-content>
                                 </template>
 
                                 <v-list-item
-                                v-for="child in item.items"
-                                :key="child.title"
-                                link
-                                color="red"
+                                    v-for="([title, icon], i) in cruds"
+                                    :key="i"
+                                    link
                                 >
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="child.title"></v-list-item-title>
-                                </v-list-item-content>
+                                    <v-list-item-title v-text="title"></v-list-item-title>
+
+                                    <v-list-item-icon>
+                                    <v-icon v-text="icon"></v-icon>
+                                    </v-list-item-icon>
                                 </v-list-item>
-                            </v-list-group>
+                            </v-list-group> -->
                         </v-list>
                 </v-navigation-drawer>
             </div>
@@ -273,7 +319,26 @@ import ProductCard from './ProductCard.vue';
                 'Sell It', 'Categories', 'Price'
                 ],
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-            
+                admins: [
+                    ['Watches', 'mdi-watch'],
+                    ['Jewelllary', 'mdi-baseball-diamond'],
+                    ['Gold', 'mdi-gold'],
+                    ['White Gold', 'mdi-podium-gold'],
+                    ['Diamonds', 'mdi-diamond'],
+                ],
+                Brands : [
+                    ['Gucci', 'mdi-account-multiple-outline'],
+                    ['Fossil', 'mdi-cog-outline'],
+                    ['Rolex', 'mdi-account-multiple-outline'],
+                    ['Quartz', 'mdi-cog-outline'],
+                    ['Fastrack', 'mdi-cog-outline'],
+                ],
+                cruds: [
+                    ['Create', 'mdi-plus-outline'],
+                    ['Read', 'mdi-file-outline'],
+                    ['Update', 'mdi-update'],
+                    ['Delete', 'mdi-delete'],
+                ]
              }
             },
         methods:{
@@ -344,6 +409,13 @@ import ProductCard from './ProductCard.vue';
 }
 
 @media screen and (min-width:901px) {
+
+    .leftAlignment{
+        display: flex;
+        justify-content:center;
+        align-items:flex-start;
+        flex-direction: column;
+    }
     .mainContainer{
         display: flex;
         flex-direction: row;
@@ -383,4 +455,11 @@ import ProductCard from './ProductCard.vue';
 }
 
 
+</style>
+
+<style>
+.leftAlignment.v-input--selection-controls {
+    margin-top: 0px !important; 
+    padding-top: 4px !important;
+    }
 </style>
