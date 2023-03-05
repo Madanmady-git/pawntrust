@@ -45,18 +45,24 @@
                                 </div>
                             </div> -->
                             <v-list-group
-                                :value="true"
+                                value="opener"
                                 prepend-icon="mdi-shape"
                                 active-class="leftAlignment"
+                                
+                                exact-active-class="ListItem"
+                                color="#F19B14"
                                 >
                                 <template v-slot:activator>
                                     <v-list-item-title>Categories</v-list-item-title>
                                 </template>
-
+                                <v-list-item-group
+                                >
                                 <v-list-item
                                     v-for="([title, icon], i) in admins"
                                     :key="i"
                                     link
+                                    color="#F19B14"
+                                    @click="onClickCategory(title)"
                                 >
                                     <v-list-item-title v-text="title"></v-list-item-title>
 
@@ -64,33 +70,35 @@
                                     <v-icon v-text="icon"></v-icon>
                                     </v-list-item-icon>
                                 </v-list-item>
+
+                                </v-list-item-group>
                             </v-list-group>
 
                             <v-list-group
-                                :value="true"
+                                value="opener"
                                 prepend-icon="mdi-format-list-bulleted-type"
                                 >
                                 <template v-slot:activator>
                                     <v-list-item-title>Brands</v-list-item-title>
                                 </template>
-
+                                <v-list-item-group
+                                >
                                 <v-list-item
-                                    v-for="([title, icon], i) in Brands"
+                                    v-for="(title, i) in Brands"
                                     :key="i"
                                     link
                                 >
-                                    <v-list-item-icon>
-                                        <v-icon v-text="icon"></v-icon>
-                                    </v-list-item-icon>
                                     <v-list-item-title v-text="title"></v-list-item-title>
                                         <v-checkbox
                                         style="margin-top:0px; padding:0px;"
                                         hide-details
-                                        ></v-checkbox>
+                                        >
+                                    </v-checkbox>
                                 </v-list-item>
+                                </v-list-item-group>
                             </v-list-group>
                             <v-list-group
-                                :value="true"
+                                value="opener"
                                 prepend-icon="mdi-filter"
                                 >
                                 <template v-slot:activator>
@@ -101,6 +109,7 @@
                                 <div style="display:flex ;flex-direction: column; justify-content: center;align-items: center;margin-top:12%;">
                                 <div style="width:80%;">
                                     <v-range-slider
+                                        v-model="rangeValue"
                                         hint="Select from and to price"
                                         max="1000"
                                         min="0"
@@ -113,13 +122,14 @@
                                 <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
                                     <div style="width: 40%;">
                                         <v-text-field
-                                                :model-value="range[0]"
+                                            v-model="rangeValue[0]"
+                                                :value="rangeValue[0]"
                                                 hide-details
                                                 single-line
                                                 type="number"
                                                 outlined
                                                 dense
-                                                
+                                                @change="$set(rangeValue, 0, $event)"
                                         ></v-text-field>
                                     </div>
                                     <div style="display: flex;justify-content: center;align-items: center;">
@@ -127,12 +137,13 @@
                                     </div>
                                     <div style="width: 40%;">
                                         <v-text-field
-                                            :model-value="range[1]"
+                                            :value="rangeValue[1]"
                                             hide-details
                                             outlined
                                             single-line
                                             dense
                                             type="number"
+                                            @change="$set(rangeValue, 1, $event)"
                                         ></v-text-field>
                                     </div>
                                 </div>
@@ -292,7 +303,9 @@ import ProductCard from './ProductCard.vue';
                 value:'',
                 price:false,
                 categoriesFlag : false,
+                opener : true,
                 range:[0 , 1000],
+                rangeValue:[0, 1000],
                 categoryItems:[
                     {
                     action: 'mdi-shape',
@@ -326,32 +339,31 @@ import ProductCard from './ProductCard.vue';
                     ['White Gold', 'mdi-podium-gold'],
                     ['Diamonds', 'mdi-diamond'],
                 ],
-                Brands : [
-                    ['Gucci', 'mdi-account-multiple-outline'],
-                    ['Fossil', 'mdi-cog-outline'],
-                    ['Rolex', 'mdi-account-multiple-outline'],
-                    ['Quartz', 'mdi-cog-outline'],
-                    ['Fastrack', 'mdi-cog-outline'],
-                ],
-                cruds: [
-                    ['Create', 'mdi-plus-outline'],
-                    ['Read', 'mdi-file-outline'],
-                    ['Update', 'mdi-update'],
-                    ['Delete', 'mdi-delete'],
-                ]
+                Brands : ['Gucci', 'Fossil', 'Rolex', 'Quartz', 'Fastrack'],
              }
             },
         methods:{
             SellItAction(){
-                    this.$router.push({
-                        name:"SellIt"
-                    })
-                },
-                tabClick(item){
-                    console.log(item)
-                    if(item=='Categories') this.categoriesFlag = !this.categoriesFlag
-                    if(item=='Price') this.price = !this.price
+                this.$router.push({
+                    name:"SellIt"
+                })
+            },
+            tabClick(item){
+                console.log(item)
+                if(item=='Categories') this.categoriesFlag = !this.categoriesFlag
+                if(item=='Price') this.price = !this.price
+            },
+            onClickCategory(category){
+                let categoryDetails = {
+                    'Watches' : ['Gucci', 'Fossil', 'Rolex', 'Quartz', 'Fastrack'],
+                    'Jewelllary' : ['TIFFANY & CO', 'CARTIER', 'CHOPARD'],
+                    'Gold' : ['BUCCELLATI', 'GRAFF'],
+                    'White Gold' : ['BUCCELLATI', 'GRAFF'],
+                    'Diamonds' : ['HARRY WINSTON', 'DAVID YURMAN']
                 }
+                this.Brands  = categoryDetails[category];
+                console.log("Brands", this.Brands);
+            },
         }
     }
 
@@ -415,6 +427,12 @@ import ProductCard from './ProductCard.vue';
         justify-content:center;
         align-items:flex-start;
         flex-direction: column;
+        background-color: #F19B14;
+        color: #FFF;
+    }
+    .ListItem{
+        background-color: #F19B14;
+        color: #FFF;
     }
     .mainContainer{
         display: flex;
