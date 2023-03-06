@@ -2,10 +2,15 @@
     <div >
         <TopBar></TopBar>
         <div class="mainContainer">
+            <div style="display: flex; flex-direction: column; align-items: flex-start;justify-content: flex-start;width: 10%;height: 600px;overflow-y:auto;scrollbar-width: none;">
+                <div v-for="(slide , i) in slides" :key="i">
+                    <img @click="clickOnImage(i)" style="width:100px ; height:100px; " :src="slide"/>
+                </div>
+            </div>
             <div class="corosalCard">
                 <v-carousel
-                cycle
                 height="600"
+                hide-delimiters
                 hide-delimiter-background
                 >
                     <v-carousel-item
@@ -65,7 +70,14 @@ import Footer from '../components/Footer.vue';
             return { 
                 category : '',
                 click:false,
-                slides:['https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg', 'https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg', 'https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg']
+                index : 0,
+                slides:['https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg', 
+                        'https://assets.pawnamerica.com/ProductImages//ef551069-b09c-4c52-ade1-d73b43034ad1.jpg',
+                        'https://assets.pawnamerica.com/ProductImages//996c0eb4-9cbc-498a-b6b9-2e49cc9269fc.jpg',
+                        'https://assets.pawnamerica.com/ProductImages//2573e930-2e2e-4249-9e50-e89492acb4f8.jpg',
+                        'https://assets.pawnamerica.com/ProductImages//ffd04573-5cab-4217-ab07-359138dc8154.jpg',
+                        'https://assets.pawnamerica.com/ProductImages//8b411689-2468-4489-a91f-72febcab1573.jpg'
+                    ]
              }
             },
         methods:{
@@ -73,6 +85,9 @@ import Footer from '../components/Footer.vue';
                 this.$router.push({
                     name: 'BuyIt'
                 })
+            },
+            clickOnImage(index){
+                this.index = index;
             }
         }
     }
@@ -156,12 +171,13 @@ import Footer from '../components/Footer.vue';
         display:flex;
         flex-direction: row;
         width:100%;
+        padding: 16px;
     }
     .corosalCard{
-        display: flex; width:70%;
+        display: flex; width:50%;
     }
     .InformationCard{
-        display:flex;flex-direction: column;align-items: flex-start;width: 30%;padding:5%
+        display:flex;flex-direction: column;align-items: flex-start;width: 30%;padding:1% 2%;
     }
     .InterestedWidth{
         width:100%;margin-bottom:4%
@@ -225,4 +241,8 @@ import Footer from '../components/Footer.vue';
     flex-direction: row;
     align-items: center;
 }
+</style>
+
+<style>
+::-webkit-scrollbar {display:none;}
 </style>
