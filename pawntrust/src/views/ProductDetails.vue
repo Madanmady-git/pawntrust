@@ -2,9 +2,9 @@
     <div >
         <TopBar></TopBar>
         <div class="mainContainer">
-            <div style="display: flex; flex-direction: column; align-items: flex-start;justify-content: flex-start;width: 10%;height: 600px;overflow-y:auto;scrollbar-width: none;">
+            <div style="display: flex; flex-direction: column; align-items: center;justify-content: flex-start;width: 10%;height: 600px;overflow-y:auto;scrollbar-width: none;">
                 <div v-for="(slide , i) in slides" :key="i">
-                    <img @click="clickOnImage(i)" style="width:100px ; height:100px; " :src="slide"/>
+                    <img :class="model == i ? 'corosalImageStyle' : 'corosalImageStyleNormal'" @click="clickOnImage(i)" style="width:100px ; height:100px; " :src="slide"/>
                 </div>
             </div>
             <div class="corosalCard">
@@ -12,6 +12,7 @@
                 height="600"
                 hide-delimiters
                 hide-delimiter-background
+                v-model="model"
                 >
                     <v-carousel-item
                     v-for="(slide, i) in slides"
@@ -29,9 +30,6 @@
                     <span class="fontStyleLightBold">IWC Luxury Watch</span>
                     <span style="text-align: left;">Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand</span>
                     <span class="fontStyleSmaller">Bought 2 months before</span>
-                </v-card>
-                <v-card @click="click = !click" class="InterestedWidth">
-                    <div  :class="click ? 'Notified' : 'Interested'">{{ click ? 'Notified' : 'I am interested' }}</div>
                 </v-card>
                 <v-card style="width:100%;margin-bottom:4%; padding:4%;">
                     <div>
@@ -55,6 +53,24 @@
                         </div>
                     </div>
                 </v-card>
+                <div @click="click = !click" class="InterestedWidth">
+                        <v-btn
+                        class="Interested"
+                        >
+                            Add to Cart
+                        </v-btn>
+                        <v-btn
+                        class="Interested"
+                        >
+                            Buy Now
+                        </v-btn>
+                        <v-btn
+                        class="Interested"
+                        >
+                            Wishlist
+                        </v-btn>
+                        <!-- <div  :class="click ? 'Notified' : 'Interested'">{{ click ? 'Notified' : 'Add to Wishlist' }}</div> -->
+                </div>
             </div>
         </div>
         <Footer ></Footer>
@@ -71,6 +87,8 @@ import Footer from '../components/Footer.vue';
                 category : '',
                 click:false,
                 index : 0,
+                corosalImage : '',
+                model : 0,
                 slides:['https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg', 
                         'https://assets.pawnamerica.com/ProductImages//ef551069-b09c-4c52-ade1-d73b43034ad1.jpg',
                         'https://assets.pawnamerica.com/ProductImages//996c0eb4-9cbc-498a-b6b9-2e49cc9269fc.jpg',
@@ -87,7 +105,8 @@ import Footer from '../components/Footer.vue';
                 })
             },
             clickOnImage(index){
-                this.index = index;
+                console.log("chekcme", index);
+                this.model = index;
             }
         }
     }
@@ -139,7 +158,8 @@ import Footer from '../components/Footer.vue';
     .Interested{
         width: 100%;
         padding: 3%;
-        border: 2px black solid;
+        color: #F19B14;
+        border: 2px #FFF solid;
         border-radius: 8px;
         font-size: 1.2rem;
         font-weight: 600;
@@ -177,10 +197,14 @@ import Footer from '../components/Footer.vue';
         display: flex; width:50%;
     }
     .InformationCard{
-        display:flex;flex-direction: column;align-items: flex-start;width: 30%;padding:1% 2%;
+        display:flex;flex-direction: column;align-items: flex-start;width: 40%;padding:1% 2%;
     }
     .InterestedWidth{
-        width:100%;margin-bottom:4%
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 4%;
+        width:100%;margin-bottom:4%;
     }
     .ProductCard {
         width: 240px;
@@ -207,11 +231,12 @@ import Footer from '../components/Footer.vue';
         font-weight: 550;
     }
     .Interested{
-        width: 100%;
+        width: 30%;
         padding: 3%;
-        border: 2px black solid;
+        color: #F19B14;
+        border: 2px #F19B14 solid;
         border-radius: 8px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 600;
     }
     .Notified{
@@ -235,7 +260,13 @@ import Footer from '../components/Footer.vue';
         color:#FFFFFF;
     }
 }
-
+.corosalImageStyle{
+    border: 2px #F19B14 solid;
+    border-radius: 8px;
+}
+.corosalImageStyleNormal{
+    border-radius: 8px;
+}
 .d-flex-row-center{
     display: flex;
     flex-direction: row;

@@ -48,7 +48,6 @@
                                 value="opener"
                                 prepend-icon="mdi-shape"
                                 active-class="leftAlignment"
-                                
                                 exact-active-class="ListItem"
                                 color="#F19B14"
                                 >
@@ -77,6 +76,8 @@
                             <v-list-group
                                 value="opener"
                                 prepend-icon="mdi-format-list-bulleted-type"
+                                exact-active-class="ListItem"
+                                color="#F19B14"
                                 >
                                 <template v-slot:activator>
                                     <v-list-item-title>Brands</v-list-item-title>
@@ -100,6 +101,8 @@
                             <v-list-group
                                 value="opener"
                                 prepend-icon="mdi-filter"
+                                exact-active-class="ListItem"
+                                color="#F19B14"
                                 >
                                 <template v-slot:activator>
                                     <v-list-item-content>
