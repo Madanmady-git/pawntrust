@@ -348,7 +348,7 @@ import ProductCard from './ProductCard.vue';
         methods:{
             SellItAction(){
                 this.$router.push({
-                    name:"SellIt"
+                    name:"SellProduct"
                 })
             },
             tabClick(item){

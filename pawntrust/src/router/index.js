@@ -60,6 +60,13 @@ const routes = [
 		props : true
 	},
 	{
+		path: '/sellproduct',
+		name: 'SellProduct',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SellItDetails.vue'),
+		params : true,
+		props : true
+	},
+	{
 		path: '/buyit',
 		name: 'BuyIt',
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/BuyIt.vue'),
