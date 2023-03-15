@@ -230,163 +230,163 @@
                 </div>
             </div>
             <div v-else style="width:100%;margin:16px 0px;box-shadow:inset">
-                <v-row cols="12">
-                    <v-col cols="4" style="padding: 16px;box-shadow: 15px 0px 10px -15px rgba(0,0,0,.12);height: 85vh;overflow-y: auto;">
-                        <div style="display: flex;justify-content: flex-start;">
-                            <span style="font-size:x-large;font-weight: 600;color:#000">Item For Sale</span>
-                        </div>
-                        <v-divider style="margin-bottom: 32px;"></v-divider>
-                        <div style="display: flex;justify-content: flex-start;padding:4px;">
-                            <v-avatar
-                            color="#F2F3F5"
-                            >
-                                <img src="../assets/growth-dollar-way-out-global-crisis-sale-shares-stock-exchange-2048x1367.jpg" />
-                            </v-avatar>
-                            <div style="display: flex;flex-direction: column;align-items: flex-start;margin-left: 16px;">
-                                <span style="font-size:medium;font-weight: 600;color:#000">
-                                    Ravipati Yeswanth
-                                </span>
-                                <span>Listing for sale</span>
+                <div v-for="(product,index) in productItems" :key="index" >
+                    <v-row cols="12">
+                        <v-col cols="4" style="padding: 16px;box-shadow: 15px 0px 10px -15px rgba(0,0,0,.12);height: 85vh;overflow-y: auto;">
+                            <div style="display: flex;justify-content: flex-start;">
+                                <span style="font-size:x-large;font-weight: 600;color:#000">Item For Sale</span>
                             </div>
-                        </div>
-                        <div style="display: flex;justify-content: flex-start;padding:4px;">
-                            <span style="font-size:small;">Photos  · {{ uploadImages.length }} / 10 - You can add up to 10 photos.</span>
-                        </div>
-                        <div style="width:100%;display: flex;flex-wrap: wrap;">
-                            <div v-for="uploadImage in uploadImages" :key="uploadImage">
-                                <div style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;margin-right:12px;margin-bottom: 12px;border-radius: 12px;">
-                                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-                                        <img style="width:100px; height:100px;" :src="uploadImage" />
-                                        <!-- <span>{{uploadImage}}</span> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="uploadImages.length <= 10" @click="AddUploadImages()" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;">
-                                <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-                                    <v-icon
-                                    color="#F19B14"
-                                    >
-                                        mdi-file-plus
-                                    </v-icon>
-                                    <span>
-                                        Add Photo
+                            <v-divider style="margin-bottom: 32px;"></v-divider>
+                            <div style="display: flex;justify-content: flex-start;padding:4px;">
+                                <v-avatar
+                                color="#F2F3F5"
+                                >
+                                    <img src="../assets/growth-dollar-way-out-global-crisis-sale-shares-stock-exchange-2048x1367.jpg" />
+                                </v-avatar>
+                                <div style="display: flex;flex-direction: column;align-items: flex-start;margin-left: 16px;">
+                                    <span style="font-size:medium;font-weight: 600;color:#000">
+                                        Ravipati Yeswanth
                                     </span>
+                                    <span>Listing for sale</span>
                                 </div>
-                                <input
-                                    ref="uploader"
-                                    class="d-none"
-                                    type="file"
-                                    accept="image/*"
-                                    @input="onSelectFile"
-                                >
                             </div>
-                        </div>
-                        <div class="cardContent">
-                            <div>
-                                <span>Product Name</span>
+                            <div style="display: flex;justify-content: flex-start;padding:4px;">
+                                <span style="font-size:small;">Photos  · {{ uploadImages.length }} / 10 - You can add up to 10 photos.</span>
                             </div>
-                            <div style="width:100%">
-                                <v-text-field
-                                hide-details
-                                solo
-                                label="Enter Model"
-                                flat
-                                outlined
-                                >
-                                </v-text-field>
-                            </div>
-                        </div>
-                        <div class="cardContent">
-                            <div>
-                                <span>Description</span>
-                            </div>
-                            <div style="width:100%">
-                                <v-textarea
-                                hide-details
-                                solo
-                                label="Enter Description briefly about the product"
-                                flat
-                                outlined
-                                >
-                                </v-textarea>
-                            </div>
-                        </div>
-                        <div class="cardContent">
-                            <div>
-                                <span>Price</span>
-                            </div>
-                            <div style="width:100%">
-                                <v-text-field
-                                hide-details
-                                solo
-                                label="Enter Price"
-                                flat
-                                outlined
-                                >
-                                </v-text-field>
-                            </div>
-                        </div>
-                        <div class="cardContent">
-                            <div>
-                                <span>Bought Years Before</span>
-                            </div>
-                            <div style="width:100%">
-                                <v-text-field
-                                hide-details
-                                solo
-                                label="Enter Age"
-                                flat
-                                outlined
-                                >
-                                </v-text-field>
-                            </div>
-                        </div>
-                    </v-col>
-                    <v-col cols="8">
-                        <div style="display: flex;justify-content: center;">
-                            <v-card style="padding:16px;width: 80%;">
-                                <span
-                                style="display:flex;justify-content: flex-start;"
-                                >
-                                    Preview
-                                </span>
-                                <div style="height:70vh; background-color: #F2F3F5;border-radius: 8px;" :class=" (uploadImages.length == 0) ? 'centerAlign' : ''">
-                                    <div v-if="uploadImages.length > 0">
-                                        <v-carousel
-                                        height="600"
-                                        hide-delimiters
-                                        hide-delimiter-background
-                                        v-model="model"
-                                        >
-                                            <v-carousel-item
-                                            v-for="(slide, i) in uploadImages"
-                                            :key="i"
-                                            >
-                                                <img style="width:100%; height:70vh;" :src="slide" />
-                                            </v-carousel-item>
-                                        </v-carousel>
+                            <div style="width:100%;display: flex;flex-wrap: wrap;">
+                                <div v-for="uploadImage in product.images" :key="uploadImage">
+                                    <div style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;margin-right:12px;margin-bottom: 12px;border-radius: 12px;">
+                                        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                            <img style="width:100px; height:100px;" :src="uploadImage" />
+                                            <!-- <span>{{uploadImage}}</span> -->
+                                        </div>
                                     </div>
-                                    <div v-else >
-                                        <span style="font-size: 2rem;font-weight: 600;color: gray;">
-                                            No product images uploaded
+                                </div>
+                                <div v-if="uploadImages.length <= 10" @click="AddUploadImages(index)" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;">
+                                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                        <v-icon
+                                        color="#F19B14"
+                                        >
+                                            mdi-file-plus
+                                        </v-icon>
+                                        <span>
+                                            Add Photo
                                         </span>
                                     </div>
+                                    <input
+                                        ref="uploader"
+                                        class="d-none"
+                                        type="file"
+                                        accept="image/*"
+                                        @input="onSelectFile(index)"
+                                    >
                                 </div>
-                            </v-card>
-                        </div>
-                    </v-col>
-                </v-row>
+                            </div>
+                            <div class="cardContent">
+                                <div>
+                                    <span>Product Name</span>
+                                </div>
+                                <div style="width:100%">
+                                    <v-text-field
+                                    hide-details
+                                    solo
+                                    label="Enter Model"
+                                    flat
+                                    outlined
+                                    >
+                                    </v-text-field>
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div>
+                                    <span>Description</span>
+                                </div>
+                                <div style="width:100%">
+                                    <v-textarea
+                                    hide-details
+                                    solo
+                                    label="Enter Description briefly about the product"
+                                    flat
+                                    outlined
+                                    >
+                                    </v-textarea>
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div>
+                                    <span>Price</span>
+                                </div>
+                                <div style="width:100%">
+                                    <v-text-field
+                                    hide-details
+                                    solo
+                                    label="Enter Price"
+                                    flat
+                                    outlined
+                                    >
+                                    </v-text-field>
+                                </div>
+                            </div>
+                            <div class="cardContent">
+                                <div>
+                                    <span>Bought Years Before</span>
+                                </div>
+                                <div style="width:100%">
+                                    <v-text-field
+                                    hide-details
+                                    solo
+                                    label="Enter Age"
+                                    flat
+                                    outlined
+                                    >
+                                    </v-text-field>
+                                </div>
+                            </div>
+                        </v-col>
+                        <v-col cols="8">
+                            <div style="display: flex;justify-content: center;">
+                                <v-card style="padding:16px;width: 80%;">
+                                    <span
+                                    style="display:flex;justify-content: flex-start;"
+                                    >
+                                        Preview
+                                    </span>
+                                    <div style="height:70vh; background-color: #F2F3F5;border-radius: 8px;" :class=" (product.images.length == 0) ? 'centerAlign' : ''">
+                                        <div v-if="product.images.length > 0">
+                                            <v-carousel
+                                            height="600"
+                                            hide-delimiters
+                                            hide-delimiter-background
+                                            >
+                                                <v-carousel-item
+                                                v-for="(slide, i) in product.images"
+                                                :key="i"
+                                                >
+                                                    <img style="width:100%; height:70vh;" :src="slide" />
+                                                </v-carousel-item>
+                                            </v-carousel>
+                                        </div>
+                                        <div v-else >
+                                            <span style="font-size: 2rem;font-weight: 600;color: gray;">
+                                                No product images uploaded
+                                            </span>
+                                        </div>
+                                    </div>
+                                </v-card>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-divider v-if="dividerFlag" style="margin: 32px 0px;"></v-divider>
+                </div>
                 <v-row cols="12">
                     <v-col cols="4">
                         <v-btn
-                        disabled="true"
                         style="width:100%; text-transform: capitalize;font-size: 1.2rem;"
                         >Continue</v-btn>
                     </v-col>
                     <v-col  cols="8">
                         <div style="display: flex;justify-content: flex-end;margin-right: 10%;">
                             <v-btn
-                            disabled="true"
                             @click="AddMoreProduct()"
                             style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
                             <v-icon small>mdi-plus</v-icon>
@@ -555,6 +555,7 @@ import Footer from '../components/Footer.vue';
         data() {
             return { 
                 move: 1,
+                dividerFlag : false,
                 category : '',
                 productName : '',
                 choosenFile1 : null,
@@ -645,24 +646,23 @@ import Footer from '../components/Footer.vue';
                 this.productItems[this.productIndex].images = this.images;
             // do something
             },
-            AddUploadImages(){
+            AddUploadImages(index){
+                this.productIndex = index;
                 // this.uploadImages.push("1");
-                this.$refs.uploader.click();
+                this.$refs.uploader[index].click();
             },
-            onSelectFile () {
-                const input = this.$refs.uploader
+            onSelectFile (index) {
+                const input = this.$refs.uploader[index]
                 const files = input.files
                 console.log('files', files)
                 if (files && files[0]) {
                     const reader = new FileReader
                     reader.onload = e => {
                         console.log("e", e.target.result)
-                        this.uploadImages.push(e.target.result);
+                        this.productItems[this.productIndex].images.push(e.target.result);
                     this.imageData = e.target.result
                     }
                     console.log("imageData", this.imageData)
-                    
-                    console.log("uploadImages", this.uploadImages)
                     reader.readAsDataURL(files[0])
                     this.$emit('input', files[0])
                 }
@@ -676,6 +676,7 @@ import Footer from '../components/Footer.vue';
                 //     model : this.model,
                 //     age : this.age
                 // }
+                this.dividerFlag=true;
                 let newProduct = {
                     category : '',
                     productName : '',
