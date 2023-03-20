@@ -67,6 +67,55 @@
                         <span style="font-weight:600;">Sign Up</span>
                         </v-btn>
                     </div>
+                    <div class="topBarRight">
+                        <v-menu offset-y>
+                            <template v-slot:activator="{ on, attrs }">
+                                <div class="topBarProfile" v-bind="attrs" v-on="on">
+                                    <!-- <div class="profilePhoto">
+                                        <img style="width: 36px" src="../assets/UserProfileIcon.png" />
+                                        <div class="profileLetter">{{ name.charAt(0) }}</div>
+                                    </div> -->
+                                    <div>
+                                        <v-avatar
+                                        color ="#F19B14"
+                                        size="40"
+                                        >
+                                            <span style="color: #FFF;">{{ name.charAt(0) }}</span>
+                                        </v-avatar>
+                                    </div>
+                                    <div class="profileName">
+                                    {{name}}
+                                        <!-- <img class="dropDown" src="../assets/downArrowwhite.svg" /> -->
+                                        <v-icon color ="#F19B14">mdi-menu-down</v-icon>
+                                    </div>
+                                </div>
+                            </template>
+                            <v-card class="cardDesign">
+                                <div style="padding:16px">
+                                    <div style="color: #2b308e; font-weight: 600; font-size: 14px">
+                                        Welcome {{name}}
+                                    </div>
+                                    <div class="dropDownInfo">
+                                        <div class="iconDesign"><v-icon color ="#F19B14">mdi-account-circle</v-icon></div>
+                                        <div class="txtcolor">&nbsp;Profile</div>
+                                    </div>
+                                    <div class="dropDownInfo">
+                                        <div class="iconDesign"><v-icon color ="#F19B14">mdi-help-circle</v-icon></div>
+                                        <div class="txtcolor">&nbsp;Help</div>
+                                    </div>
+                                    <div class="dropDownInfo">
+                                        <div class="iconDesign"><v-icon color ="#F19B14">mdi-cog</v-icon></div>
+                                        <div class="txtcolor">&nbsp;Settings</div>
+                                    </div>
+                                    <div class="dropDownInfo" @click="dialog = true">
+                                        <!-- <div class="iconDesign"><img src="../assets/logoutIcon.svg" /></div> -->
+                                        <v-icon color ="#F19B14">mdi-logout</v-icon>
+                                        <div class="txtcolor">&nbsp;Logout</div>
+                                    </div>
+                                </div>
+                            </v-card>
+                        </v-menu>
+                    </div>
                 </div>
                 <v-divider></v-divider>
                 <div :class="$mq != 'desktop' ? 'mobileMenuClass' : ''">
@@ -106,6 +155,7 @@ export default {
         data(){
             return{
                 search : '',
+                name: 'Yeshwanth',
                 featureItems : [
                     // { title: 'Pawn Shops' },
                     { title: 'Titlepal' },
@@ -230,6 +280,92 @@ export default {
 }
 
 .mobileMenuClass{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.topBarRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.topBarProfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.iconWrap {
+    display: flex;
+    flex-direction: row;
+}
+
+.topBarRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.profilePhoto {
+    margin-right: 16px;
+}
+
+.iconStyle {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.topBarIcon {
+    height: auto;
+    margin-right: 36px;
+}
+
+.text {
+    padding: 16px 0;
+}
+
+.profileName {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.dropDown {
+    margin-right: 10px;
+}
+
+.cardDesign {
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.langcardDesign {
+    height: auto;
+    width: 180px;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+}
+
+.notcardDesign {
+    /* margin-top: -50px; */
+    width: 414px;
+    height: auto;
+    /* margin-left: 1330px; */
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+}
+
+.dropDownInfo {
+    display: flex;
+    flex-direction: row;
+    /* padding: 10px; */
+    padding-top: 8px;
+    cursor: pointer;
+}
+
+.dropDownInfonot {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
