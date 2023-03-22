@@ -101,6 +101,13 @@ const routes = [
 		params : true,
 		props : true
 	},
+	{
+		path: '/profile',
+		name: 'Profile',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Profile.vue'),
+		params : true,
+		props : true
+	},
 ];
 
 const router = new VueRouter({

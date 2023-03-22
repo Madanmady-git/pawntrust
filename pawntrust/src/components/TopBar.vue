@@ -95,7 +95,7 @@
                                     <div style="color: #2b308e; font-weight: 600; font-size: 14px">
                                         Welcome {{name}}
                                     </div>
-                                    <div class="dropDownInfo">
+                                    <div class="dropDownInfo" @click="clickedProfile()">
                                         <div class="iconDesign"><v-icon color ="#F19B14">mdi-account-circle</v-icon></div>
                                         <div class="txtcolor">&nbsp;Profile</div>
                                     </div>
@@ -202,6 +202,11 @@ export default {
             SignUp(){
                 this.$router.push({
                     name:'SignUp'
+                })
+            },
+            clickedProfile(){
+                this.$router.push({
+                    name : 'Profile'
                 })
             }
         }
@@ -360,6 +365,7 @@ export default {
 .dropDownInfo {
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* padding: 10px; */
     padding-top: 8px;
     cursor: pointer;
