@@ -49,6 +49,33 @@
                         </div>
                     </div>
                 </div>
+                <div v-else-if="activeCard == 'Change Password'">
+                    <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
+                        <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                            <span class="flexStart content">Old Password <span style="color:red;">*</span></span>
+                            <v-text-field  flat solo outlined placeholder="Enter Old Password" style="width:100%;"></v-text-field>
+                            <span class="flexStart content">New Password<span style="color:red;">*</span></span>
+                            <v-text-field flat solo outlined placeholder="Enter New Password" style="width:100%;"></v-text-field>
+                            <span class="flexStart content">Confirm Password<span style="color:red;">*</span></span>
+                            <v-text-field type="password" flat solo outlined placeholder="Confirm Password" style="width:100%;"></v-text-field>
+                        </div>
+                        <div v-else style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                            <span class="flexStart content">Enter OTP sent to your mobile number</span>
+                            <v-otp-input
+                            length="6"
+                            ></v-otp-input>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;">
+                        <div style="width:20%">
+                            <v-btn block color="#F19B14"
+                            @click="changePassword()"
+                            >
+                                <span style="color:#FFF">Change Password</span>
+                            </v-btn>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <Footer></Footer>
@@ -65,6 +92,7 @@ import Footer from '../components/Footer.vue';
                 dialog : true,
                 activeCard:'Profile',
                 clickedUpdate : true,
+                password : false,
                 cardItems : [
                     {
                         icon : 'mdi-account-circle',
@@ -99,6 +127,9 @@ import Footer from '../components/Footer.vue';
             },
             save(){
                 this.clickedUpdate = true;
+            },
+            changePassword(){
+                this.password = true;
             }
         }
     }
