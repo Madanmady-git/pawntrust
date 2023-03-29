@@ -605,6 +605,11 @@ import Footer from '../components/Footer.vue';
                         image : "https://www.clayfieldjewellery.com.au/wp-content/uploads/2018/10/large-clear-diamond.png",
                         name : "Diamonds",
                         tag : "Sell all your diamonds here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Others",
+                        tag : "Sell your other products here"
                     }
                 ]
              }

@@ -53,6 +53,13 @@ const routes = [
 		props : true
 	},
 	{
+		path: '/pawnit/quote',
+		name: 'PawnItQuote',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/GetAQuote.vue'),
+		params : true,
+		props : true
+	},
+	{
 		path: '/sellit',
 		name: 'SellIt',
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/SellIt.vue'),

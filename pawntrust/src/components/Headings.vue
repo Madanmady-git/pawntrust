@@ -120,7 +120,7 @@ export default {
                 if(this.$cookies.get('authorized')){
                     this.unauthorized = false;
                     this.$router.push({
-                        name: 'PawnIt'
+                        name: 'PawnItQuote'
                     })
                 }
                 else{
@@ -131,7 +131,7 @@ export default {
                 if(this.$cookies.get('authorized')){
                     this.unauthorized = false;
                     this.$router.push({
-                        name: 'SellIt'
+                        name: 'SellProduct'
                     })
                 }
                 else{
