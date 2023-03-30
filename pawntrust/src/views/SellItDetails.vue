@@ -251,7 +251,7 @@
                                 </div>
                             </div>
                             <div style="display: flex;justify-content: flex-start;padding:4px;">
-                                <span style="font-size:small;">Photos  · {{ uploadImages.length }} / 10 - You can add up to 10 photos.</span>
+                                <span style="font-size:small;">Photos  · {{ product.images.length }} / 10 - You can add up to 10 photos.</span>
                             </div>
                             <div style="width:100%;display: flex;flex-wrap: wrap;">
                                 <div v-for="uploadImage in product.images" :key="uploadImage">
@@ -262,7 +262,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="uploadImages.length <= 10" @click="AddUploadImages(index)" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;">
+                                <div v-if="product.images.length < 10" @click="AddUploadImages(index)" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;">
                                     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
                                         <v-icon
                                         color="#F19B14"
