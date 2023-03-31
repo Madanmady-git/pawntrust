@@ -24,15 +24,56 @@
                         <v-textarea v-model="description" flat solo outlined placeholder="Describe product" style="width:100%;"></v-textarea>
                     </div>
                 </div>
-                <div v-if="FilledItemDetailsCheck()">
+                <div style="display: flex;justify-content: center;align-items: center;margin-bottom: 6%;">
+                    <div style="width:20%">
+                        <v-btn block color="#F19B14" 
+                        :disabled="!FilledItemDetailsCheck()"
+                        @click="openImage()">
+                            <span style="color:#FFF">Next</span>
+                        </v-btn>
+                    </div>
+                </div>
+                <div v-if="openImageUpload">
                     <div style="background-color: rgb(250 224 182);padding:8px">
                         <span style="font-size: 1.4rem;font-weight: bold;">Upload Images</span>
                     </div>
-                    <span style="display: flex;justify-content: flex-start;padding:1% 5% 0% 5%;">Please upload minimum 1 image and maximum 10 images for best estimate of your items</span>
+                    <span style="display: flex;justify-content: flex-start;padding:1% 5% 2% 5%;">Please upload minimum 1 image and maximum 10 images for best estimate of your items</span>
+                    <div style="display: flex;justify-content: center;">
+                        <v-card style="padding:16px;width: 80%;">
+                            <span
+                            style="display:flex;justify-content: flex-start;"
+                            >
+                                Preview
+                            </span>
+                            <div style="height:70vh; background-color: #F2F3F5;border-radius: 8px;" :class=" (productImages.length == 0) ? 'centerAlign' : ''">
+                                <div v-if="productImages.length > 0">
+                                    <v-carousel
+                                    height="600"
+                                    hide-delimiters
+                                    hide-delimiter-background
+                                    v-model="liveImage"
+                                    >
+                                        <v-carousel-item
+                                        v-for="(slide, i) in productImages"
+                                        :key="i"
+                                        >
+                                            <img style="width:100%; height:70vh;" :src="slide" />
+                                        </v-carousel-item>
+                                    </v-carousel>
+                                </div>
+                                <div v-else >
+                                    <span style="font-size: 2rem;font-weight: 600;color: gray;">
+                                        No product images uploaded
+                                    </span>
+                                </div>
+                            </div>
+                        </v-card>
+                    </div>
+                    
                     <div style="width:100%;display: flex;flex-wrap: wrap;padding:1% 5%;">
-                        <div v-for="uploadImage in productImages" :key="uploadImage">
+                        <div v-for="(uploadImage,index) in productImages" :key="index">
                             <div style="width:150px; height:150px;display: flex;justify-content: center;align-items: center;margin-right:12px;margin-bottom: 12px;border-radius: 12px;">
-                                <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                                <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;cursor: pointer;" @click="clickOnImage(index)">
                                     <img style="width:150px; height:150px;" :src="uploadImage" />
                                     <!-- <span>{{uploadImage}}</span> -->
                                 </div>
@@ -92,6 +133,8 @@ import Footer from '../components/Footer.vue';
                 productIndex : '',
                 productItems : [],
                 imageData : '',
+                liveImage : 0,
+                openImageUpload : false,
                 Categories : [
                     'Watches', 'Jewellary', 'Gold', 'White Gold', 'Diamonds', 'Others'
                 ],
@@ -117,8 +160,14 @@ import Footer from '../components/Footer.vue';
                     return true
                 }
             },
+            openImage(){
+                this.openImageUpload = true;
+            },
             AddUploadImages(){
                 this.$refs.uploader.click();
+            },
+            clickOnImage(index){
+                this.liveImage = index;
             },
             onSelectFile () {
                 const input = this.$refs.uploader
@@ -150,5 +199,8 @@ import Footer from '../components/Footer.vue';
 @media screen and (min-width:901px) {
 }
 
+.centerAlign{
+        display: flex;justify-content: center;align-items: center;
+    }
 
 </style>
