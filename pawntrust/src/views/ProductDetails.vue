@@ -29,9 +29,9 @@
                     <span class="fontStyleBold">$ 400</span>
                     <span class="fontStyleLightBold">IWC Luxury Watch</span>
                     <span style="text-align: left;">Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand</span>
-                    <span class="fontStyleSmaller">Bought 2 months before</span>
+                    <!-- <span class="fontStyleSmaller">Bought 2 months before</span> -->
                 </v-card>
-                <v-card style="width:100%;margin-bottom:4%; padding:4%;">
+                <!-- <v-card style="width:100%;margin-bottom:4%; padding:4%;">
                     <div>
                         <div class="d-flex-row-center">
                             <div  style="margin-right:4%;">
@@ -46,13 +46,14 @@
                                 <span class="text-h6">Ravipati Yeswanth</span>
                             </div>
                         </div>
-                        <div>
-                            <v-card @click="viewProfile()" style="width:100%;padding:3%;box-shadow: none;">
-                                <div class="Notified-2">View Profile</div>
-                            </v-card>
-                        </div>
                     </div>
-                </v-card>
+                </v-card> -->
+                <div style="width: 112%;">
+                    <!-- <v-card @click="viewProfile()" style="width:100%;padding:3%;box-shadow: none;">
+                        <div class="Notified-2">View Profile</div>
+                    </v-card> -->
+                    <pawnStoreCard :pawnstore = "store"/>
+                </div>
                 <div @click="click = !click" class="InterestedWidth">
                         <v-btn
                         class="Interested"
@@ -80,8 +81,9 @@
 <script>
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
+import pawnStoreCard from '../components/pawnStoreCard.vue';
     export default {
-        components : { TopBar, Footer },
+        components : { TopBar, Footer, pawnStoreCard },
         data() {
             return { 
                 category : '',
@@ -95,7 +97,16 @@ import Footer from '../components/Footer.vue';
                         'https://assets.pawnamerica.com/ProductImages//2573e930-2e2e-4249-9e50-e89492acb4f8.jpg',
                         'https://assets.pawnamerica.com/ProductImages//ffd04573-5cab-4217-ab07-359138dc8154.jpg',
                         'https://assets.pawnamerica.com/ProductImages//8b411689-2468-4489-a91f-72febcab1573.jpg'
-                    ]
+                    ],
+                store : {
+                    uuid : 'sampleuuid',
+                    name : 'Malabar Golds',
+                    website: 'www.malabar.com',
+                    address: 'Chennai , India, 6000001',
+                    phone: '+91 987654321',
+                    rating: 4.5,
+                    reviewCount : 50
+                }
              }
             },
         methods:{

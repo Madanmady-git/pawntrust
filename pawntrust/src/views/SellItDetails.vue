@@ -195,7 +195,7 @@
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <v-card style="display: flex;flex-direction: column;justify-content: center;align-items: center ;height: 40vh;"
-                                width="200px"
+                                width="180px"
                                 >
                                     <v-avatar
                                     size="60"
@@ -212,7 +212,7 @@
                             </div>
                             <div class="flip-card-back">
                                 <v-card style="display: flex;flex-direction: column;justify-content: center;align-items: center ;height: 40vh;"
-                                width="200px"
+                                width="180px"
                                 >
                                     <v-avatar
                                     size="60"
@@ -254,15 +254,16 @@
                                 <span style="font-size:small;">Photos  · {{ product.images.length }} / 10 - You can add up to 10 photos.</span>
                             </div>
                             <div style="width:100%;display: flex;flex-wrap: wrap;">
-                                <div v-for="uploadImage in product.images" :key="uploadImage">
+                                <div v-for="uploadImage, i in product.images" :key="i">
                                     <div style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;margin-right:12px;margin-bottom: 12px;border-radius: 12px;">
-                                        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-                                            <img style="width:100px; height:100px;" :src="uploadImage" />
+                                        <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;position:relative;cursor: pointer;">
+                                            <img style="width:100px; height:100px;border-radius: 8px;" :src="uploadImage" />
+                                            <v-icon @click="removeImage(index, i)" style="position: absolute;top: 0px;right: 0px;color: black;">mdi-close-circle-outline</v-icon>
                                             <!-- <span>{{uploadImage}}</span> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="product.images.length < 10" @click="AddUploadImages(index)" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;">
+                                <div v-if="product.images.length < 10" @click="AddUploadImages(index)" style="width:100px; height:100px;display: flex;justify-content: center;align-items: center;background-color:#F2F3F5;border-radius: 12px;cursor: pointer;">
                                     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
                                         <v-icon
                                         color="#F19B14"
@@ -381,16 +382,17 @@
                 <v-row cols="12">
                     <v-col cols="4">
                         <v-btn
-                        style="width:100%; text-transform: capitalize;font-size: 1.2rem;"
-                        >Continue</v-btn>
+                        @click="AddMoreProduct()"
+                        style="width:100%;  background-color:#F19B14;color:#FFF;text-transform: capitalize;">
+                        <v-icon small>mdi-plus</v-icon>
+                        &nbsp;Add One More
+                        </v-btn>
                     </v-col>
                     <v-col  cols="8">
                         <div style="display: flex;justify-content: flex-end;margin-right: 10%;">
-                            <v-btn
-                            @click="AddMoreProduct()"
-                            style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
-                            <v-icon small>mdi-plus</v-icon>
-                            &nbsp;Add One More
+                            <v-btn 
+                            style="background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1.2rem;">
+                                Continue
                             </v-btn>
                         </div>
                     </v-col>
@@ -608,9 +610,14 @@ import Footer from '../components/Footer.vue';
                     },
                     {
                         image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Used Products",
+                        tag : "Sell your used products here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
                         name : "Others",
                         tag : "Sell your other products here"
-                    }
+                    },
                 ]
              }
             },
@@ -652,6 +659,7 @@ import Footer from '../components/Footer.vue';
             // do something
             },
             AddUploadImages(index){
+                console.log('uploaded%%%%%%%%%%%%%%%%%')
                 this.productIndex = index;
                 // this.uploadImages.push("1");
                 this.$refs.uploader[index].click();
@@ -940,7 +948,7 @@ import Footer from '../components/Footer.vue';
 <style>
 .flip-card {
   background-color: transparent;
-  width: 200px;
+  width: 180px;
   height: 40vh;
   perspective: 1000px;
   margin: 0% 16px;
@@ -975,6 +983,12 @@ import Footer from '../components/Footer.vue';
 .flip-card-back {
   color: white;
   transform: rotateY(180deg);
+}
+.remove-icon {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
 }
 </style>
 <style>
