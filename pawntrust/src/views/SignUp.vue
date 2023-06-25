@@ -2,145 +2,34 @@
     <div>
         <TopBar></TopBar>
         <div class="main">
-            <div class="secondDivClass">
-                <div v-if="move > 1">
-                    <v-btn class="btnclass" style="background-color:grey;color:#FFF;align-items: left;" @click = "decrementStep()"><v-icon small>mdi-arrow-left</v-icon>Back</v-btn>
-                </div>
-                <div v-if="$mq == 'mobile'">
-                    <v-stepper v-model="move" style="box-shadow:none;" alt-labels>
-                    <v-stepper-header>
-                        <v-stepper-step :complete="move > 1" step="1">
-                            <small>Verification</small>
-                        </v-stepper-step>
-
-                        <v-divider></v-divider>
-
-                        <v-stepper-step :complete="move > 2" step="2">
-                            <small>Personal</small>
-                        </v-stepper-step>
-
-                        <!-- <v-divider></v-divider> -->
-
-                        <!-- <v-stepper-step :complete="move > 3" step="3">
-                            <small>Verification</small>
-                        </v-stepper-step> -->
-
-                        <!-- <v-divider></v-divider>
-
-                        <v-stepper-step step="4">
-                            <small>Submit</small>
-                        </v-stepper-step> -->
-                    </v-stepper-header>
-                    </v-stepper>
-                </div>
-                <div v-else>
-                    <div>
-                        <v-stepper v-model="move" vertical style="box-shadow: none;">
-                            <!-- <v-stepper-step :complete="move > 1" step="1">
-                                Annual Income
-                            <small>Summarize if needed</small>
-                            </v-stepper-step>
-
-                            <v-stepper-content step="1">
-                            </v-stepper-content> -->
-
-                            <v-stepper-step :complete="move > 1" step="1">Personal Information</v-stepper-step>
-
-                            <v-stepper-content step="1">
-                            </v-stepper-content>
-
-                            <v-stepper-step :complete="move > 2" step="2">Verification</v-stepper-step>
-
-                            <v-stepper-content step="2">
-                            </v-stepper-content>
-
-                            <!-- <v-stepper-step  step="4">Submit</v-stepper-step>
-
-                            <v-stepper-content step="4">
-                            </v-stepper-content> -->
-
-                        </v-stepper>
-                    </div>
-                </div>
-            </div>
             <div class="secondDivClass2">
-                <!-- <div v-if="move == 1" style="width:80%">
-                    <div class="flexCol alignLeftClass">
-                        <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Financial Information</span>
-                        <span style="font-size:1.6rem; font-weight:600;">What is your estimated personal credit score?</span>
-                        <span>A low credit score will not prevent your business from obtaining an approval.</span>
+                <div class="LoginMain">
+                    <div class="heightStyle">
+                        <v-card style = "padding:6% 0%;box-shadow: none;">
+                            <span class="flexStart content">Firts Name<span style="color:red">*</span></span>
+                            <v-text-field v-model="firstName" flat solo outlined placeholder="Enter Firts Name"></v-text-field>
+                            <span class="flexStart content">Last Name<span style="color:red">*</span></span>
+                            <v-text-field v-model="lastName" flat solo outlined placeholder="Enter Last Name"></v-text-field>
+                            <span class="flexStart content">Mobile Number</span>
+                            <v-text-field v-model="mobileNumber" flat solo outlined placeholder="Enter Mobile Number"></v-text-field>
+                            <span class="flexStart content">Email<span style="color:red">*</span></span>
+                            <v-text-field v-model="email" flat solo outlined placeholder="Enter Email"></v-text-field>
+                        </v-card>
                     </div>
-                    <div class="flexRow" style="flex-wrap: wrap;">
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">Excellent (720+)</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">Great (680-719)</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">Average (650-679)</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">Fair (600-649)</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">Not so great (599 or less)</v-btn>
-                    </div>
-                    <div>
-                        <v-btn class="btnclass" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
-                    </div>
-                </div> -->
-                <!-- <div v-if="(move == 1)" style="width:80%">
-                    <div class="flexCol alignLeftClass">
-                        <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Annual Income</span>
-                        <span style="font-size:1.6rem; font-weight:600;">What is your annual income?</span>
-                        <span>A low annual income will not prevent your business from obtaining an approval.</span>
-                    </div>
-                    <div class="flexRow" style="flex-wrap: wrap;">
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">less than 25,000</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">25,000 to 50,000</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">50,000 to 75,000</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">75,000 to 1,00,000</v-btn>
-                        <v-btn block outline class="btnclass" @click = "incrementStep()">more than 1,00,000</v-btn>
-                    </div>
-                    <div>
-                        <v-btn class="btnclass" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
-                    </div>
-                </div> -->
-                <div v-if="(move == 1)" style="width:80%">
-                    <div class="flexCol alignLeftClass">
-                        <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Personal Details</span>
-                    </div>
-                    <div class="LoginMain">
-                        <div class="heightStyle">
-                            <v-card style = "padding:6% 0%;box-shadow: none;">
-                                <span class="flexStart content">Username</span>
-                                <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field>
-                                <span class="flexStart content">Password</span>
-                                <v-text-field flat solo outlined placeholder="Enter Password"></v-text-field>
-                                <span class="flexStart content">Mobile Number</span>
-                                <v-text-field flat solo outlined placeholder="Enter Mobile Number"></v-text-field>
-                                <span class="flexStart content">Email</span>
-                                <v-text-field flat solo outlined placeholder="Enter Email"></v-text-field>
-                            </v-card>
-                        </div>
-                    </div>
-                    <div>
-                        <v-btn class="btnclass" @click = "incrementStep()" style="width:100%; background-color:#F19B14;color:#FFF;">Proceed</v-btn>
-                    </div>
-                </div>
-                <div v-else-if="(move == 2)" style="width:80%">
-                    <div class="flexCol alignLeftClass">
-                        <span style="font-size:1rem; font-weight:400; text-transform:uppercase;">Verification</span>
-                    </div>
-                    <div class="LoginMain">
-                        <div class="heightStyleOTP">
-                            <v-card style = "padding:6% 0%;box-shadow: none;">
-                                <span class="flexStart content">OTP</span>
-                                <!-- <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field> -->
-                                <v-otp-input
-                                    length="4"
-                                ></v-otp-input>
-                            </v-card>
-                        </div>
-                    </div>
-                    <div>
-                        <v-btn class="btnclass" @click = "incrementStep()" style="background-color:#F19B14;color:#FFF;">Verify OTP</v-btn>
+                    <div style="width: 100%;">
+                        <v-btn :disabled="!firstName || !lastName || !email" block class="btnclass" @click = "Register()" style="width:100%; background-color:#F19B14;color:#FFF;">Register</v-btn>
                     </div>
                 </div>
             </div>
         </div>
+        <v-dialog
+            v-model="dialog"
+            width="500"
+            persistent
+            
+            >
+            <v-card height="200" style="display: flex;justify-content: center;align-items: center;text-align: left;padding: 0px 32px;"> Verification mail has been sent to your registered mail , please check</v-card>
+            </v-dialog>
         <Footer></Footer>
     </div>
 </template>
@@ -148,17 +37,35 @@
 <script>
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
+import axios from 'axios';
 export default {
         components : { TopBar, Footer },
         data() {
-            return { move: 1 }
+            return { 
+                move: 1,
+                firstName : '',
+                lastName : '',
+                mobileNumber: '',
+                email: '',
+                dialog: true
+             }
             },
         methods:{
-            incrementStep(){
-                this.move = this.move+1;
-            },
-            decrementStep(){
-                this.move = this.move-1;
+            Register(){
+                let payload = {
+                    "email" : this.email,
+                    "firstName" : this.firstName,
+                    "lastName" : this.lastName
+                }
+                axios.post('https://api.pawntrust.com/api/v1/register', payload)
+                .then(response => {
+                    console.log('response', response);
+                    this.$cookies.set('authorized' , true)
+                    this.dialog= true;
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
             }
         }
     }
@@ -209,8 +116,8 @@ export default {
     }
 
     .LoginMain{
-        /* width:80%;
-        margin:0px auto; */
+         width:80%;
+        /* margin:0px auto; */
         /* height: 100vh; */
         display: flex;
         flex-direction: column;
@@ -246,7 +153,7 @@ export default {
     align-items: center;
     }
     .secondDivClass2{
-    width:50%;
+    width:100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -268,6 +175,7 @@ export default {
     }
 
     .LoginMain{
+        width: 40%;
         /* height: 60vh; */
         display: flex;
         flex-direction: column;

@@ -328,21 +328,6 @@
                                     </v-text-field>
                                 </div>
                             </div>
-                            <div class="cardContent">
-                                <div>
-                                    <span>Bought Years Before</span>
-                                </div>
-                                <div style="width:100%">
-                                    <v-text-field
-                                    hide-details
-                                    solo
-                                    label="Enter Age"
-                                    flat
-                                    outlined
-                                    >
-                                    </v-text-field>
-                                </div>
-                            </div>
                         </v-col>
                         <v-col cols="8">
                             <div style="display: flex;justify-content: center;">
@@ -380,21 +365,20 @@
                     <v-divider v-if="dividerFlag" style="margin: 32px 0px;"></v-divider>
                 </div>
                 <v-row cols="12">
-                    <v-col cols="4">
+                    <v-col cols="4" style="display: flex;justify-content: space-around;align-items: center;">
                         <v-btn
-                        @click="AddMoreProduct()"
-                        style="width:100%;  background-color:#F19B14;color:#FFF;text-transform: capitalize;">
-                        <v-icon small>mdi-plus</v-icon>
-                        &nbsp;Add One More
+                            @click="AddMoreProduct()"
+                            style="width:40%;background-color:#F19B14;color:#FFF;text-transform: capitalize;">
+                            <v-icon small>mdi-plus</v-icon>
+                            &nbsp;Add One More
+                        </v-btn>
+                        <v-btn
+                        style="width:40%;background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
+                            Continue
                         </v-btn>
                     </v-col>
                     <v-col  cols="8">
-                        <div style="display: flex;justify-content: flex-end;margin-right: 10%;">
-                            <v-btn 
-                            style="background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1.2rem;">
-                                Continue
-                            </v-btn>
-                        </div>
+                        
                     </v-col>
                 </v-row>
             </div>

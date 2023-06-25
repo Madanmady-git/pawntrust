@@ -115,6 +115,9 @@
                                 </div>
                             </v-card>
                         </v-menu>
+                        <div style="margin-left: 12px;">
+                            <v-icon size="40" color="#F19B14">mdi-cart</v-icon>
+                        </div>
                     </div>
                 </div>
                 <v-divider></v-divider>

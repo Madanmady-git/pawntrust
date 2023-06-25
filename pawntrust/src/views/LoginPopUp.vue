@@ -56,8 +56,19 @@ export default {
             })
         },
         Login(){
-            this.$cookies.set('authorized' , true)
-            this.$emit('setAuthorized')
+            let payload = {
+                    "userName" : this.username,
+                    "password" : this.password
+                }
+                axios.post('https://api.pawntrust.com/api/v1/login', payload)
+                .then(response => {
+                    console.log('response', response);
+                    this.$cookies.set('authorized' , true)
+                    this.$emit('setAuthorized')
+                })
+                .catch(error => {
+                    console.log('error', error)
+                })
         }
     }
 }

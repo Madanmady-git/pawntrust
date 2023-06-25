@@ -297,22 +297,6 @@
                         </v-text-field>
                     </div>
                 </div>
-                <div class="cardContent">
-                    <div>
-                        <span>Bought Years Before</span>
-                    </div>
-                    <div style="width:100%">
-                        <v-text-field
-                        v-model="product.age"
-                        hide-details
-                        solo
-                        label="Enter Age"
-                        flat
-                        outlined
-                        >
-                        </v-text-field>
-                    </div>
-                </div>
             </v-card>
             <div class="AddMoreButton">
                 <div >
