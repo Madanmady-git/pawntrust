@@ -47,7 +47,7 @@ export default {
                 lastName : '',
                 mobileNumber: '',
                 email: '',
-                dialog: true
+                dialog: false
              }
             },
         methods:{
