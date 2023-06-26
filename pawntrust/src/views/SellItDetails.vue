@@ -373,6 +373,7 @@
                             &nbsp;Add One More
                         </v-btn>
                         <v-btn
+                        @click="clickContinue()"
                         style="width:40%;background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
                             Continue
                         </v-btn>
@@ -529,6 +530,15 @@
                 </div>
             </div> -->
         </div>
+        <v-dialog
+            v-model="dialog"
+            width="500"
+            persistent
+            
+            >
+            <v-card height="200" style="display: flex;justify-content: center;align-items: center;text-align: left;padding: 0px 32px;">Thanks for selling your products in <span style="color:#F19B14"><b>&nbsp; Pawn Trust</b></span></v-card>
+            <v-btn @click="routeToSellIt()" color="#F19B14" dense solo flat><span style="color: #FFF;text-transform: capitalize;">Sell More Products</span></v-btn>
+        </v-dialog>
         <Footer></Footer>
     </div>
 </template>
@@ -541,6 +551,7 @@ import Footer from '../components/Footer.vue';
         data() {
             return { 
                 move: 1,
+                dialog: false,
                 dividerFlag : false,
                 category : '',
                 productName : '',
@@ -593,7 +604,7 @@ import Footer from '../components/Footer.vue';
                         tag : "Sell all your diamonds here"
                     },
                     {
-                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        image : "https://images.pexels.com/photos/3907507/pexels-photo-3907507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                         name : "Used Products",
                         tag : "Sell your used products here"
                     },
@@ -613,9 +624,17 @@ import Footer from '../components/Footer.vue';
             decrementStep(){
                 this.move = this.move-1;
             },
+            routeToSellIt(){
+                this.dialog = false;
+                this.categoryChecked = false;
+                this.$router.go();
+            },
             clickedCategory(value){
                 this.category = value;
                 this.categoryChecked = true;
+            },
+            clickContinue(){
+                this.dialog = true;
             },
             onButtonClick(index) {
                 this.productIndex = index;

@@ -4,9 +4,9 @@
         <div class="LoginMain">
             <span style="font-size:1.8rem;font-weight:600;color:#F19B14">Login to your Account</span>
             <div class="heightStyle">
-                <v-card style = "padding:6% 2%;box-shadow: none;">
-                    <span class="flexStart content">Username</span>
-                    <v-text-field flat solo outlined placeholder="Enter Username"></v-text-field>
+                <v-card class = "cardStyle" style = "box-shadow: none;">
+                    <span class="flexStart content">Email</span>
+                    <v-text-field flat solo outlined placeholder="Enter Email"></v-text-field>
                     <span class="flexStart content">Password</span>
                     <v-text-field flat solo outlined placeholder="Enter Password"></v-text-field>
                     <v-btn
@@ -76,6 +76,9 @@ export default {
     .heightStyle{
         width:80%;
         margin-top:5%;
+    }
+    .cardStyle{
+        padding:6% 2%;
     }
 }
 

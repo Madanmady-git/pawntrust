@@ -6,18 +6,18 @@
                 <div class="LoginMain">
                     <div class="heightStyle">
                         <v-card style = "padding:6% 0%;box-shadow: none;">
-                            <span class="flexStart content">Firts Name<span style="color:red">*</span></span>
-                            <v-text-field v-model="firstName" flat solo outlined placeholder="Enter Firts Name"></v-text-field>
-                            <span class="flexStart content">Last Name<span style="color:red">*</span></span>
-                            <v-text-field v-model="lastName" flat solo outlined placeholder="Enter Last Name"></v-text-field>
-                            <span class="flexStart content">Mobile Number</span>
-                            <v-text-field v-model="mobileNumber" flat solo outlined placeholder="Enter Mobile Number"></v-text-field>
+                            <span class="flexStart content">Business Name<span style="color:red">*</span></span>
+                            <v-text-field v-model="firstName" flat solo outlined placeholder="Enter Business Name"></v-text-field>
+                            <!-- <span class="flexStart content">Last Name<span style="color:red">*</span></span>
+                            <v-text-field v-model="lastName" flat solo outlined placeholder="Enter Last Name"></v-text-field> -->
                             <span class="flexStart content">Email<span style="color:red">*</span></span>
                             <v-text-field v-model="email" flat solo outlined placeholder="Enter Email"></v-text-field>
+                            <span class="flexStart content">Mobile Number</span>
+                            <v-text-field v-model="mobileNumber" flat solo outlined placeholder="Enter Mobile Number"></v-text-field>
                         </v-card>
                     </div>
                     <div style="width: 100%;">
-                        <v-btn :disabled="!firstName || !lastName || !email" block class="btnclass" @click = "Register()" style="width:100%; background-color:#F19B14;color:#FFF;">Register</v-btn>
+                        <v-btn :disabled="!firstName || !email" block class="btnclass" @click = "Register()" style="width:100%; background-color:#F19B14;color:#FFF;">Register</v-btn>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,13 @@
             persistent
             
             >
-            <v-card height="200" style="display: flex;justify-content: center;align-items: center;text-align: left;padding: 0px 32px;"> Verification mail has been sent to your registered mail , please check</v-card>
+            <v-card height="200" style="display: flex;justify-content: center;align-items: center;text-align: left;padding: 0px 32px;">
+                <div>
+                    Verification mail has been sent to <b>{{ email }}</b>, Please check.
+                </div> 
+            </v-card>
+                    
+            <v-btn @click="routeToLogin()" color="#F19B14" dense solo flat><span style="color: #FFF;">Login</span></v-btn>
             </v-dialog>
         <Footer></Footer>
     </div>
@@ -55,7 +61,7 @@ export default {
                 let payload = {
                     "email" : this.email,
                     "firstName" : this.firstName,
-                    "lastName" : this.lastName
+                    "lastName" : this.firstName
                 }
                 axios.post('https://api.pawntrust.com/api/v1/register', payload)
                 .then(response => {
@@ -65,6 +71,11 @@ export default {
                 })
                 .catch(error => {
                     console.log('error', error)
+                })
+            },
+            routeToLogin(){
+                this.$router.push({
+                    name : 'Login'
                 })
             }
         }
