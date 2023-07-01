@@ -16,63 +16,69 @@
                 </div>
             </div>
             <div>
-                <div v-if="activeCard == 'Profile'">
-                    <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                        <div style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
-                            <span class="flexStart content">First Name</span>
-                            <v-text-field value="Ravipati" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
-                            <span class="flexStart content">Mobile Number</span>
-                            <v-text-field value="9638527410" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
-                        </div>
-                        <div style="display: flex;flex-direction: column;align-items: flex-start;width:30%;margin-left: 32px;">
-                            <span class="flexStart content">Last Name</span>
-                            <v-text-field value="Yeshwanth" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Last Name" style="width:100%;"></v-text-field>
-                            <span class="flexStart content">Email</span>
-                            <v-text-field value="ravipati.yesh@gmail.com" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
-                        </div>
-                    </div>
-                    <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;">
-                        <div style="width:20%">
-                            <v-btn block color="#F19B14"
-                            :disabled="!clickedUpdate"
-                            @click="update()"
-                            >
-                                <span style="color:#FFF">Update</span>
-                            </v-btn>
-                        </div>
-                        <div style="width:20%">
-                            <v-btn block color="#F19B14" 
-                            :disabled="clickedUpdate"
-                            @click="save()">
-                                <span style="color:#FFF">Save</span>
-                            </v-btn>
-                        </div>
-                    </div>
+                <div v-if="contentLoader" class="text-center">
+                    <v-progress-circular
+                        indeterminate
+                        color="primary"
+                    ></v-progress-circular>
                 </div>
-                <div v-else-if="activeCard == 'Change Password'">
-                    <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                        <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
-                            <span class="flexStart content">Old Password <span style="color:red;">*</span></span>
-                            <v-text-field  flat solo outlined placeholder="Enter Old Password" style="width:100%;"></v-text-field>
-                            <span class="flexStart content">New Password<span style="color:red;">*</span></span>
-                            <v-text-field flat solo outlined placeholder="Enter New Password" style="width:100%;"></v-text-field>
-                            <span class="flexStart content">Confirm Password<span style="color:red;">*</span></span>
-                            <v-text-field type="password" flat solo outlined placeholder="Confirm Password" style="width:100%;"></v-text-field>
+                <div v-else>
+                    <div v-if="activeCard == 'Profile'">
+                        <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
+                            <div style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                                <span class="flexStart content">Business Name</span>
+                                <v-text-field value="Ravipati" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
+                                <span class="flexStart content">Mobile Number</span>
+                                <v-text-field value="9638527410" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
+                                <span class="flexStart content">Email</span>
+                                <v-text-field value="ravipati.yesh@gmail.com" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
+                            </div>
                         </div>
-                        <div v-else style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
-                            <span class="flexStart content">Enter OTP sent to your mobile number</span>
-                            <v-otp-input
-                            length="6"
-                            ></v-otp-input>
+                        <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
+                            <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;width: 30%;">
+                                <div style="width:20%">
+                                    <v-btn block color="#F19B14"
+                                    :disabled="!clickedUpdate"
+                                    @click="update()"
+                                    >
+                                        <span style="color:#FFF">Update</span>
+                                    </v-btn>
+                                </div>
+                                <div style="width:20%">
+                                    <v-btn block color="#F19B14" 
+                                    :disabled="clickedUpdate"
+                                    @click="save()">
+                                        <span style="color:#FFF">Save</span>
+                                    </v-btn>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;">
-                        <div style="width:20%">
-                            <v-btn block color="#F19B14"
-                            @click="changePassword()"
-                            >
-                                <span style="color:#FFF">Change Password</span>
-                            </v-btn>
+                    <div v-else-if="activeCard == 'Change Password'">
+                        <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
+                            <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                                <span class="flexStart content">Old Password <span style="color:red;">*</span></span>
+                                <v-text-field  flat solo outlined placeholder="Enter Old Password" style="width:100%;"></v-text-field>
+                                <span class="flexStart content">New Password<span style="color:red;">*</span></span>
+                                <v-text-field flat solo outlined placeholder="Enter New Password" style="width:100%;"></v-text-field>
+                                <span class="flexStart content">Confirm Password<span style="color:red;">*</span></span>
+                                <v-text-field type="password" flat solo outlined placeholder="Confirm Password" style="width:100%;"></v-text-field>
+                            </div>
+                            <div v-else style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                                <span class="flexStart content">Enter OTP sent to your mobile number</span>
+                                <v-otp-input
+                                length="6"
+                                ></v-otp-input>
+                            </div>
+                        </div>
+                        <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;">
+                            <div style="width:20%">
+                                <v-btn block color="#F19B14"
+                                @click="changePassword()"
+                                >
+                                    <span style="color:#FFF">Change Password</span>
+                                </v-btn>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,6 +89,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
     export default {
@@ -93,6 +100,10 @@ import Footer from '../components/Footer.vue';
                 activeCard:'Profile',
                 clickedUpdate : true,
                 password : false,
+                token : '',
+                userName: '',
+                emailId: '',
+                contentLoader: false,
                 cardItems : [
                     {
                         icon : 'mdi-account-circle',
@@ -113,10 +124,35 @@ import Footer from '../components/Footer.vue';
                 ]
             }
         },
+        mounted(){
+            this.token = this.$cookies.get('token');
+            if (!this.token) {
+                this.$router.push({
+                    name : 'Home'
+                })
+            } else {
+                this.getProfileDetails();
+            }
+        },
         methods : {
             goHome(){
                 this.$router.push({
                     name:'Home'
+                })
+            },
+            getProfileDetails(){
+                this.contentLoader = true;
+                let headers = {
+                    'Authorization' :  `Bearer ${this.token}`
+                }
+                console.log('headers', headers)
+                axios.get('https://api.pawntrust.com/api/v1/getProfile', {headers : headers})
+                .then(response => {
+                    this.contentLoader = false;
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    this.contentLoader = false;
                 })
             },
             setActiveCard(name){

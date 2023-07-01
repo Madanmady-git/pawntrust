@@ -4,14 +4,19 @@
             <span style="font-size:1.8rem;font-weight:600;color:#F19B14">Login to your Account</span>
             <div class="heightStyle">
                 <v-card style = "padding:6% 2%;box-shadow: none;">
-                    <span class="flexStart content">Username</span>
-                    <v-text-field v-model="username" flat solo outlined placeholder="Enter Username"></v-text-field>
+                    <span class="flexStart content">Email</span>
+                    <v-text-field v-model="emailId" flat solo outlined placeholder="Enter Email"></v-text-field>
                     <span class="flexStart content">Password</span>
-                    <v-text-field v-model="password" flat solo outlined placeholder="Enter Password"></v-text-field>
+                    <v-text-field 
+                    :type="show1 ? 'text' : 'password'" 
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show1 = !show1"
+                     v-model="password" flat solo outlined placeholder="Enter Password"></v-text-field>
                     <v-btn
                     style="background-color:#F19B14;text-transform:capitalize;color:#FFF; width:100%;font-size:1rem;font-weight: 600;margin-bottom:2%;"
                     @click="Login()"
-                    :disabled="(username == null || password == null)"
+                    :disabled="(emailId == null || password == null)"
+                    :loading="loginLoader"
                     >
                         Login
                     </v-btn>
@@ -26,11 +31,14 @@
 </template>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+import axios from 'axios';
 export default {
     data: () => ({
             token : 'Hello',
-            username : null,
-            password : null
+            emailId : null,
+            password : null,
+            loginLoader : false,
+            show1: false
         }),
     mounted(){
         console.log("In mounted now")
@@ -56,17 +64,21 @@ export default {
             })
         },
         Login(){
-            let payload = {
-                    "userName" : this.username,
+            this.loginLoader = true;
+            let headers = {
+                    "userName" : this.emailId,
                     "password" : this.password
                 }
-                axios.post('https://api.pawntrust.com/api/v1/login', payload)
+                axios.post('https://api.pawntrust.com/api/v1/login',{}, {headers: headers})
                 .then(response => {
+                    this.loginLoader = false;
                     console.log('response', response);
-                    this.$cookies.set('authorized' , true)
+                    let token = response.data.access_token;
+                    this.$cookies.set('token' , token, response.data.expires_in);
                     this.$emit('setAuthorized')
                 })
                 .catch(error => {
+                    this.loginLoader = false;
                     console.log('error', error)
                 })
         }

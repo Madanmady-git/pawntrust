@@ -277,8 +277,8 @@
                 </div>
                 <div class="cardContent3">
                     <div class="cardContentHorizontal">
-                        <div v-for="i in 13" :key="i">
-                            <ProductCard/>
+                        <div v-for="product in productdetails" :key="i">
+                            <ProductCard :product = product />
                         </div>
                     </div>
                 </div>
@@ -289,6 +289,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
 import ProductCard from './ProductCard.vue';
@@ -296,6 +297,7 @@ import ProductCard from './ProductCard.vue';
         components : { TopBar, Footer, ProductCard },
         data() {
             return { 
+                token : '',
                 category : '',
                 items: [
                     // { title: 'Category', icon: 'mdi-view-dashboard' },
@@ -309,6 +311,7 @@ import ProductCard from './ProductCard.vue';
                 opener : true,
                 range:[0 , 1000],
                 rangeValue:[0, 1000],
+                productdetails: [],
                 categoryItems:[
                     {
                     action: 'mdi-shape',
@@ -345,7 +348,29 @@ import ProductCard from './ProductCard.vue';
                 Brands : ['Gucci', 'Fossil', 'Rolex', 'Quartz', 'Fastrack'],
              }
             },
+        mounted(){
+            this.token = this.$cookies.get('token');
+            if (!this.token) {
+                this.$router.push({
+                    name : 'Login'
+                })
+            } else {
+                this.getAllProducts()
+            }
+        },
         methods:{
+            getAllProducts(){
+                let headers = {
+                    'Authorization' : `Bearer ${this.token}`
+                }
+                axios.get('https://api.pawntrust.com/api/v1/buyIt', {headers : headers})
+                .then(response => {
+                    this.productdetails = response.data.items;
+                })
+                .catch(error => {
+
+                })
+            },
             SellItAction(){
                 this.$router.push({
                     name:"SellProduct"

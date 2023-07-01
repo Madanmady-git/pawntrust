@@ -15,11 +15,15 @@
 
 <script>
 export default {
+    props: ['product'],
     data: () => ({
             token : 'Hello',
             username : null,
             password : null
         }),
+    mounted(){
+        console.log('product', this.$props.product)
+    },
     methods:{
         viewProduct(){
             this.$router.push({

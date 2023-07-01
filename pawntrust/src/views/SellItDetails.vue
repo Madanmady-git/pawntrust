@@ -275,6 +275,7 @@
                                         </span>
                                     </div>
                                     <input
+                                        
                                         ref="uploader"
                                         class="d-none"
                                         type="file"
@@ -319,6 +320,7 @@
                                 </div>
                                 <div style="width:100%">
                                     <v-text-field
+                                    v-model="price"
                                     hide-details
                                     solo
                                     label="Enter Price"
@@ -546,6 +548,7 @@
 <script>
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
+import axios from 'axios';
     export default {
         components : { TopBar, Footer },
         data() {
@@ -567,6 +570,7 @@ import Footer from '../components/Footer.vue';
                 description : '',
                 model : '',
                 age : '',
+                price: 0,
                 categoryChecked : false,
                 productIndex : '',
                 productItems : [{
@@ -575,7 +579,8 @@ import Footer from '../components/Footer.vue';
                     images : [],
                     description : '',
                     model : '',
-                    age : ''
+                    age : '',
+                    formDataImages : []
                 }],
                 types : [
                     {
@@ -616,7 +621,14 @@ import Footer from '../components/Footer.vue';
                 ]
              }
             },
-    
+        mounted(){
+            let token = this.$cookies.get('token');
+            if (!token) {
+                this.$router.push({
+                    name : 'Login'
+                })
+            }
+        },
         methods:{
             incrementStep(){
                 this.move = this.move+1;
@@ -634,7 +646,25 @@ import Footer from '../components/Footer.vue';
                 this.categoryChecked = true;
             },
             clickContinue(){
-                this.dialog = true;
+                console.log('this.productItems', this.productItems)
+                // this.dialog = true;
+                for (let index = 0; index < this.productItems.length; index++) {
+                    const product = this.productItems[index];
+                    let payload = {
+                        "name" : "itemName",
+                        "category" : "Watch",
+                        "price" : 10,
+                        "description" : "It's a 100 year old antique watch",
+                        "images" : product.formDataImages
+                    }
+                    axios.post('https://api.pawntrust.com/api/v1/sellIt',payload, {headers : { 'Authorization' : `Bearer ${this.token}`, 'Content-Type': 'multipart/form-data'}})
+                    .then(response => {
+                        console.log('response', response)
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                    })
+                }
             },
             onButtonClick(index) {
                 this.productIndex = index;
@@ -653,6 +683,7 @@ import Footer from '../components/Footer.vue';
                 },
             onFileChanged(e) {
                 this.imageURL = URL.createObjectURL(e.target.files[0]);
+                console.log('this.imageURL', this.imageURL)
                 this.images.push({ imageURL : this.imageURL,name : e.target.files[0].name });
                 console.log("Images" , e.target.files[0]);
                 console.log("check" , new FileReader().readAsDataURL(e.target.files[0]))
@@ -672,6 +703,22 @@ import Footer from '../components/Footer.vue';
                 const files = input.files
                 console.log('files', files)
                 if (files && files[0]) {
+                    let formData = new FormData(); // Create a FormData object
+                    console.log('checking ....', typeof files[0])
+                    formData.append('image',files[0]);
+                    // let formData = new FormData();
+                    // console.log('formData', formData);
+                    // formData.append('key1', 'value1');
+                    // formData.append('key2', 'value2');
+                    // formData.append('key3', 'value1');
+                    // formData.append('key4', 'value2');
+                    console.log('formData', formData);
+                    // List key/value pairs
+                    console.log('chichi', this.productItems[0])
+                    this.productItems[this.productIndex].formDataImages.push(formData);
+                    for(let [name, value] of formData) {
+                    console.log(`${name} , ${value}`); // key1 = value1, then key2 = value2
+                    }
                     const reader = new FileReader
                     reader.onload = e => {
                         console.log("e", e.target.result)
@@ -699,7 +746,8 @@ import Footer from '../components/Footer.vue';
                     images : [],
                     description : '',
                     model : '',
-                    age : ''
+                    age : '',
+                    formDataImages : []
                 }
                 this.category = '';
                 this.productName = '';

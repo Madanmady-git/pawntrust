@@ -6,11 +6,18 @@
             <div class="heightStyle">
                 <v-card class = "cardStyle" style = "box-shadow: none;">
                     <span class="flexStart content">Email</span>
-                    <v-text-field flat solo outlined placeholder="Enter Email"></v-text-field>
+                    <v-text-field v-model="emailId" flat solo outlined placeholder="Enter Email"></v-text-field>
                     <span class="flexStart content">Password</span>
-                    <v-text-field flat solo outlined placeholder="Enter Password"></v-text-field>
+                    <v-text-field 
+                    :type="show1 ? 'text' : 'password'" 
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show1 = !show1"
+                    v-model="password" flat solo outlined placeholder="Enter Password"></v-text-field>
                     <v-btn
                     style="background-color:#F19B14;text-transform:capitalize;color:#FFF; width:100%;font-size:1rem;font-weight: 600;margin-bottom:2%;"
+                    @click="Login()"
+                    :disabled="(emailId == null || password == null)"
+                    :loading="loginLoader"
                     >
                         Login
                     </v-btn>
@@ -26,12 +33,17 @@
 </template>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+import axios from 'axios';
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
 export default {
     components : { TopBar, Footer },
     data: () => ({
-            token : 'Hello'
+            token : 'Hello',
+            emailId : '',
+            password : '',
+            loginLoader: false,
+            show1: false
         }),
     mounted(){
         console.log("In mounted now")
@@ -49,13 +61,35 @@ export default {
     },
     methods:{
         handleCredentialResponse(response) {
-                console.log("Encoded JWT ID token: " + response.credential);
-                this.token = response.credential
-                console.log("token" , this.token)
-                this.$router.push({
-                    name:'Home',
-                })
+            console.log("Encoded JWT ID token: " + response.credential);
+            this.token = response.credential
+            console.log("token" , this.token)
+            this.$router.push({
+                name:'Home',
+            })
+        },
+        Login(){
+            this.loginLoader = true;
+            let headers = {
+                "userName" : this.emailId,
+                "password" : this.password
             }
+            axios.post('https://api.pawntrust.com/api/v1/login',{}, {headers: headers})
+            .then(response => {
+                this.loginLoader = false;
+                console.log('response', response);
+                let token = response.data.access_token;
+                this.$cookies.set('token' , token, response.data.expires_in);
+                this.$emit('setAuthorized');
+                this.$router.push({
+                    name: 'Home'
+                })
+            })
+            .catch(error => {
+                this.loginLoader = false;
+                console.log('error', error)
+            })
+        }
     }
 }
 </script>

@@ -150,6 +150,14 @@ import Footer from '../components/Footer.vue';
                 ]
              }
             },
+        mounted(){
+            let token = this.$cookies.get('token');
+            if (!token) {
+                this.$router.push({
+                    name : 'Login'
+                })
+            }
+        },
         methods:{
             FilledItemDetailsCheck(){
                 if ((!this.category || this.category == '') || (!this.productName || this.productName == '') || (!this.amountExpected || this.amountExpected == '')

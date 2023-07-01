@@ -113,7 +113,7 @@ export default {
                 })
             }
             else if (route=="Pawn It") {
-                if(this.$cookies.get('authorized')){
+                if(this.$cookies.get('token')){
                     this.unauthorized = false;
                     this.$router.push({
                         name: 'PawnItQuote'
@@ -124,7 +124,7 @@ export default {
                 }
             }
             else if (route=="Sell It") {
-                if(this.$cookies.get('authorized')){
+                if(this.$cookies.get('token')){
                     this.unauthorized = false;
                     this.$router.push({
                         name: 'SellProduct'
