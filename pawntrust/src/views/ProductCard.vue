@@ -2,11 +2,11 @@
     <div>
         <v-card class="ProductCard" @click="viewProduct()">
             <div style="display:flex;justify-content: center;">
-                <img style="width:200px; height:200px;" src="https://cdn.anscommerce.com/catalog/brandstore/johnson/17_7_20/Sale.jpg" />
+                <img style="width:200px; height:200px;" :src="this.$props.product.imageUrls[0]" />
             </div>
             <v-divider style="margin-top:10px;"></v-divider>
-            <span class="alignLeft fontStyleBold">$ 400</span>
-            <span class="alignLeft fontStyleLightBold">IWC Luxury Watch</span>
+            <span class="alignLeft fontStyleBold">$ {{ this.$props.product.price }}</span>
+            <span class="alignLeft fontStyleLightBold">{{ this.$props.product.name }}</span>
             <!-- <span class="alignLeft" style="text-align: left;">Exclusive Swiss Made Luxury watch and very rare model in this brand</span>
             <span class="alignLeft fontStyleSmaller">Bought 2 months before</span> -->
         </v-card>

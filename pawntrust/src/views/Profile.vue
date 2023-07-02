@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div>
-                <div v-if="contentLoader" class="text-center">
+                <div v-if="contentLoader" class="text-center" style="height: 50vh;display: flex;align-items: center;justify-content: center;">
                     <v-progress-circular
                         indeterminate
                         color="primary"
@@ -27,11 +27,11 @@
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
                             <div style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
                                 <span class="flexStart content">Business Name</span>
-                                <v-text-field value="Ravipati" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
+                                <v-text-field v-model="name" :value="name" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
                                 <span class="flexStart content">Mobile Number</span>
-                                <v-text-field value="9638527410" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
+                                <v-text-field v-model="mobileNumber" :value="mobileNumber" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
                                 <span class="flexStart content">Email</span>
-                                <v-text-field value="ravipati.yesh@gmail.com" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
+                                <v-text-field v-model="emailId" :value="emailId" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
                             </div>
                         </div>
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
@@ -101,7 +101,8 @@ import Footer from '../components/Footer.vue';
                 clickedUpdate : true,
                 password : false,
                 token : '',
-                userName: '',
+                name: '',
+                mobileNumber : '98756543210',
                 emailId: '',
                 contentLoader: false,
                 cardItems : [
@@ -149,6 +150,8 @@ import Footer from '../components/Footer.vue';
                 axios.get('https://api.pawntrust.com/api/v1/getProfile', {headers : headers})
                 .then(response => {
                     this.contentLoader = false;
+                    this.name = response.data.username;
+                    this.emailId = response.data.email;
                 })
                 .catch(error => {
                     console.log('error', error)

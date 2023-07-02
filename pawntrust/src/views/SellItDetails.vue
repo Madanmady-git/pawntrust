@@ -651,12 +651,15 @@ import axios from 'axios';
                 for (let index = 0; index < this.productItems.length; index++) {
                     const product = this.productItems[index];
                     let payload = {
-                        "name" : "itemName",
-                        "category" : "Watch",
-                        "price" : 10,
-                        "description" : "It's a 100 year old antique watch",
-                        "images" : product.formDataImages
+                        "request" : JSON.stringify({
+                            "name" : "itemName",
+                            "category" : "Watch",
+                            "price" : 10,
+                            "description" : "It's a 100 year old antique watch",
+                        }),
+                        "file" : product.formDataImages
                     }
+                    console.log('payload', payload)
                     axios.post('https://api.pawntrust.com/api/v1/sellIt',payload, {headers : { 'Authorization' : `Bearer ${this.token}`, 'Content-Type': 'multipart/form-data'}})
                     .then(response => {
                         console.log('response', response)

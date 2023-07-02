@@ -277,7 +277,7 @@
                 </div>
                 <div class="cardContent3">
                     <div class="cardContentHorizontal">
-                        <div v-for="product in productdetails" :key="i">
+                        <div v-for="product,index in productdetails" :key="index">
                             <ProductCard :product = product />
                         </div>
                     </div>
@@ -494,7 +494,7 @@ import ProductCard from './ProductCard.vue';
     .mainDiv{
         width: 80%;
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         flex-direction: column;
         align-items: center;
     }
