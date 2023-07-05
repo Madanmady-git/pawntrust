@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TopBar></TopBar>
+        <TopBar :profileName = "name"></TopBar>
         <div style="padding: 0px 64px;">
             <div style="display: flex;justify-content: flex-start;">
                 <span style="font-size:x-large;font-weight: 600;">My Profile</span>

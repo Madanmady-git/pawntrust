@@ -67,7 +67,7 @@
                         <span style="font-weight:600;">Sign Up</span>
                         </v-btn>
                     </div>
-                    <div class="topBarRight">
+                    <div v-if="token" class="topBarRight">
                         <v-menu offset-y>
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="topBarProfile" v-bind="attrs" v-on="on">
@@ -107,7 +107,7 @@
                                         <div class="iconDesign"><v-icon color ="#F19B14">mdi-cog</v-icon></div>
                                         <div class="txtcolor">&nbsp;Settings</div>
                                     </div>
-                                    <div class="dropDownInfo" @click="dialog = true">
+                                    <div class="dropDownInfo" @click="logOut()">
                                         <!-- <div class="iconDesign"><img src="../assets/logoutIcon.svg" /></div> -->
                                         <v-icon color ="#F19B14">mdi-logout</v-icon>
                                         <div class="txtcolor">&nbsp;Logout</div>
@@ -157,6 +157,7 @@ export default {
         props:['page'],
         data(){
             return{
+                token : '',
                 search : '',
                 name: 'Yeshwanth',
                 featureItems : [
@@ -187,6 +188,10 @@ export default {
                 ]
             }
         },
+        mounted(){
+            this.token = this.$cookies.get('token');
+            this.name = this.$cookies.get('name');
+        },
         methods: {
             searchMethod(word){
                 console.log("Entered in search Area");
@@ -202,6 +207,12 @@ export default {
                     name:'Login'
                 })
             },
+            logOut(){
+                this.$cookies.remove('token');
+                this.$router.push({
+                    name : 'Login'
+                })
+            },
             SignUp(){
                 this.$router.push({
                     name:'SignUp'
@@ -210,6 +221,9 @@ export default {
             clickedProfile(){
                 this.$router.push({
                     name : 'Profile'
+                })
+                .catch((error)=>{
+                    console.log('error', error)
                 })
             }
         }

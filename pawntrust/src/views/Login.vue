@@ -68,6 +68,13 @@ export default {
                 name:'Home',
             })
         },
+        parseJwt(token) {
+            var base64Payload = token.split('.')[1];
+            // var payload = Buffer.from(base64Payload, 'base64');
+            // return JSON.parse(payload.toString());
+            var payload = JSON.parse(atob(base64Payload));
+            return payload;
+        },
         Login(){
             this.loginLoader = true;
             let headers = {
@@ -79,7 +86,10 @@ export default {
                 this.loginLoader = false;
                 console.log('response', response);
                 let token = response.data.access_token;
-                this.$cookies.set('token' , token, response.data.expires_in);
+                let userName = this.parseJwt(token).given_name;
+                console.log('userName', userName)
+                this.$cookies.set('token' , token, { expires : Number(response.data.expires_in)});
+                this.$cookies.set('name', userName, { expires : Number(response.data.expires_in)});
                 this.$emit('setAuthorized');
                 this.$router.push({
                     name: 'Home'

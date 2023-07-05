@@ -4,7 +4,9 @@ import router from './router'
 import vuetify from "./plugins/vuetify.js";
 import VueMq from 'vue-mq'
 import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
+Vue.use(VueCookies, {
+  expireTimes: 30
+})
  
 
 Vue.config.productionTip = false
