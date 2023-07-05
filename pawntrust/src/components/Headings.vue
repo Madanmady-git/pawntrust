@@ -147,7 +147,7 @@ export default {
             this.unauthorized = false;
             if (this.$props.page == 'SellIt') {
                 this.$router.push({
-                        name: 'SellIt'
+                        name: 'SellProduct'
                     })
             }
             else if(this.$props.page == 'PawnIt'){

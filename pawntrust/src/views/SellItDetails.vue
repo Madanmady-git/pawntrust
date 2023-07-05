@@ -279,6 +279,7 @@
                                         ref="uploader"
                                         class="d-none"
                                         type="file"
+                                        multiple
                                         accept="image/*"
                                         @input="onSelectFile(index)"
                                     >
@@ -571,6 +572,7 @@ import axios from 'axios';
                 model : '',
                 age : '',
                 price: 0,
+                token : '',
                 categoryChecked : false,
                 productIndex : '',
                 productItems : [{
@@ -622,8 +624,8 @@ import axios from 'axios';
              }
             },
         mounted(){
-            let token = this.$cookies.get('token');
-            if (!token) {
+            this.token = this.$cookies.get('token');
+            if (!this.token) {
                 this.$router.push({
                     name : 'Login'
                 })
@@ -650,17 +652,26 @@ import axios from 'axios';
                 // this.dialog = true;
                 for (let index = 0; index < this.productItems.length; index++) {
                     const product = this.productItems[index];
-                    let payload = {
-                        "request" : JSON.stringify({
+                    console.log('product.formDataImages',product.formDataImages)
+                    let createdFormData = new FormData();
+                    createdFormData.append('request', JSON.stringify({
                             "name" : "itemName",
                             "category" : "Watch",
                             "price" : 10,
                             "description" : "It's a 100 year old antique watch",
-                        }),
-                        "file" : product.formDataImages
-                    }
-                    console.log('payload', payload)
-                    axios.post('https://api.pawntrust.com/api/v1/sellIt',payload, {headers : { 'Authorization' : `Bearer ${this.token}`, 'Content-Type': 'multipart/form-data'}})
+                        }))
+                    createdFormData.append('file', product.formDataImages)
+                    // let payload = {
+                    //     "request" : JSON.stringify({
+                    //         "name" : "itemName",
+                    //         "category" : "Watch",
+                    //         "price" : 10,
+                    //         "description" : "It's a 100 year old antique watch",
+                    //     }),
+                    //     "file" : product.images
+                    // }
+                    console.log('payload', createdFormData)
+                    axios.post('https://api.pawntrust.com/api/v1/sellIt',createdFormData, {headers : { 'Authorization' : `Bearer ${this.token}`, 'Content-Type': 'multipart/form-data'}})
                     .then(response => {
                         console.log('response', response)
                     })
@@ -701,38 +712,31 @@ import axios from 'axios';
                 // this.uploadImages.push("1");
                 this.$refs.uploader[index].click();
             },
-            onSelectFile (index) {
-                const input = this.$refs.uploader[index]
-                const files = input.files
-                console.log('files', files)
-                if (files && files[0]) {
-                    let formData = new FormData(); // Create a FormData object
-                    console.log('checking ....', typeof files[0])
-                    formData.append('image',files[0]);
-                    // let formData = new FormData();
-                    // console.log('formData', formData);
-                    // formData.append('key1', 'value1');
-                    // formData.append('key2', 'value2');
-                    // formData.append('key3', 'value1');
-                    // formData.append('key4', 'value2');
-                    console.log('formData', formData);
-                    // List key/value pairs
-                    console.log('chichi', this.productItems[0])
-                    this.productItems[this.productIndex].formDataImages.push(formData);
-                    for(let [name, value] of formData) {
-                    console.log(`${name} , ${value}`); // key1 = value1, then key2 = value2
-                    }
-                    const reader = new FileReader
-                    reader.onload = e => {
-                        console.log("e", e.target.result)
-                        this.productItems[this.productIndex].images.push(e.target.result);
-                    this.imageData = e.target.result
-                    }
-                    console.log("imageData", this.imageData)
-                    reader.readAsDataURL(files[0])
-                    this.$emit('input', files[0])
-                }
-            },
+            onSelectFile(index) {
+  const input = this.$refs.uploader[index];
+  const files = input.files;
+  console.log('files', files);
+
+  if (files && files[0]) {
+    let formData = new FormData();
+    const file = files[0];
+
+    formData.append('image', input.files[0]); // Append the file to the FormData object
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      console.log('e', e.target.result);
+      this.productItems[this.productIndex].images.push(e.target.result);
+      this.imageData = e.target.result;
+      formData.append('check', this.imageData);
+      this.productItems[this.productIndex].formDataImages.push(formData);
+      console.log('formData', formData);
+    };
+
+    reader.readAsDataURL(file);
+    this.$emit('input', file);
+  }
+},
             AddMoreProduct(){
                 // let newProduct = {
                 //     category : this.category,
