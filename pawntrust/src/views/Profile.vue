@@ -54,6 +54,18 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else-if="activeCard == 'Products'">
+                        <div v-if="productdetails?.length > 0" style="display: flex;flex-wrap: wrap;background-color: rgb(243, 237, 237);border-radius: 8px;">
+                            <div v-for="product,index in productdetails" :key="index">
+                                <ProductCard style = "margin: 16px" :product = product />
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div style="min-height: 40vh;display: flex;justify-content: center;align-items: center;">
+                                <span style="color: #000;">No products have been uploaded</span>
+                            </div>
+                        </div>
+                    </div>
                     <div v-else-if="activeCard == 'Change Password'">
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
                             <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
@@ -92,8 +104,9 @@
 import axios from 'axios';
 import TopBar from '../components/TopBar.vue';
 import Footer from '../components/Footer.vue';
+import ProductCard from './ProductCard.vue';
     export default {
-        components : { TopBar, Footer },
+        components : { TopBar, Footer, ProductCard},
         data(){
             return {
                 dialog : true,
@@ -122,6 +135,44 @@ import Footer from '../components/Footer.vue';
                         icon : 'mdi-key-change',
                         name : 'Change Password'
                     },
+                ],
+                productdetails : [
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    ,
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    },
+                    {
+                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
+                        price : '999',
+                        name : 'iPhone 14 pro'
+                    }
                 ]
             }
         },

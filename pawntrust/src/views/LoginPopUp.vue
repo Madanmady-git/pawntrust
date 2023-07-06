@@ -82,8 +82,8 @@ export default {
                     console.log('response', response);
                     let token = response.data.access_token;
                     let userName = this.parseJwt(token).given_name;
-                    this.$cookies.set('token' , token, { expires : Number(response.data.expires_in)});
-                    this.$cookies.set('name', userName, { expires : Number(response.data.expires_in)});
+                    this.$cookies.set('token' , token, Number(response.data.expires_in));
+                    this.$cookies.set('name', userName, Number(response.data.expires_in));
                     this.$emit('setAuthorized')
                 })
                 .catch(error => {

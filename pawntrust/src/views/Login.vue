@@ -88,8 +88,8 @@ export default {
                 let token = response.data.access_token;
                 let userName = this.parseJwt(token).given_name;
                 console.log('userName', userName)
-                this.$cookies.set('token' , token, { expires : Number(response.data.expires_in)});
-                this.$cookies.set('name', userName, { expires : Number(response.data.expires_in)});
+                this.$cookies.set('token' , token, Number(response.data.expires_in));
+                this.$cookies.set('name', userName, Number(response.data.expires_in));
                 this.$emit('setAuthorized');
                 this.$router.push({
                     name: 'Home'

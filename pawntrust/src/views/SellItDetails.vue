@@ -649,31 +649,27 @@ import axios from 'axios';
             },
             clickContinue(){
                 console.log('this.productItems', this.productItems)
-                // this.dialog = true;
                 for (let index = 0; index < this.productItems.length; index++) {
                     const product = this.productItems[index];
                     console.log('product.formDataImages',product.formDataImages)
                     let createdFormData = new FormData();
+
+                    for(let i = 0; i < product.images.length; i++){
+                        const blob = new Blob([product.images[i]], {type : product.images[i].type});
+                        createdFormData.append('file', product.formDataImages[i].get('image'), product.formDataImages[i].get('image').name);
+                    }
                     createdFormData.append('request', JSON.stringify({
                             "name" : "itemName",
                             "category" : "Watch",
                             "price" : 10,
                             "description" : "It's a 100 year old antique watch",
-                        }))
-                    createdFormData.append('file', product.formDataImages)
-                    // let payload = {
-                    //     "request" : JSON.stringify({
-                    //         "name" : "itemName",
-                    //         "category" : "Watch",
-                    //         "price" : 10,
-                    //         "description" : "It's a 100 year old antique watch",
-                    //     }),
-                    //     "file" : product.images
-                    // }
+                        }));
+                    
                     console.log('payload', createdFormData)
                     axios.post('https://api.pawntrust.com/api/v1/sellIt',createdFormData, {headers : { 'Authorization' : `Bearer ${this.token}`, 'Content-Type': 'multipart/form-data'}})
                     .then(response => {
                         console.log('response', response)
+                        this.dialog = true;
                     })
                     .catch(error => {
                         console.log('error', error)
