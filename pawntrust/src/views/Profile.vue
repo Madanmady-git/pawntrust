@@ -66,6 +66,17 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else-if="activeCard == 'Orders'">
+                        <div v-if="orders?.length > 0" style="display: flex;flex-wrap: wrap;background-color: rgb(243, 237, 237);border-radius: 8px;">
+                            <div v-for="order,index in orders" :key="index">
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div style="min-height: 40vh;display: flex;justify-content: center;align-items: center;">
+                                <span style="color: #000;">No orders found</span>
+                            </div>
+                        </div>
+                    </div>
                     <div v-else-if="activeCard == 'Change Password'">
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
                             <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
@@ -118,6 +129,7 @@ import ProductCard from './ProductCard.vue';
                 mobileNumber : '98756543210',
                 emailId: '',
                 contentLoader: false,
+                orders : [],
                 cardItems : [
                     {
                         icon : 'mdi-account-circle',
@@ -210,7 +222,24 @@ import ProductCard from './ProductCard.vue';
                 })
             },
             setActiveCard(name){
+                this.contentLoader = true;
                 this.activeCard = name;
+                if(this.activeCard == 'Products'){
+                    let headers = {
+                        'Authorization' :  `Bearer ${this.token}`
+                    }
+                    axios.get('https://api.pawntrust.com/api/v1/sellIt', {headers : headers})
+                    .then(response => {
+                        this.productdetails = response.data.items;
+                        this.contentLoader = false;
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                        this.contentLoader = false;
+                    })
+                } else {
+                    this.contentLoader = false;
+                }
             },
             update(){
                 this.clickedUpdate = false;

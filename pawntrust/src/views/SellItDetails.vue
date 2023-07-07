@@ -291,6 +291,7 @@
                                 </div>
                                 <div style="width:100%">
                                     <v-text-field
+                                    v-model="product.productName"
                                     hide-details
                                     solo
                                     label="Enter Model"
@@ -306,6 +307,7 @@
                                 </div>
                                 <div style="width:100%">
                                     <v-textarea
+                                    v-model="product.description"
                                     hide-details
                                     solo
                                     label="Enter Description briefly about the product"
@@ -321,7 +323,7 @@
                                 </div>
                                 <div style="width:100%">
                                     <v-text-field
-                                    v-model="price"
+                                    v-model="product.price"
                                     hide-details
                                     solo
                                     label="Enter Price"
@@ -376,6 +378,7 @@
                             &nbsp;Add One More
                         </v-btn>
                         <v-btn
+                        :loading="continueLoading"
                         @click="clickContinue()"
                         style="width:40%;background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
                             Continue
@@ -573,6 +576,7 @@ import axios from 'axios';
                 age : '',
                 price: 0,
                 token : '',
+                continueLoading: false,
                 categoryChecked : false,
                 productIndex : '',
                 productItems : [{
@@ -648,6 +652,7 @@ import axios from 'axios';
                 this.categoryChecked = true;
             },
             clickContinue(){
+                this.continueLoading = true;
                 console.log('this.productItems', this.productItems)
                 for (let index = 0; index < this.productItems.length; index++) {
                     const product = this.productItems[index];
@@ -659,10 +664,10 @@ import axios from 'axios';
                         createdFormData.append('file', product.formDataImages[i].get('image'), product.formDataImages[i].get('image').name);
                     }
                     createdFormData.append('request', JSON.stringify({
-                            "name" : "itemName",
-                            "category" : "Watch",
-                            "price" : 10,
-                            "description" : "It's a 100 year old antique watch",
+                            "name" : product.productName,
+                            "category" : this.category,
+                            "price" : product.price,
+                            "description" : product.description,
                         }));
                     
                     console.log('payload', createdFormData)
@@ -670,9 +675,11 @@ import axios from 'axios';
                     .then(response => {
                         console.log('response', response)
                         this.dialog = true;
+                        this.continueLoading = false;
                     })
                     .catch(error => {
                         console.log('error', error)
+                        this.continueLoading = false;
                     })
                 }
             },
@@ -709,30 +716,30 @@ import axios from 'axios';
                 this.$refs.uploader[index].click();
             },
             onSelectFile(index) {
-  const input = this.$refs.uploader[index];
-  const files = input.files;
-  console.log('files', files);
+                const input = this.$refs.uploader[index];
+                const files = input.files;
+                console.log('files', files);
 
-  if (files && files[0]) {
-    let formData = new FormData();
-    const file = files[0];
+                if (files && files[0]) {
+                    let formData = new FormData();
+                    const file = files[0];
 
-    formData.append('image', input.files[0]); // Append the file to the FormData object
+                    formData.append('image', input.files[0]); // Append the file to the FormData object
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      console.log('e', e.target.result);
-      this.productItems[this.productIndex].images.push(e.target.result);
-      this.imageData = e.target.result;
-      formData.append('check', this.imageData);
-      this.productItems[this.productIndex].formDataImages.push(formData);
-      console.log('formData', formData);
-    };
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                    console.log('e', e.target.result);
+                    this.productItems[this.productIndex].images.push(e.target.result);
+                    this.imageData = e.target.result;
+                    formData.append('check', this.imageData);
+                    this.productItems[this.productIndex].formDataImages.push(formData);
+                    console.log('formData', formData);
+                    };
 
-    reader.readAsDataURL(file);
-    this.$emit('input', file);
-  }
-},
+                    reader.readAsDataURL(file);
+                    this.$emit('input', file);
+                }
+            },
             AddMoreProduct(){
                 // let newProduct = {
                 //     category : this.category,
