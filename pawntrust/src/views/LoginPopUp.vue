@@ -61,7 +61,9 @@ export default {
             console.log("token" , this.token)
             this.$router.push({
                 name:'Home',
-            })
+            }).catch(error => {
+                    console.log('error', error)
+                })
         },
         parseJwt(token) {
             var base64Payload = token.split('.')[1];

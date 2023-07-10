@@ -193,6 +193,8 @@ import ProductCard from './ProductCard.vue';
             if (!this.token) {
                 this.$router.push({
                     name : 'Home'
+                }).catch(error => {
+                    console.log('error', error)
                 })
             } else {
                 this.getProfileDetails();
@@ -202,6 +204,8 @@ import ProductCard from './ProductCard.vue';
             goHome(){
                 this.$router.push({
                     name:'Home'
+                }).catch(error => {
+                    console.log('error', error)
                 })
             },
             getProfileDetails(){

@@ -106,6 +106,9 @@ export default {
                 this.$router.push({
                     name: 'Home'
                 })
+                .catch(error => {
+                    console.log('error', error)
+                })
             }
             else if (route=="Pawn Scan") {
                 this.$router.push({

@@ -42,6 +42,8 @@ import Footer from '../components/Footer.vue';
             goHome(){
                 this.$router.push({
                     name:'Home'
+                }).catch(error => {
+                    console.log('error', error)
                 })
             }
         }

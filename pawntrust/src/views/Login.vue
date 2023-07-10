@@ -67,6 +67,9 @@ export default {
             this.$router.push({
                 name:'Home',
             })
+            .catch(error => {
+                console.log('error', error)
+            })
         },
         parseJwt(token) {
             var base64Payload = token.split('.')[1];
@@ -93,6 +96,8 @@ export default {
                 this.$emit('setAuthorized');
                 this.$router.push({
                     name: 'Home'
+                }).catch(error => {
+                    console.log('error', error)
                 })
             })
             .catch(error => {
