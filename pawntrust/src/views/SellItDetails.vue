@@ -372,15 +372,24 @@
                 <v-row cols="12">
                     <v-col cols="4" style="display: flex;justify-content: space-around;align-items: center;">
                         <v-btn
+                            :disabled="productItems.length == 1 && getResetButtonName() == 'Remove'"
+                            @click="resetAndRemove(getResetButtonName())"
+                            style="color:#000;text-transform: capitalize;"
+                            outlined
+                            flat
+                            >
+                            {{ getResetButtonName() }}
+                        </v-btn>
+                        <v-btn
                             @click="AddMoreProduct()"
-                            style="width:40%;background-color:#F19B14;color:#FFF;text-transform: capitalize;">
+                            style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
                             <v-icon small>mdi-plus</v-icon>
                             &nbsp;Add One More
                         </v-btn>
                         <v-btn
                         :loading="continueLoading"
                         @click="clickContinue()"
-                        style="width:40%;background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
+                        style="background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
                             Continue
                         </v-btn>
                     </v-col>
@@ -579,6 +588,7 @@ import axios from 'axios';
                 continueLoading: false,
                 categoryChecked : false,
                 productIndex : '',
+                resetButtonName : '',
                 productItems : [{
                     category : '',
                     productName : '',
@@ -641,6 +651,16 @@ import axios from 'axios';
             },
             decrementStep(){
                 this.move = this.move-1;
+            },
+            getResetButtonName(){
+                let currentproduct = this.productItems.length > 1 ? this.productItems[this.productItems.length - 1] : this.productItems[0];
+                console.log('currentproduct', currentproduct)
+                return currentproduct.images.length > 0 && currentproduct.productName && currentproduct.description && currentproduct.price ? 'Reset' : 'Remove';
+            },
+            resetAndRemove(buttonName){
+                if (buttonName == 'Remove') {
+                    this.productItems.pop();
+                }
             },
             routeToSellIt(){
                 this.dialog = false;

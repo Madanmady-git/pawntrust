@@ -51,7 +51,7 @@
                         <v-btn icon style="cursor: pointer;" href="https://www.instagram.com/dinewiseinc/" target="_blank"><v-icon color="#F19B14" size="40">mdi-instagram</v-icon></v-btn>
                     </div>
                     
-                    <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
+                    <div v-if="showSignInSignUp" :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile3' : 'headerAlignDesktop'">
                         <v-btn
                         :small="$mq != 'desktop'"
                         style="text-transform:capitalize; background-color:#F19B14;color:#000000;box-shadow: none;"
@@ -115,7 +115,7 @@
                                 </div>
                             </v-card>
                         </v-menu>
-                        <div style="margin-left: 12px;">
+                        <div v-show="false" style="margin-left: 12px;">
                             <v-icon size="40" color="#F19B14">mdi-cart</v-icon>
                         </div>
                     </div>
@@ -159,6 +159,7 @@ export default {
             return{
                 token : '',
                 search : '',
+                showSignInSignUp: true,
                 name: 'Yeshwanth',
                 featureItems : [
                     // { title: 'Pawn Shops' },
@@ -191,6 +192,11 @@ export default {
         mounted(){
             this.token = this.$cookies.get('token');
             this.name = this.$cookies.get('name');
+            if (this.token) {
+                this.showSignInSignUp = false;
+            } else {
+                this.showSignInSignUp = true;
+            }
         },
         methods: {
             searchMethod(word){
