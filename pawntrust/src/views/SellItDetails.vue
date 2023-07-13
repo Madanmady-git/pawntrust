@@ -992,9 +992,10 @@ import axios from 'axios';
     }
 
     .categories {
-        height:60vh; 
+        min-height:60vh; 
         width:100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         background-color: #F2F3F5;
@@ -1059,7 +1060,7 @@ import axios from 'axios';
         width: 180px;
         height: 40vh;
         perspective: 1000px;
-        margin: 0% 16px;
+        margin: 8px 16px;
     }
 }
 .bannerBackground{
