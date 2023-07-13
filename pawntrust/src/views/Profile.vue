@@ -1,15 +1,15 @@
 <template>
     <div>
         <TopBar :profileName = "name"></TopBar>
-        <div style="padding: 0px 64px;">
+        <div class="ProfileContainer">
             <div style="display: flex;justify-content: flex-start;">
                 <span style="font-size:x-large;font-weight: 600;">My Profile</span>
             </div>
-            <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+            <div class="profileCardsMain">
                 <div v-for="(card,index) in cardItems" :key="index">
                     <v-card
                     @click="setActiveCard(card.name)"
-                    :style="(activeCard == card.name) ? 'border:3px #F19B14 solid' : ''" style="height:100px;width:300px;display: flex;flex-direction: column; justify-content: center;align-items: center;margin: 32px 0px;border-radius: 8px;">
+                    :style="(activeCard == card.name) ? 'border:3px #F19B14 solid' : ''" class="profileCards">
                         <v-icon :color="activeCard == card.name ? '#F19B14' : ''">{{ card.icon }}</v-icon>
                         <span>{{ card.name }}</span>
                     </v-card>
@@ -25,7 +25,7 @@
                 <div v-else>
                     <div v-if="activeCard == 'Profile'">
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                            <div style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                            <div class="profileContent">
                                 <span class="flexStart content">Business Name</span>
                                 <v-text-field v-model="name" :value="name" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
                                 <span class="flexStart content">Mobile Number</span>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                            <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;width: 30%;">
+                            <div class="profileContentAction">
                                 <div style="width:20%">
                                     <v-btn block color="#F19B14"
                                     :disabled="!clickedUpdate"
@@ -55,9 +55,9 @@
                         </div>
                     </div>
                     <div v-else-if="activeCard == 'Products'">
-                        <div v-if="productdetails?.length > 0" style="display: flex;flex-wrap: wrap;background-color: rgb(243, 237, 237);border-radius: 8px;">
+                        <div v-if="productdetails?.length > 0" class="ProductCard">
                             <div v-for="product,index in productdetails" :key="index">
-                                <ProductCard style = "margin: 16px" :product = product />
+                                <ProductCard class="ProductCardShow" :product = product />
                             </div>
                         </div>
                         <div v-else>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div v-else-if="activeCard == 'Orders'">
-                        <div v-if="orders?.length > 0" style="display: flex;flex-wrap: wrap;background-color: rgb(243, 237, 237);border-radius: 8px;">
+                        <div v-if="orders?.length > 0" class="ProductCard">
                             <div v-for="order,index in orders" :key="index">
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div v-else-if="activeCard == 'Change Password'">
                         <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                            <div v-if="!password" style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                            <div v-if="!password" class="profileContent">
                                 <span class="flexStart content">Old Password <span style="color:red;">*</span></span>
                                 <v-text-field  flat solo outlined placeholder="Enter Old Password" style="width:100%;"></v-text-field>
                                 <span class="flexStart content">New Password<span style="color:red;">*</span></span>
@@ -87,7 +87,7 @@
                                 <span class="flexStart content">Confirm Password<span style="color:red;">*</span></span>
                                 <v-text-field type="password" flat solo outlined placeholder="Confirm Password" style="width:100%;"></v-text-field>
                             </div>
-                            <div v-else style="display: flex;flex-direction: column;align-items: flex-start;width:30%">
+                            <div v-else class="profileContent">
                                 <span class="flexStart content">Enter OTP sent to your mobile number</span>
                                 <v-otp-input
                                 length="6"
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div style="display: flex;flex-direction: row;justify-content:space-evenly;align-items: center;margin-bottom: 64px;">
-                            <div style="width:20%">
+                            <div>
                                 <v-btn block color="#F19B14"
                                 @click="changePassword()"
                                 >
@@ -148,44 +148,7 @@ import ProductCard from './ProductCard.vue';
                         name : 'Change Password'
                     },
                 ],
-                productdetails : [
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    ,
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    },
-                    {
-                        imageUrls : ['https://www.dpreview.com/files/p/articles/5473139871/DEBF2BEA-C0A2-482F-B66C-9071BC523CB8.png'],
-                        price : '999',
-                        name : 'iPhone 14 pro'
-                    }
-                ]
+                productdetails : []
             }
         },
         mounted(){
@@ -235,6 +198,7 @@ import ProductCard from './ProductCard.vue';
                     axios.get('https://api.pawntrust.com/api/v1/sellIt', {headers : headers})
                     .then(response => {
                         this.productdetails = response.data.items;
+                        console.log('this.productdetails', this.productdetails)
                         this.contentLoader = false;
                     })
                     .catch(error => {
@@ -259,6 +223,96 @@ import ProductCard from './ProductCard.vue';
 </script>
 
 <style>
+@media screen and (max-width: 767px) {
+    .ProfileContainer{
+        padding: 0px 12px;
+    }
+    .profileCards{
+        height: 100px;
+        min-width: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 4px;
+        border-radius: 8px;
+    }
+    .profileCardsMain{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .profileContent{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width:90%;
+    }
+    .profileContentAction{
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+        align-items: center;
+        margin-bottom: 64px;
+        width: 100%;
+    }
+    .ProductCard{
+        display: flex;
+        flex-wrap: wrap;
+        background-color: rgb(243, 237, 237);
+        border-radius: 8px;
+    }
+    .ProductCardShow{
+        margin: 8px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .ProfileContainer{
+        padding: 0px 64px;
+    }
+    .profileCards{
+        height:100px;
+        width:300px;
+        display: flex;
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+        margin: 32px 0px;
+        border-radius: 8px;
+    }
+    .profileCardsMain{
+        display: flex;
+        /* flex-direction: row; */
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .profileContent{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width:30%
+    }
+    .profileContentAction{
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+        align-items: center;
+        margin-bottom: 64px;
+        width: 30%;
+    }
+    .ProductCard{
+        display: flex;
+        flex-wrap: wrap;
+        background-color: rgb(243, 237, 237);
+        border-radius: 8px;
+    }
+    .ProductCardShow{
+        margin: 16px
+    }
+}
 .activeCard{
     border: 2px #F19B14 solid;
 }

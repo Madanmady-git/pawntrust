@@ -1,8 +1,13 @@
 <template>
     <div>
         <v-card class="ProductCard" @click="viewProduct()">
-            <div style="display:flex;justify-content: center;">
-                <img style="width:200px; height:200px;" :src="this.$props.product.imageUrls[0]" />
+            <div style="display:flex;justify-content: center;position: relative;">
+                <img :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="this.$props.product?.imagesInfo[0].imageUrl" />
+                <div @click.stop="EditProduct()" style="position: absolute;bottom: 0px;right: 0px;">
+                    <v-avatar>
+                        <v-icon color="#F19B14">mdi-square-edit-outline</v-icon>
+                    </v-avatar>
+                </div>
             </div>
             <v-divider style="margin-top:10px;"></v-divider>
             <span class="alignLeft fontStyleBold">$ {{ this.$props.product.price }}</span>
@@ -29,6 +34,9 @@ export default {
             this.$router.push({
                 name : 'ProductDetails'
             })
+        },
+        EditProduct(){
+            console.log('Nothing happended')
         }
     }
 }
@@ -40,6 +48,23 @@ export default {
     .ProductCard {
         display: flex;
         flex-direction: column;
+    }
+    .alignLeft{
+        display: flex;
+        justify-content: flex-start;
+        padding: 2% 6%;
+    }
+    .fontStyleBold{
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .fontStyleLightBold{
+        font-size: 1rem;
+        font-weight: 550;
+    }
+    .fontStyleSmaller{
+        font-size: 0.8rem;
+        font-weight: 550;
     }
 }
 

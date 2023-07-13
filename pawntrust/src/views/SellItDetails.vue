@@ -187,15 +187,14 @@
             </div>
         </div> -->
         <div class="mainDiv">
-            <div v-if="!categoryChecked" style="height:60vh; width:100%;display: flex;justify-content: center;align-items: center;background-color: #F2F3F5;">
+            <div v-if="!categoryChecked" class="categories">
                 <div 
                 v-for="(type , index) in types" :key = "index"
-                style="display: flex;flex-direction: row;">
+                class="categoryList">
                     <div class="flip-card" @click="clickedCategory(type.name)">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
-                                <v-card style="display: flex;flex-direction: column;justify-content: center;align-items: center ;height: 40vh;"
-                                width="180px"
+                                <v-card class="categoryCard"
                                 >
                                     <v-avatar
                                     size="60"
@@ -211,7 +210,7 @@
                                 </v-card>
                             </div>
                             <div class="flip-card-back">
-                                <v-card style="display: flex;flex-direction: column;justify-content: center;align-items: center ;height: 40vh;"
+                                <v-card class="categoryCard"
                                 width="180px"
                                 >
                                     <v-avatar
@@ -231,8 +230,8 @@
             </div>
             <div v-else style="width:100%;margin:16px 0px;box-shadow:inset">
                 <div v-for="(product,index) in productItems" :key="index" >
-                    <v-row cols="12">
-                        <v-col cols="4" style="padding: 16px;box-shadow: 15px 0px 10px -15px rgba(0,0,0,.12);height: 85vh;overflow-y: auto;">
+                    <v-row cols="12" :class="$mq != 'desktop' ? 'columnoverride' : ''">
+                        <v-col :cols="$mq == 'desktop' ? 4 : 12" class="productDetailsMain">
                             <div style="display: flex;justify-content: flex-start;">
                                 <span style="font-size:x-large;font-weight: 600;color:#000">Item For Sale</span>
                             </div>
@@ -334,7 +333,7 @@
                                 </div>
                             </div>
                         </v-col>
-                        <v-col cols="8">
+                        <v-col cols="8" class="previewClass">
                             <div style="display: flex;justify-content: center;">
                                 <v-card style="padding:16px;width: 80%;">
                                     <span
@@ -369,8 +368,8 @@
                     </v-row>
                     <v-divider v-if="dividerFlag" style="margin: 32px 0px;"></v-divider>
                 </div>
-                <v-row cols="12">
-                    <v-col cols="4" style="display: flex;justify-content: space-around;align-items: center;">
+                <v-row cols="12" :class="$mq != 'desktop' ? 'columnoverride' : ''">
+                    <v-col :cols="$mq == 'deskop' ? 4 : 12" style="display: flex;justify-content: space-around;align-items: center;">
                         <v-btn
                             :disabled="productItems.length == 1 && getResetButtonName() == 'Remove'"
                             @click="resetAndRemove(getResetButtonName())"
@@ -384,17 +383,16 @@
                             @click="AddMoreProduct()"
                             style="background-color:#F19B14;color:#FFF;text-transform: capitalize;">
                             <v-icon small>mdi-plus</v-icon>
-                            &nbsp;Add One More
+                            &nbsp;{{ $mq == 'desktop' ? 'Add One More' : 'Add More' }}
                         </v-btn>
                         <v-btn
-                        :loading="continueLoading"
-                        @click="clickContinue()"
-                        style="background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
-                            Continue
+                            :loading="continueLoading"
+                            @click="clickContinue()"
+                            style="background-color:#F19B14;color:#FFF; text-transform: capitalize;font-size: 1rem;">
+                                Continue
                         </v-btn>
                     </v-col>
                     <v-col  cols="8">
-                        
                     </v-col>
                 </v-row>
             </div>
@@ -814,6 +812,31 @@ import axios from 'axios';
         justify-content: center;
         align-items: center; */
     }
+    .productDetailsMain{
+        padding: 16px;box-shadow: 15px 0px 10px -15px rgba(0,0,0,.12);height: 85vh;overflow-y: auto;
+    }
+    .columnoverride{
+        margin: 0px !important;
+    }
+    .categoryCard{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 20vh;
+        /* width: 80%; */
+    }
+    .previewClass{
+        display: none;
+    }
+    .categoryList{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+    }
     .mainDiv{
         display: flex;
         flex-direction: column;
@@ -847,6 +870,15 @@ import axios from 'axios';
         flex-direction: column;
         align-items: flex-start;
         padding: 2% 0%;
+    }
+    .categories {
+        /* height:60vh;  */
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #F2F3F5;
     }
     .btnclass{
     text-transform: capitalize;
@@ -897,6 +929,13 @@ import axios from 'axios';
     .heightStyleOTP{
         width:80%;
     }
+    .flip-card {
+        background-color: transparent;
+        width: 80%;
+        height: 20vh;
+        perspective: 1000px;
+        margin: 0% 16px;
+    }
 }
 
 @media screen and (min-width:901px) {
@@ -904,11 +943,17 @@ import axios from 'axios';
         width:80%;
         margin: auto;
     }
+    .categoryCard{
+        display: flex;flex-direction: column;justify-content: center;align-items: center ;height: 40vh;
+    }
     .mainDiv{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .productDetailsMain{
+        padding: 16px;box-shadow: 15px 0px 10px -15px rgba(0,0,0,.12);height: 85vh;overflow-y: auto;
     }
 
     .previewImages{
@@ -944,6 +989,15 @@ import axios from 'axios';
         flex-direction: column;
         align-items: flex-start;
         padding: 2% 0%;
+    }
+
+    .categories {
+        height:60vh; 
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #F2F3F5;
     }
 
     .btnclass{
@@ -1000,6 +1054,13 @@ import axios from 'axios';
     .heightStyleOTP{
         width:25%;
     }
+    .flip-card {
+        background-color: transparent;
+        width: 180px;
+        height: 40vh;
+        perspective: 1000px;
+        margin: 0% 16px;
+    }
 }
 .bannerBackground{
     background:url('../assets/bannerImage.jpeg');
@@ -1027,13 +1088,6 @@ import axios from 'axios';
 </style>
 
 <style>
-.flip-card {
-  background-color: transparent;
-  width: 180px;
-  height: 40vh;
-  perspective: 1000px;
-  margin: 0% 16px;
-}
 
 .flip-card-inner {
   position: relative;
