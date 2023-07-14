@@ -206,22 +206,30 @@ export default {
                     params : {
                         searchword : word
                     }
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             SignIn(){
                 this.$router.push({
                     name:'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             logOut(){
                 this.$cookies.remove('token');
                 this.$router.push({
                     name : 'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             SignUp(){
                 this.$router.push({
                     name:'SignUp'
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             clickedProfile(){

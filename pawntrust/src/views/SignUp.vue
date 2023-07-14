@@ -76,6 +76,8 @@ export default {
             routeToLogin(){
                 this.$router.push({
                     name : 'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         }

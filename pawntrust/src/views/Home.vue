@@ -157,6 +157,8 @@ import Footer from '../components/Footer.vue';
             temporaryMethod(){
                 this.$router.push({
                     name:'Search',
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         }

@@ -4,7 +4,7 @@
         <div class="mainContainer">
             <div style="display: flex; flex-direction: column; align-items: center;justify-content: flex-start;width: 10%;height: 600px;overflow-y:auto;scrollbar-width: none;">
                 <div v-for="(slide , i) in slides" :key="i">
-                    <img :class="model == i ? 'corosalImageStyle' : 'corosalImageStyleNormal'" @click="clickOnImage(i)" style="width:100px ; height:100px; " :src="slide"/>
+                    <img :class="model == i ? 'corosalImageStyle' : 'corosalImageStyleNormal'" @click="clickOnImage(i)" style="width:100px ; height:100px; " :src="slide.imageUrl"/>
                 </div>
             </div>
             <div class="corosalCard">
@@ -18,17 +18,38 @@
                     v-for="(slide, i) in slides"
                     :key="i"
                     >
-                    <img style="width:100%; height:600px;" :src="slide" />
+                    <img style="width:100%; height:600px;" :src="slide.imageUrl" />
                     </v-carousel-item>
                 </v-carousel>
             </div>
-            
-            <div class="InformationCard">
-                <v-card style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;">
+            <div class="InformationCard" v-if="origin == 'OwnProduct'">
+                <v-card style="position: relative;width: 100%;">
+                    <span @click="editON = !editON" class="status-badge" style="display: flex;align-items: center;cursor: pointer;">
+                        <v-icon color="#FFF" size="16" style="margin-right: 8px;">{{ editON ? 'mdi-check-bold' : 'mdi-square-edit-outline'}}</v-icon>
+                        <span>{{ editON ? 'Save' : 'Edit' }}</span>
+                    </span>
+                    <div v-if="!editON" style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;">
+                        <!-- <v-divider vertical style="margin-top:10px;"></v-divider> -->
+                        <span class="fontStyleBold">$ {{ price }}</span>
+                        <span class="fontStyleLightBold">{{ category }}</span>
+                        <span class="fontStyleLightBold">{{ name }}</span>
+                        <span style="text-align: left;">{{ description }}</span>
+                        <span style="text-align: left;">{{ status == 'IN_SALE' ? 'Ready for Sale' : 'Out of stock' }}</span>
+                        <!-- <span class="fontStyleSmaller">Bought 2 months before</span> -->
+                    </div>
+                    <div v-else>
+
+                    </div>
+                </v-card>
+            </div>
+            <div v-else class="InformationCard">
+                <v-card style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;width: 100%;position: relative;">
+                    <span class="status-badge">{{ category }}</span>
                     <!-- <v-divider vertical style="margin-top:10px;"></v-divider> -->
-                    <span class="fontStyleBold">$ 400</span>
-                    <span class="fontStyleLightBold">IWC Luxury Watch</span>
-                    <span style="text-align: left;">Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand Exclusive Swiss Made Luxury watch and very rare model in this brand</span>
+                    <span class="fontStyleBold">$ {{ price }}</span>
+                    <span class="fontStyleLightBold">{{ name }}</span>
+                    <span style="text-align: left;">{{ description }}</span>
+                    <span style="text-align: left;">{{ status }}</span>
                     <!-- <span class="fontStyleSmaller">Bought 2 months before</span> -->
                 </v-card>
                 <!-- <v-card style="width:100%;margin-bottom:4%; padding:4%;">
@@ -86,14 +107,20 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
         components : { TopBar, Footer, pawnStoreCard },
         data() {
             return { 
+                token : '',
                 category : '',
                 click:false,
+                origin: '',
                 index : 0,
                 corosalImage : '',
                 model : 0,
+                price : '',
+                name : '',
+                description: '',
+                status: '',
                 slides:['https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg', 
                         'https://assets.pawnamerica.com/ProductImages//ef551069-b09c-4c52-ade1-d73b43034ad1.jpg',
-                        'https://assets.pawnamerica.com/ProductImages//996c0eb4-9cbc-498a-b6b9-2e49cc9269fc.jpg',
+                        'https://assets.pawnamerica.com/ProductImages//996c0e   `````b4-9cbc-498a-b6b9-2e49cc9269fc.jpg',
                         'https://assets.pawnamerica.com/ProductImages//2573e930-2e2e-4249-9e50-e89492acb4f8.jpg',
                         'https://assets.pawnamerica.com/ProductImages//ffd04573-5cab-4217-ab07-359138dc8154.jpg',
                         'https://assets.pawnamerica.com/ProductImages//8b411689-2468-4489-a91f-72febcab1573.jpg'
@@ -106,13 +133,36 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
                     phone: '+91 987654321',
                     rating: 4.5,
                     reviewCount : 50
-                }
+                },
+                editON : false
              }
             },
+        mounted(){
+            this.token = this.$cookies.get('token');
+            if (!this.token) {
+                this.$router.push({
+                    name : 'Home'
+                }).catch(error => {
+                    console.log('error', error)
+                })
+            }
+            let product = JSON.parse(this.$route.query.data)
+            console.log('product', product) 
+            this.name = product.name;
+            this.price = product.price;
+            this.description = product.description;
+            this.slides = product.imagesInfo;
+            this.category = product.category;
+            this.origin = product.origin;
+            this.status = product.status;
+        },
         methods:{
+
             viewProfile(){
                 this.$router.push({
                     name: 'BuyIt'
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             clickOnImage(index){
@@ -138,6 +188,17 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
     }
     .InformationCard{
         display:flex;flex-direction: column;align-items: flex-start;width: 90%;
+    }
+    .status-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: white;
+        padding: 4px 8px;
+        font-size: 12px;
+        border: 2px red solid;
+        /* Other styles for the badge */
     }
     .InterestedWidth{
         width:100%;margin-bottom:4%
@@ -209,6 +270,17 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
     }
     .InformationCard{
         display:flex;flex-direction: column;align-items: flex-start;width: 40%;padding:1% 2%;
+    }
+    .status-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #F19B14;
+        color: white;
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        /* Other styles for the badge */
     }
     .InterestedWidth{
         display: flex;

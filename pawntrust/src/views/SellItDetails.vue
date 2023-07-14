@@ -640,6 +640,8 @@ import axios from 'axios';
             if (!this.token) {
                 this.$router.push({
                     name : 'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         },
@@ -714,7 +716,9 @@ import axios from 'axios';
                 ButItAction(){
                     this.$router.push({
                         name:"BuyIt"
-                    })
+                    }).catch(error => {
+                    console.log(error)
+                })
                 },
             onFileChanged(e) {
                 this.imageURL = URL.createObjectURL(e.target.files[0]);
@@ -794,6 +798,8 @@ import axios from 'axios';
                     params : {
                         'productItems' : this.productItems
                     }
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         }

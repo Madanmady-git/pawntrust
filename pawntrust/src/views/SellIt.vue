@@ -375,7 +375,9 @@ import Footer from '../components/Footer.vue';
                 ButItAction(){
                     this.$router.push({
                         name:"BuyIt"
-                    })
+                    }).catch(error => {
+                    console.log(error)
+                })
                 },
             onFileChanged(e) {
                 this.imageURL = URL.createObjectURL(e.target.files[0]);
@@ -421,6 +423,8 @@ import Footer from '../components/Footer.vue';
                     params : {
                         'productItems' : this.productItems
                     }
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         }

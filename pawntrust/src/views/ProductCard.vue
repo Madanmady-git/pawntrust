@@ -31,9 +31,15 @@ export default {
     },
     methods:{
         viewProduct(){
+            let product = this.$props.product;
+            product.origin = 'OwnProduct'
             this.$router.push({
-                name : 'ProductDetails'
-            })
+                // name : 'ProductDetails'
+                path : '/product/details',
+                query : {data :JSON.stringify(product)}
+            }).catch(error => {
+                    console.log(error)
+                })
         },
         EditProduct(){
             console.log('Nothing happended')

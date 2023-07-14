@@ -72,6 +72,8 @@ export default {
             if(route=="Pawn Shops"){
                 this.$router.push({
                     name: 'Search'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Titlepal") {
@@ -80,26 +82,36 @@ export default {
             else if (route=="Microlending") {
                 this.$router.push({
                     name: 'Search'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Non-Fungible Tokens") {
                 this.$router.push({
                     name: 'Search'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Contact Us") {
                 this.$router.push({
                     name: 'ContactUs'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Investor Relations") {
                 this.$router.push({
                     name: 'InvestorRelations'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="About Us") {
                 this.$router.push({
                     name: 'AboutUs'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Home") {
@@ -113,6 +125,8 @@ export default {
             else if (route=="Pawn Scan") {
                 this.$router.push({
                     name: 'SearchDetails'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else if (route=="Pawn It") {
@@ -120,6 +134,8 @@ export default {
                     this.unauthorized = false;
                     this.$router.push({
                         name: 'PawnItQuote'
+                    }).catch(error => {
+                        console.log(error)
                     })
                 }
                 else{
@@ -131,6 +147,8 @@ export default {
                     this.unauthorized = false;
                     this.$router.push({
                         name: 'SellProduct'
+                    }).catch(error => {
+                        console.log(error)
                     })
                 }
                 else{
@@ -140,6 +158,8 @@ export default {
             else if (route=="Buy It") {
                 this.$router.push({
                     name : 'BuyIt'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
             else {
@@ -151,11 +171,15 @@ export default {
             if (this.$props.page == 'SellIt') {
                 this.$router.push({
                         name: 'SellProduct'
+                    }).catch(error => {
+                        console.log(error)
                     })
             }
             else if(this.$props.page == 'PawnIt'){
                 this.$router.push({
                         name: 'PawnIt'
+                    }).catch(error => {
+                        console.log(error)
                     })
             }
         }

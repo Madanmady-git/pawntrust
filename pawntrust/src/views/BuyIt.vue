@@ -353,6 +353,8 @@ import ProductCard from './ProductCard.vue';
             if (!this.token) {
                 this.$router.push({
                     name : 'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             } else {
                 this.getAllProducts()
@@ -374,6 +376,8 @@ import ProductCard from './ProductCard.vue';
             SellItAction(){
                 this.$router.push({
                     name:"SellProduct"
+                }).catch(error => {
+                    console.log(error)
                 })
             },
             tabClick(item){

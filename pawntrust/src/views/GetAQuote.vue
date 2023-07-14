@@ -155,6 +155,8 @@ import Footer from '../components/Footer.vue';
             if (!token) {
                 this.$router.push({
                     name : 'Login'
+                }).catch(error => {
+                    console.log(error)
                 })
             }
         },
