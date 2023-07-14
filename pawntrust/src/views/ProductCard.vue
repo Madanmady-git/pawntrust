@@ -2,7 +2,7 @@
     <div>
         <v-card class="ProductCard" @click="viewProduct()" id="maintext1">
             <div style="display:flex;justify-content: center;position: relative;" id="maintext2">
-                <img id="text" :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="this.$props.product?.imageUrls[0]" />
+                <img id="text" :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="this.$props.product?.imagesInfo[0].imageUrl" />
                 <div @click.stop="EditProduct()" style="position: absolute;bottom: 0px;right: 0px;">
                     <v-avatar>
                         <v-icon color="#F19B14">mdi-square-edit-outline</v-icon>
