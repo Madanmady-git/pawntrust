@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-card class="ProductCard" @click="viewProduct()">
-            <div style="display:flex;justify-content: center;position: relative;">
-                <img :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="this.$props.product?.imagesInfo[0].imageUrl" />
+        <v-card class="ProductCard" @click="viewProduct()" id="maintext1">
+            <div style="display:flex;justify-content: center;position: relative;" id="maintext2">
+                <img id="text" :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="this.$props.product?.imageUrls[0]" />
                 <div @click.stop="EditProduct()" style="position: absolute;bottom: 0px;right: 0px;">
                     <v-avatar>
                         <v-icon color="#F19B14">mdi-square-edit-outline</v-icon>
@@ -28,6 +28,9 @@ export default {
         }),
     mounted(){
         console.log('product', this.$props.product)
+        console.log('maintext', document.getElementById('maintext1'))
+        console.log('maintext', document.getElementById('maintext2'))
+        console.log('test', document.getElementById('text'))
     },
     methods:{
         viewProduct(){

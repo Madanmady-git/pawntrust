@@ -24,21 +24,55 @@
             </div>
             <div class="InformationCard" v-if="origin == 'OwnProduct'">
                 <v-card style="position: relative;width: 100%;">
-                    <span @click="editON = !editON" class="status-badge" style="display: flex;align-items: center;cursor: pointer;">
-                        <v-icon color="#FFF" size="16" style="margin-right: 8px;">{{ editON ? 'mdi-check-bold' : 'mdi-square-edit-outline'}}</v-icon>
-                        <span>{{ editON ? 'Save' : 'Edit' }}</span>
+                    <span @click="editProduct()" class="status-badge" style="display: flex;align-items: center;cursor: pointer;">
+                        <div v-if="!editLoader">
+                            <v-icon color="#FFF" size="16" style="margin-right: 8px;">{{ editON ? 'mdi-check-bold' : 'mdi-square-edit-outline'}}</v-icon>
+                            <span>{{ editON ? 'Save' : 'Edit' }}</span>
+                        </div>
+                        <div v-else>
+                            <v-progress-circular
+                                indeterminate
+                                size=16
+                                color="#FFF"
+                            ></v-progress-circular>
+                        </div>
                     </span>
-                    <div v-if="!editON" style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;">
-                        <!-- <v-divider vertical style="margin-top:10px;"></v-divider> -->
-                        <span class="fontStyleBold">$ {{ price }}</span>
-                        <span class="fontStyleLightBold">{{ category }}</span>
-                        <span class="fontStyleLightBold">{{ name }}</span>
-                        <span style="text-align: left;">{{ description }}</span>
-                        <span style="text-align: left;">{{ status == 'IN_SALE' ? 'Ready for Sale' : 'Out of stock' }}</span>
-                        <!-- <span class="fontStyleSmaller">Bought 2 months before</span> -->
-                    </div>
-                    <div v-else>
-
+                    <div>
+                        <div v-if="!editON" style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;">
+                            <!-- <v-divider vertical style="margin-top:10px;"></v-divider> -->
+                            <span class="fontStyleBold">$ {{ price }}</span>
+                            <span class="fontStyleLightBold">{{ category }}</span>
+                            <span class="fontStyleLightBold">{{ name }}</span>
+                            <span style="text-align: left;">{{ description }}</span>
+                            <span style="text-align: left;">{{ status == 'IN_SALE' ? 'Ready for Sale' : 'Out of stock' }}</span>
+                            <!-- <span class="fontStyleSmaller">Bought 2 months before</span> -->
+                        </div>
+                        <div v-else style="display:flex;flex-direction: column;align-items: flex-start;padding:5%;margin-bottom: 4%;">
+                            <span class="fontStyleLightBold">Price</span>
+                            <v-text-field
+                            style="width: 100%;"
+                            outlined solo flat dense elevation="0" block full-width color="#F19B14"
+                            v-model="price"
+                            ></v-text-field>
+                            <span class="fontStyleLightBold">Name</span>
+                            <v-text-field
+                            style="width: 100%;"
+                            outlined solo flat dense elevation="0" block full-width color="#F19B14"
+                            v-model="name"
+                            ></v-text-field>
+                            <span class="fontStyleLightBold">Description</span>
+                            <v-textarea
+                            style="width: 100%;"
+                            rows = "3" outlined solo flat dense elevation="0" block full-width color="#F19B14"
+                            v-model="description"
+                            ></v-textarea>
+                            <span class="fontStyleLightBold">status</span>
+                            <v-text-field
+                            style="width: 100%;"
+                            outlined solo flat dense elevation="0" block full-width color="#F19B14"
+                            v-model="status"
+                            ></v-text-field>
+                        </div>
                     </div>
                 </v-card>
             </div>
@@ -118,6 +152,7 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
                 name : '',
                 description: '',
                 status: '',
+                editLoader : false,
                 slides:['https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg', 
                         'https://assets.pawnamerica.com/ProductImages//ef551069-b09c-4c52-ade1-d73b43034ad1.jpg',
                         'https://assets.pawnamerica.com/ProductImages//996c0e   `````b4-9cbc-498a-b6b9-2e49cc9269fc.jpg',
@@ -168,6 +203,9 @@ import pawnStoreCard from '../components/pawnStoreCard.vue';
             clickOnImage(index){
                 console.log("chekcme", index);
                 this.model = index;
+            },
+            editProduct(){
+                this.editLoader = true;
             }
         }
     }
