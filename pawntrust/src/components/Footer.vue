@@ -42,7 +42,7 @@
                 </div>
                 <div class="footerName">
                     <v-icon color="#F19B14">mdi-email</v-icon>
-                    <span class="footerName">info@pawntrust.com</span>
+                    <span class="footerName">dm@pawntrust.com</span>
                 </div>
                 <div>
 

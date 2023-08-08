@@ -114,6 +114,12 @@ const routes = [
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/Profile.vue'),
 		params : true,
 		props : true
+	},{
+		path: '/brochure',
+		name: 'JoinUs',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/JoinUs.vue'),
+		params : true,
+		props : true
 	},
 ];
 

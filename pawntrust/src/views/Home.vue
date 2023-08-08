@@ -16,8 +16,8 @@
                     <!-- <img 
                     style="width:100%;height:100vh;"
                     src = "../assets/bannerImage.jpeg" /> -->
-                    <div class="bannerBackground" style="display:flex; flex-direction:column;justify-content:center; align-items:center;">
-                        <span style="font-size:3rem; font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust Is A Revolutionary Evolution In Pawn Shops and Microlending</span>
+                    <div class="bannerBackground" style="display:flex; flex-direction:column;justify-content:flex-start; align-items:center;padding-top: 36px;">
+                        <span style="font-size:4rem; font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust World’s First Pawnshop marketplace</span>
                         <v-btn
                         rounded
                         color="#F19B14"
@@ -49,8 +49,8 @@
                     v-for="(slide, i) in slides"
                     :key="i"
                 >
-                    <div class="mobileBannerBackground" style="display:flex; flex-direction:column;justify-content:center; align-items:center;">
-                        <span style="font-size:1.4rem;font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust Is A Revolutionary Evolution In Pawn Shops and Microlending</span>
+                    <div class="mobileBannerBackground" style="display:flex; flex-direction:column;justify-content:flex-start; align-items:center;padding-top: 12px;">
+                        <span style="font-size:2rem;font-family: Helvetica, sans-serif; font-weight:750;align-items: flex-start; color:#FFFFFF;width:80%;">PawnTrust World’s First Pawnshop marketplace</span>
                         <v-btn
                         rounded
                         color="#F19B14"

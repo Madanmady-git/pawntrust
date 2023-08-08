@@ -32,7 +32,7 @@
                         color="#F19B14"
                         size="36"
                         >
-                        <v-btn icon style="cursor: pointer;" href="mailto:info@pawntrust.com">
+                        <v-btn icon style="cursor: pointer;" href="mailto:dm@pawntrust.com">
                             <v-icon
                                 small
                                 color="#FFFFFF"
@@ -42,7 +42,7 @@
                         </v-btn>
                         </v-avatar>
                         <div class="emailandPhone">
-                            &nbsp;<span> info@pawntrust.com</span>
+                            &nbsp;<span> dm@pawntrust.com</span>
                         </div>
                     </div> -->
                     <div :class="($mq =='mobile' || $mq == 'tablet') ? 'headerAlignMobile2' : 'headerAlignDesktop'">
