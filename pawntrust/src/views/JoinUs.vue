@@ -61,6 +61,7 @@ import axios from 'axios';
                 window.open('https://pawntrust.com/');
             },
             Submit(){
+                this.loader = true;
                 let params = {
                     "name" : this.name,
                     "email" : this.emailId
@@ -74,7 +75,7 @@ import axios from 'axios';
                 .catch(error => {
                     console.log('error', error);
                     this.loader = false;
-                    this.dialog = true;
+                    // this.dialog = true;
                 })
             }
         },
