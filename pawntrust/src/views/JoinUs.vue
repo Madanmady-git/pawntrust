@@ -4,7 +4,9 @@
         <div>
             <v-textfield>
                 <div class="JoinUsMain">
-                    <span style="font-size:1.8rem;font-weight:600;color:#F19B14">Join us</span>
+                    <!-- <span style="font-size:1.8rem;font-weight:600;color:#F19B14">Join us</span> -->
+                    <span>Thank You for your interest in the PawnTrust Marketplace. You are on your way to having your inventory displayed for the world to see! 
+<br>Please fill out the information below</span>
                     <div class="container">
                         <v-card class = "cardStyle" style = "box-shadow: none;">
                             <span class="flexStart content">Business name</span>
@@ -34,7 +36,7 @@
                 <v-btn @click="visit()" color="#F19B14" dense solo flat><span style="color: #FFF;text-transform: capitalize;">Visit our site</span></v-btn>
             </v-dialog>
         </div>
-        <Footer style="margin-top: 42px;"></Footer>
+        <Footer style="position: fixed;bottom: 0;"></Footer>
     </div>
 </template>
 <script>
@@ -88,6 +90,7 @@ import axios from 'axios';
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-top: 32px;
     }
     .container{
         width: 85%;
@@ -100,6 +103,7 @@ import axios from 'axios';
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-top: 32px;
     }
     .container{
         width: 40%;
