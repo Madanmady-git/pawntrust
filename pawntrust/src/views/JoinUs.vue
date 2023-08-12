@@ -36,7 +36,7 @@
                 <v-btn @click="visit()" color="#F19B14" dense solo flat><span style="color: #FFF;text-transform: capitalize;">Visit our site</span></v-btn>
             </v-dialog>
         </div>
-        <Footer style="position: fixed;bottom: 0;"></Footer>
+        <Footer></Footer>
     </div>
 </template>
 <script>
@@ -103,7 +103,7 @@ import axios from 'axios';
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 32px;
+        margin-top: 74px;
     }
     .container{
         width: 40%;
