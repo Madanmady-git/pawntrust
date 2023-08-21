@@ -1,8 +1,6 @@
 <template>
     <div>
-        {{ product }}
         <v-card class="ProductCard" @click="viewProduct()" id="maintext1">
-            {{ product?.imagesInfo[0].imageUrl }}
             <div style="display:flex;justify-content: center;position: relative;" id="maintext2">
                 <img id="text" :style="$mq == 'desktop' ? 'width:200px; height:200px;' : 'width:150px; height:150px;'" :src="product?.imagesInfo[0].imageUrl" />
                 <div @click.stop="EditProduct()" style="position: absolute;bottom: 0px;right: 0px;">
@@ -12,8 +10,6 @@
                 </div>
             </div>
             <v-divider style="margin-top:10px;"></v-divider>
-            {{ product.price }}
-            {{ product.name }}
             <span class="alignLeft fontStyleBold">$ {{ product.price }}</span>
             <span class="alignLeft fontStyleLightBold">{{ product.name }}</span>
             <!-- <span class="alignLeft" style="text-align: left;">Exclusive Swiss Made Luxury watch and very rare model in this brand</span>

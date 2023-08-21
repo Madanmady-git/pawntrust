@@ -30,9 +30,10 @@
             <v-dialog
                 v-model="dialog"
                 max-width="500"
+                persistent
                 >
                 <v-card height="200" style="display: flex;justify-content: center;align-items: center;text-align: left;padding: 0px 32px;"><span>You have successfully registered with PawnTrust. A hyperlink will be sent to the confirmed email to set up your profile.<br>Thank you</span></v-card>
-                <!-- <v-btn @click="visit()" color="#F19B14" dense solo flat><span style="color: #FFF;text-transform: capitalize;">Visit our site</span></v-btn> -->
+                <v-btn @click="visit()" color="#F19B14" dense solo flat><span style="color: #FFF;text-transform: capitalize;">Visit our site</span></v-btn>
             </v-dialog>
         </div>
         <Footer></Footer>
