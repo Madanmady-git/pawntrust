@@ -599,38 +599,107 @@ import axios from 'axios';
                 types : [
                     {
                         image : "https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg",
-                        name : "Watches",
-                        tag : "Sell all your watches here"
+                        name : "Bicycles",
+                        tag : "Sell all your Bicycles here"
                     },
                     {
                         image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
-                        name : "Jewellary",
-                        tag : "Sell all your jewellary here"
+                        name : "Camera Equipment",
+                        tag : "Sell all your Cameras here"
                     },
                     {
                         image : "https://png.pngtree.com/png-clipart/20190520/original/pngtree-gold-coin-png-image_3779125.jpg",
-                        name : "Gold",
-                        tag : "Sell all your gold here"
+                        name : "Clothing",
+                        tag : "Sell all your Clothing here"
                     },
                     {
                         image : "https://rukminim1.flixcart.com/image/612/612/kxrvi4w0/precious-ring/m/6/k/si-lruk313-white-gold-12-lords-jewels-original-imaga5ncpvynfx7r.jpeg?q=70",
-                        name : "White Gold",
-                        tag : "Sell all your white gold here"
+                        name : "Coins",
+                        tag : "Sell all your Coins here"
                     },
                     {
                         image : "https://www.clayfieldjewellery.com.au/wp-content/uploads/2018/10/large-clear-diamond.png",
-                        name : "Diamonds",
-                        tag : "Sell all your diamonds here"
+                        name : "Collectibles",
+                        tag : "Sell all your Collectibles here"
                     },
                     {
                         image : "https://images.pexels.com/photos/3907507/pexels-photo-3907507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                        name : "Used Products",
-                        tag : "Sell your used products here"
+                        name : "Defense Accessorrie",
+                        tag : "Sell your used Defense Accessorrie here"
                     },
                     {
                         image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
-                        name : "Others",
-                        tag : "Sell your other products here"
+                        name : "Electronics",
+                        tag : "Sell your Electronics here"
+                    },
+                    {
+                        image : "https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg",
+                        name : "Firearm",
+                        tag : "Sell all your Firearm here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Games",
+                        tag : "Sell all your Games here"
+                    },
+                    {
+                        image : "https://png.pngtree.com/png-clipart/20190520/original/pngtree-gold-coin-png-image_3779125.jpg",
+                        name : "Household",
+                        tag : "Sell all Household here"
+                    },
+                    {
+                        image : "https://rukminim1.flixcart.com/image/612/612/kxrvi4w0/precious-ring/m/6/k/si-lruk313-white-gold-12-lords-jewels-original-imaga5ncpvynfx7r.jpeg?q=70",
+                        name : "Household Applianc",
+                        tag : "Sell all your Household Applianc here"
+                    },
+                    {
+                        image : "https://www.clayfieldjewellery.com.au/wp-content/uploads/2018/10/large-clear-diamond.png",
+                        name : "Jewellary",
+                        tag : "Sell all your Jewellary here"
+                    },
+                    {
+                        image : "https://images.pexels.com/photos/3907507/pexels-photo-3907507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        name : "Lawn&Garden",
+                        tag : "Sell your used Lawn&Garden here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Music&Movies",
+                        tag : "Sell your Music&Movies here"
+                    },{
+                        image : "https://assets.pawnamerica.com/ProductImages//7756ddc7-3ef1-43ad-b66b-eeb853ef9918.jpg",
+                        name : "Musicals",
+                        tag : "Sell all your Musicals here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Other",
+                        tag : "Sell all your Others here"
+                    },
+                    {
+                        image : "https://png.pngtree.com/png-clipart/20190520/original/pngtree-gold-coin-png-image_3779125.jpg",
+                        name : "Precious Metals",
+                        tag : "Sell all your Metals here"
+                    },
+                    {
+                        image : "https://rukminim1.flixcart.com/image/612/612/kxrvi4w0/precious-ring/m/6/k/si-lruk313-white-gold-12-lords-jewels-original-imaga5ncpvynfx7r.jpeg?q=70",
+                        name : "Sporting Equipment",
+                        tag : "Sell all your Sporting Equipment here"
+                    },
+                    {
+                        image : "https://www.clayfieldjewellery.com.au/wp-content/uploads/2018/10/large-clear-diamond.png",
+                        name : "Tools-Air",
+                        tag : "Sell all your Tools-Air here"
+                    },
+                    {
+                        image : "https://images.pexels.com/photos/3907507/pexels-photo-3907507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                        name : "Tools-Hand",
+                        tag : "Sell your used Tools-Hand here"
+                    },
+                    {
+                        image : "https://images.meesho.com/images/products/41388472/y3kvg_512.jpg",
+                        name : "Tools-Power",
+                        tag : "Sell your Tools-Power here"
                     },
                 ]
              }
