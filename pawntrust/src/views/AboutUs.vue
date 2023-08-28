@@ -71,7 +71,7 @@ import Footer from '../components/Footer.vue';
     export default {
         components : { TopBar, Footer },
         data: () => ({
-            aboutusparagraph: "PawnTrust is a data intelligence platform in the pawn and microlending vertical.  Our mission is to provide a trusted platform in the business of lending monies to the masses using a list of verified pawn brokers and lenders across the United States, providing capital to individuals to help meet short-term financial needs while combining technology and data to transform the industry. PawnTrust, through its verified pawn brokers, will create a worldwide marketplace for all pawn inventory that can be bought and sold through an app accessible across the country.",
+            aboutusparagraph: "PawnTrust, through its verified pawn brokers, will create a worldwide marketplace for all pawn inventory that can be bought and sold through our platform accessible across the country.",
             aboutusparagraph2: "",
             clicked: false
         })

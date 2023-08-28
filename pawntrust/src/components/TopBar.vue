@@ -132,11 +132,11 @@
                     <div>
                         <div v-if="$mq == 'desktop'" class="commonHeaderClass">
                                 <Heading :heading-name="'Home'"/>
-                                <Heading :heading-name="'Pawn Scan'"/>
+                                <!-- <Heading :heading-name="'Pawn Scan'"/> -->
                                 <!-- <Heading :heading-name="'Pawn It'" :page="'PawnIt'"/> -->
+                                <Heading :heading-name="'Buy It'" :page="'BuyIt'"/>
                                 <Heading :heading-name="'Sell It'" :page="'SellIt'"/>
-                                <!-- <Heading :heading-name="'Buy It'" :page="'BuyIt'"/> -->
-                                <Heading :heading-name="'Partners'" :items="featureItems"/>
+                                <!-- <Heading :heading-name="'Partners'" :items="featureItems"/> -->
                                 <Heading :heading-name="'More'" :items="moreItems"/>
                             </div>
                             <div v-else>
@@ -170,21 +170,22 @@ export default {
                 moreItems : [
                     {title: 'Contact Us'},
                     { title: 'About Us' },
-                    { title: 'Investor Relations' },
+                    { title: 'Pawn Scan' },
+                    // { title: 'Investor Relations' },
                 ],
                 allItems :[
                     { title: 'Home'},
-                    { title: 'Pawn Scan' },
+                    // { title: 'Pawn Scan' },
                     // { title: 'Pawn It' },
+                    { title: 'Buy It' },
                     { title: 'Sell It' },
-                    // { title: 'Buy It' },
                     // { title: 'Pawn Shops' },
                     { title: 'Titlepal' },
                     // { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                     { title: 'Contact Us'},
                     { title: 'About Us' },
-                    { title: 'Investor Relations' },
+                    // { title: 'Investor Relations' },
                     
                 ]
             }
