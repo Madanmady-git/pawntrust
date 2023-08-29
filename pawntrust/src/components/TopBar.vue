@@ -180,7 +180,7 @@ export default {
                     { title: 'Buy It' },
                     { title: 'Sell It' },
                     // { title: 'Pawn Shops' },
-                    { title: 'Titlepal' },
+                    // { title: 'Titlepal' },
                     // { title: 'Microlending' },
                     // { title: 'Non-Fungible Tokens' },
                     { title: 'Contact Us'},
