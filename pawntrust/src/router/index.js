@@ -115,6 +115,12 @@ const routes = [
 		params : true,
 		props : true
 	},{
+		path: '/cart',
+		name: 'Cart',
+		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/cart.vue'),
+		params : true,
+		props : true
+	},{
 		path: '/brochure',
 		name: 'JoinUs',
 		component: () => import(/* webpackChunkName: "LoginLayout" */ '../views/JoinUs.vue'),
