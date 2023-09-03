@@ -23,32 +23,72 @@
                     ></v-progress-circular>
                 </div>
                 <div v-else>
-                    <div v-if="activeCard == 'Profile'">
-                        <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                            <div class="profileContent">
-                                <span class="flexStart content">Business Name</span>
-                                <v-text-field v-model="name" :value="name" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
-                                <span class="flexStart content">Mobile Number</span>
-                                <v-text-field v-model="mobileNumber" :value="mobileNumber" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
-                                <span class="flexStart content">Email</span>
-                                <v-text-field v-model="emailId" :value="emailId" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
+                    <div v-if="activeCard == 'Profile'" class="completeProfile">
+                        <div class="completeProfileWidth">
+                            <div class="completeProfileInner">
+                                <div class="profileContent">
+                                    <span class="flexStart content">Business Name</span>
+                                    <v-text-field v-model="name" :value="name" :disabled="clickedUpdate" flat solo outlined placeholder="Enter First Name" style="width:100%;"></v-text-field>
+                                    <span class="flexStart content">Mobile Number</span>
+                                    <v-text-field v-model="mobileNumber" :value="mobileNumber" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Mobile Number" style="width:100%;"></v-text-field>
+                                    <span class="flexStart content">Email</span>
+                                    <v-text-field v-model="emailId" :value="emailId" :disabled="clickedUpdate" flat solo outlined placeholder="Enter Email" style="width:100%;"></v-text-field>
+                                </div>
+                            </div>
+                            <div class="completeProfileInner">
+                                <div class="profileContentAction">
+                                    <div style="width:20%">
+                                        <v-btn block color="#F19B14"
+                                        :disabled="!clickedUpdate"
+                                        @click="update()"
+                                        >
+                                            <span style="color:#FFF">Update</span>
+                                        </v-btn>
+                                    </div>
+                                    <div style="width:20%">
+                                        <v-btn block color="#F19B14" 
+                                        :disabled="clickedUpdate"
+                                        @click="save()">
+                                            <span style="color:#FFF">Save</span>
+                                        </v-btn>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
-                            <div class="profileContentAction">
-                                <div style="width:20%">
-                                    <v-btn block color="#F19B14"
-                                    :disabled="!clickedUpdate"
-                                    @click="update()"
-                                    >
-                                        <span style="color:#FFF">Update</span>
-                                    </v-btn>
+                        <div class="completeProfileWidth">
+                            <div>
+                                <v-btn block color="#F19B14" 
+                                @click="CompleteProfile()"
+                                elevation=0
+                                style="margin-bottom: 16px;"
+                                >
+                                    <span style="color:#FFF">Complete your profile</span>
+                                </v-btn>
+                            </div>
+                            <div v-if="isCompleteProfileOn">
+                                <div style="display: flex;flex-direction: row;justify-content:center;align-items: center;">
+                                    <div class="profileContent">
+                                        <span class="flexStart content">User Type</span>
+                                        <v-select
+                                            :items="userTypes"
+                                            placeholder="Select user type"
+                                            outlined
+                                            style="width:100%;"
+                                        ></v-select>
+                                        <span class="flexStart content">Address Line 1</span>
+                                        <v-text-field flat solo outlined placeholder="Enter Address Line 1" style="width:100%;"></v-text-field>
+                                        <span class="flexStart content">Address Line 2</span>
+                                        <v-text-field flat solo outlined placeholder="Enter Address Line 2" style="width:100%;"></v-text-field>
+                                        <span class="flexStart content">Pincode</span>
+                                        <v-text-field flat solo outlined placeholder="Enter Pincode" style="width:100%;"></v-text-field>
+                                    </div>
                                 </div>
-                                <div style="width:20%">
-                                    <v-btn block color="#F19B14" 
-                                    :disabled="clickedUpdate"
-                                    @click="save()">
-                                        <span style="color:#FFF">Save</span>
+                                <div>
+                                <v-btn block color="#F19B14"
+                                    elevation=0
+                                    style="margin-bottom: 16px;"
+                                    >
+                                        <span style="color:#FFF">Save details</span>
                                     </v-btn>
                                 </div>
                             </div>
@@ -129,6 +169,8 @@ import ProductCard from './ProductCard.vue';
                 mobileNumber : '98756543210',
                 emailId: '',
                 contentLoader: false,
+                isCompleteProfileOn: false,
+                userTypes:['Seller', 'Customer'],
                 orders : [],
                 cardItems : [
                     {
@@ -209,6 +251,9 @@ import ProductCard from './ProductCard.vue';
                     this.contentLoader = false;
                 }
             },
+            CompleteProfile(){
+                this.isCompleteProfileOn = true;
+            },
             update(){
                 this.clickedUpdate = false;
             },
@@ -267,6 +312,14 @@ import ProductCard from './ProductCard.vue';
     .ProductCardShow{
         margin: 8px;
     }
+    .completeProfile{
+        display: flex;
+        flex-direction:column;
+        justify-content: space-around;
+    }
+    .completeProfileInner{
+        display: flex;flex-direction: row;justify-content:center;align-items: center;
+    }
 }
 @media screen and (min-width: 768px) {
     .ProfileContainer{
@@ -293,7 +346,7 @@ import ProductCard from './ProductCard.vue';
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        width:30%
+        width:100%
     }
     .profileContentAction{
         display: flex;
@@ -301,7 +354,7 @@ import ProductCard from './ProductCard.vue';
         justify-content:space-evenly;
         align-items: center;
         margin-bottom: 64px;
-        width: 30%;
+        width: 100%;
     }
     .ProductCard{
         display: flex;
@@ -311,6 +364,17 @@ import ProductCard from './ProductCard.vue';
     }
     .ProductCardShow{
         margin: 16px
+    }
+    .completeProfile{
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+    }
+    .completeProfileInner{
+        display: flex;flex-direction: row;justify-content:center;align-items: center;
+    }
+    .completeProfileWidth{
+        width: 40%;
     }
 }
 .activeCard{

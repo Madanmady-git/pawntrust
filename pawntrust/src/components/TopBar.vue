@@ -115,7 +115,7 @@
                                 </div>
                             </v-card>
                         </v-menu>
-                        <div v-show="false" style="margin-left: 12px;">
+                        <div @click="openCart()" style="margin-left: 12px;cursor: pointer;">
                             <v-icon size="40" color="#F19B14">mdi-cart</v-icon>
                         </div>
                     </div>
@@ -236,6 +236,14 @@ export default {
             clickedProfile(){
                 this.$router.push({
                     name : 'Profile'
+                })
+                .catch((error)=>{
+                    console.log('error', error)
+                })
+            },
+            openCart(){
+                this.$router.push({
+                    name : 'Cart'
                 })
                 .catch((error)=>{
                     console.log('error', error)
